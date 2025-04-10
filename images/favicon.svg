@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>AS Favicon</title>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle fill="#6C5CE7" cx="8" cy="8" r="8"></circle>
+        <text font-family="Arial-BoldMT, Arial" font-size="8" font-weight="bold" fill="#FFFFFF" text-anchor="middle">
+            <tspan x="8" y="11">AS</tspan>
+        </text>
+    </g>
+</svg>
