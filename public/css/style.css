@@ -129,7 +129,7 @@ section {
 
 .secondary-btn:hover {
     background: var(--primary-color);
-    color: #fff;
+    color: white;
 }
 
 /* ===== HEADER ===== */
