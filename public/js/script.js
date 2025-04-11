@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
         // Make sure the particles container exists
         if (document.getElementById('particles-js')) {
-            particlesJS.load('particles-js', 'public//js/particles-config.json', function() {
+            particlesJS.load('particles-js', 'public/js/particles-config.json', function() {
                 console.log('particles.js loaded successfully');
             });
         } else {
