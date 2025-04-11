@@ -1,108 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize particles.js with improved settings
-    particlesJS('particles-js', {
-        "particles": {
-            "number": {
-                "value": 100,
-                "density": {
-                    "enable": true,
-                    "value_area": 1000
-                }
-            },
-            "color": {
-                "value": ["#6c5ce7", "#a29bfe", "#fd79a8"]
-            },
-            "shape": {
-                "type": "circle",
-                "stroke": {
-                    "width": 0,
-                    "color": "#000000"
-                }
-            },
-            "opacity": {
-                "value": 0.6,
-                "random": true,
-                "anim": {
-                    "enable": true,
-                    "speed": 1,
-                    "opacity_min": 0.1,
-                    "sync": false
-                }
-            },
-            "size": {
-                "value": 3,
-                "random": true,
-                "anim": {
-                    "enable": true,
-                    "speed": 2,
-                    "size_min": 0.3,
-                    "sync": false
-                }
-            },
-            "line_linked": {
-                "enable": true,
-                "distance": 150,
-                "color": "#a29bfe",
-                "opacity": 0.4,
-                "width": 1
-            },
-            "move": {
-                "enable": true,
-                "speed": 2,
-                "direction": "none",
-                "random": true,
-                "straight": false,
-                "out_mode": "out",
-                "bounce": false,
-                "attract": {
-                    "enable": true,
-                    "rotateX": 600,
-                    "rotateY": 1200
-                }
-            }
-        },
-        "interactivity": {
-            "detect_on": "canvas",
-            "events": {
-                "onhover": {
-                    "enable": true,
-                    "mode": "grab"
-                },
-                "onclick": {
-                    "enable": true,
-                    "mode": "push"
-                },
-                "resize": true
-            },
-            "modes": {
-                "grab": {
-                    "distance": 140,
-                    "line_linked": {
-                        "opacity": 1
-                    }
-                },
-                "bubble": {
-                    "distance": 400,
-                    "size": 40,
-                    "duration": 2,
-                    "opacity": 8,
-                    "speed": 3
-                },
-                "repulse": {
-                    "distance": 200,
-                    "duration": 0.4
-                },
-                "push": {
-                    "particles_nb": 4
-                },
-                "remove": {
-                    "particles_nb": 2
-                }
-            }
-        },
-        "retina_detect": true
-    });
-
+    // Initialize particles.js
+    try {
+        // Make sure the particles container exists
+        if (document.getElementById('particles-js')) {
+            particlesJS.load('particles-js', 'public/js/particles-config.json', function() {
+                console.log('particles.js loaded successfully');
+            });
+        } else {
+            console.error('Particles container not found');
+        }
+    } catch (error) {
+        console.error('Error loading particles.js:', error);
+    }
+    
     // Initialize typed.js
     const typed = new Typed('.typed-text', {
         strings: ['Developer', 'Coder', 'Tech Enthusiast', 'Problem Solver'],
@@ -111,6 +21,18 @@ document.addEventListener('DOMContentLoaded', () => {
         backDelay: 2000,
         loop: true
     });
+
+    // Create Shape Animation
+    //createShapeAnimation();
+    
+    // Create Spotlight Effect
+   // createSpotlightEffect(); 
+    
+    // Create Bubble Animation
+    //createBubbleAnimation();
+    
+    // Create Theme Toggle
+    //createThemeToggle();
 
     // Mobile Navigation Toggle
     const hamburger = document.querySelector('.hamburger');
@@ -207,5 +129,60 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    // Function to create floating shapes animation
+    function createShapeAnimation() {
+        // Find particles-js div and remove it
+        const particlesElement = document.getElementById('particles-js');
+        if (particlesElement) {
+            particlesElement.remove();
+        }
+        
+        // Create the shape animation container
+        const shapeAnimationContainer = document.createElement('div');
+        shapeAnimationContainer.className = 'shape-animation';
+        
+        // Create the 5 main shapes
+        for (let i = 1; i <= 5; i++) {
+            const shape = document.createElement('div');
+            shape.className = `shape shape-${i}`;
+            shapeAnimationContainer.appendChild(shape);
+        }
+        
+        // Add more random smaller shapes for enhanced effect
+        for (let i = 1; i <= 10; i++) {
+            const randomShape = document.createElement('div');
+            randomShape.className = 'shape';
+            randomShape.style.width = Math.floor(Math.random() * 80 + 40) + 'px';
+            randomShape.style.height = randomShape.style.width;
+            randomShape.style.opacity = (Math.random() * 0.2 + 0.2).toString();
+            randomShape.style.background = `rgba(${Math.floor(Math.random() * 100 + 100)}, ${Math.floor(Math.random() * 100 + 100)}, ${Math.floor(Math.random() * 255)}, 0.7)`;
+            randomShape.style.top = Math.floor(Math.random() * 90 + 5) + '%';
+            randomShape.style.left = Math.floor(Math.random() * 90 + 5) + '%';
+            randomShape.style.animationDuration = Math.floor(Math.random() * 20 + 10) + 's';
+            randomShape.style.animationDirection = Math.random() > 0.5 ? 'normal' : 'reverse';
+            shapeAnimationContainer.appendChild(randomShape);
+        }
+        
+        // Add the container to the body
+        document.body.appendChild(shapeAnimationContainer);
+        
+        // Also create the wave animation
+        createWaveAnimation();
+    }
+
+    // Function to create wave animation
+    function createWaveAnimation() {
+        const waveContainer = document.createElement('div');
+        waveContainer.className = 'wave-container';
+        
+        for (let i = 1; i <= 3; i++) {
+            const wave = document.createElement('div');
+            wave.className = `wave wave-${i}`;
+            waveContainer.appendChild(wave);
+        }
+        
+        document.body.appendChild(waveContainer);
+    }
 });
 
