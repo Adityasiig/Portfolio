@@ -22,18 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         loop: true
     });
 
-    // Create Shape Animation
-    //createShapeAnimation();
-    
-    // Create Spotlight Effect
-   // createSpotlightEffect(); 
-    
-    // Create Bubble Animation
-    //createBubbleAnimation();
-    
-    // Create Theme Toggle
-    //createThemeToggle();
-
     // Mobile Navigation Toggle
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
