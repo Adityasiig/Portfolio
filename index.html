@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aditya Singh - Portfolio</title>
+    <link rel="stylesheet" href="public/css/style.css">
+    <!-- Favicon -->
+    <link rel="icon" href="public/images/favicon.png" type="image/png">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">AS</div>
+                <div class="nav-wrapper">
+                    <ul class="nav-links">
+                        <li><a href="#home" class="active">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#certificates">Certificates</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                    <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Hi, I'm <span class="highlight">Aditya Singh</span></h1>
+                <h2>BSc IT Student & <span class="typed-text"></span></h2>
+                <p>Passionate about coding and learning new technologies.</p>
+                <div class="hero-btns">
+                    <a href="#contact" class="btn primary-btn">Get In Touch</a>
+                    <a href="#about" class="btn secondary-btn">Learn More</a>
+                </div>
+                <div class="social-icons">
+                    <a href="https://github.com/Adityasiig" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://in.linkedin.com/in/singhaditya70" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:adityaajaysingh0104@gmail.com"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Me</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-img">
+                    <div class="img-container">
+                        <img src="public/images/profile.jpg" alt="Aditya Singh">
+                    </div>
+                </div>
+                <div class="about-text">
+                    <h3>BSc IT Student</h3>
+                    <p>I'm Aditya Singh, a third-year BSc IT student with a passion for coding and learning new technologies. I'm enthusiastic about software development and constantly working to improve my skills.</p>
+                    <div class="about-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>BSc Information Technology (3rd Year)</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-code"></i>
+                            <span>Programming enthusiast</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-search"></i>
+                            <span>Always exploring new technologies</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-seedling"></i>
+                            <span>Enhancing knowledge in DS, algorithms, and system design</span>
+                        </div>
+                    </div>
+                    <a href="public/files/cv.pdf" class="btn primary-btn" download>Download CV</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2>My Skills</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="skills-content">
+                <div class="skill-category">
+                    <h3>Programming Languages</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <h4>C++</h4>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <h4>Python</h4>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <h4>JavaScript</h4>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <h4>Core Java</h4>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <h4>R Programming</h4>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Web Development</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <h4>HTML/CSS</h4>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <h4>Node.js</h4>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <h4>React.js</h4>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <h4>WordPress</h4>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Other Skills</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <h4>Data Structures</h4>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <h4>Algorithms</h4>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <h4>Linux</h4>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2>My Projects</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="projects-content">
+                <!-- Real projects -->
+                <div class="project-card">
+                    <div class="card-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3>TODO List Application</h3>
+                    <p>A beautifully designed and feature-rich TODO list application with responsive UI, data persistence, and animated backgrounds.</p>
+                    <div class="project-technologies">
+                        <span>Node.js</span>
+                        <span>Express</span>
+                        <span>JavaScript</span>
+                        <span>CSS</span>
+                        <span>EJS</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Adityasiig/TODO-list" target="_blank" class="btn">View Code <i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <!-- Placeholder projects -->
+                <div class="project-card coming-soon-card">
+                    <div class="card-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Open Source Contributions</h3>
+                    <p>Working on contributing to open-source projects to enhance my skills and collaborate with other developers.</p>
+                </div>
+                <div class="project-card coming-soon-card">
+                    <div class="card-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Experimental Side Projects</h3>
+                    <p>Experimenting with new ideas and technologies to develop creative solutions and expand my knowledge.</p>
+                </div>
+                <div class="project-card coming-soon-card">
+                    <div class="card-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Learning Resources</h3>
+                    <p>Preparing to share useful code snippets, tutorials, and learning resources to help fellow developers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="certificates">
+        <div class="container">
+            <div class="section-header">
+                <h2>Certificates</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="certificates-content">
+                <div class="certificate-grid">
+                    <!-- Programming Certificates -->
+                    <div class="certificate-card">
+                        <span class="cert-category">Programming</span>
+                        <img src="public/Certificates/c++.jpg" alt="C++ Certificate">
+                        <div class="overlay">
+                            <h3>C++ Programming</h3>
+                            <span class="view-cert">View Certificate</span>
+                        </div>
+                    </div>
+                    <div class="certificate-card">
+                        <span class="cert-category">Database</span>
+                        <img src="public/Certificates/PL SQL.jpg" alt="PL SQL Certificate">
+                        <div class="overlay">
+                            <h3>PL SQL Database</h3>
+                            <span class="view-cert">View Certificate</span>
+                        </div>
+                    </div>
+                    <div class="certificate-card">
+                        <span class="cert-category">Data Analysis</span>
+                        <img src="public/Certificates/R programming.jpeg" alt="R Programming Certificate">
+                        <div class="overlay">
+                            <h3>R Programming</h3>
+                            <span class="view-cert">View Certificate</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Networking & Server Certificates -->
+                    <div class="certificate-card">
+                        <span class="cert-category">Networking</span>
+                        <img src="public/Certificates/Computer Networking.jpg" alt="Computer Networking Certificate">
+                        <div class="overlay">
+                            <h3>Computer Networking</h3>
+                            <span class="view-cert">View Certificate</span>
+                        </div>
+                    </div>
+                    <div class="certificate-card">
+                        <span class="cert-category">Server</span>
+                        <img src="public/Certificates/Ubuntu Network Server_page-0001.jpg" alt="Ubuntu Network Server Certificate">
+                        <div class="overlay">
+                            <h3>Ubuntu Network Server</h3>
+                            <span class="view-cert">View Certificate</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Security Certificates -->
+                    <div class="certificate-card">
+                        <span class="cert-category">Security</span>
+                        <img src="public/Certificates/Ethical Hacking_- Exploit Linux Server_.jpg" alt="Ethical Hacking Certificate">
+                        <div class="overlay">
+                            <h3>Ethical Hacking</h3>
+                            <span class="view-cert">View Certificate</span>
+                        </div>
+                    </div>
+                    <div class="certificate-card">
+                        <span class="cert-category">Security</span>
+                        <img src="public/Certificates/Everything About Kali Linux OS_page-0001.jpg" alt="Kali Linux OS Certificate">
+                        <div class="overlay">
+                            <h3>Kali Linux OS</h3>
+                            <span class="view-cert">View Certificate</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Other Certificates -->
+                    <div class="certificate-card">
+                        <span class="cert-category">Computer Science</span>
+                        <img src="public/Certificates/Document from ADITYA 😼_page-0001.jpg" alt="Certificate from ADITYA">
+                        <div class="overlay">
+                            <h3>Basic Structure of Computer</h3>
+                            <span class="view-cert">View Certificate</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:adityaajaysingh0104@gmail.com">adityaajaysingh0104@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-github"></i>
+                            <a href="https://github.com/Adityasiig" target="_blank">github.com/Adityasiig</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-linkedin-in"></i>
+                            <a href="https://in.linkedin.com/in/singhaditya70" target="_blank">linkedin.com/in/singhaditya70</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Send Me a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn primary-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">AS</div>
+                <p>&copy; 2025 Aditya Singh. All Rights Reserved.</p>
+                <div class="social-icons">
+                    <a href="https://github.com/Adityasiig" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://in.linkedin.com/in/singhaditya70" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:adityaajaysingh0104@gmail.com"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="public/js/script.js"></script>
+</body>
+</html>
