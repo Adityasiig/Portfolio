@@ -76,3 +76,5 @@ portfolio/
 ---
 
 Built by Aditya Singh with ❤️ 
+
+Last updated: May 11, 2024
