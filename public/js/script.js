@@ -307,6 +307,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
         updateThemeIcon(theme);
+        
+        // Add animation class to body to smooth transition
+        document.body.classList.add('theme-transition');
+        setTimeout(() => {
+            document.body.classList.remove('theme-transition');
+        }, 1000);
     }
 
     // Check for saved theme preference
@@ -329,6 +335,14 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             themeToggle.classList.remove('clicked');
         }, 300);
+    });
+    
+    // Ensure the toggle is accessible via keyboard
+    themeToggle.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            themeToggle.click();
+        }
     });
 
     // Update theme icon
