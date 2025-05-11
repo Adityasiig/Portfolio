@@ -13,6 +13,7 @@ A personal portfolio website I built using HTML, CSS, and JavaScript.
 - Skills showcase with progress bars
 - Enhanced certificate section with lightbox viewer
 - Project section showcasing my work
+- Mobile-optimized theme toggle
 
 ## Technologies Used
 
@@ -59,6 +60,7 @@ portfolio/
 - Automatically saves user preference
 - Optimized color schemes for both modes
 - Default dark theme for better viewing experience
+- Fixed positioning on mobile devices
 
 ### Certificate Showcase
 - Interactive certificate cards with category labels
