@@ -96,84 +96,312 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Animate skill bars when they come into view
+    // Add skill progress animations with intersection observer
+    const skillBars = document.querySelectorAll('.progress');
     const skillsSection = document.querySelector('.skills');
-    const progressBars = document.querySelectorAll('.progress');
-
-    let hasAnimated = false;
-
-    window.addEventListener('scroll', () => {
-        const sectionPosition = skillsSection.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.3;
-
-        if (sectionPosition < screenPosition && !hasAnimated) {
-            hasAnimated = true;
-            progressBars.forEach(bar => {
-                const width = bar.style.width;
-                bar.style.width = '0';
-                setTimeout(() => {
-                    bar.style.width = width;
-                }, 100);
+    
+    if (skillsSection && skillBars.length > 0) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    skillBars.forEach(bar => {
+                        const width = bar.style.width;
+                        bar.style.width = '0';
+                        setTimeout(() => {
+                            bar.style.width = width;
+                        }, 200);
+                    });
+                    observer.unobserve(entry.target);
+                }
             });
+        }, { threshold: 0.2 });
+
+        observer.observe(skillsSection);
+    }
+
+    // Add project card hover and 3D tilt effects
+    const projectCards = document.querySelectorAll('.project-card');
+    
+    projectCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Calculate tilt based on mouse position
+            const tiltX = (y - centerY) / centerY * 3; // Subtle 3-degree max tilt
+            const tiltY = (x - centerX) / centerX * -3; // Invert X axis for natural tilt
+            
+            // Apply 3D transform
+            card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-5px)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            // Reset transform when mouse leaves
+            card.style.transform = '';
+            card.classList.remove('card-hover');
+        });
+        
+        card.addEventListener('mouseenter', () => {
+            card.classList.add('card-hover');
+        });
+    });
+    
+    // Add subtle animation to hero subheading
+    const heroSubheading = document.querySelector('.hero-content h2');
+    if (heroSubheading) {
+        heroSubheading.classList.add('animate-fade-in');
+    }
+    
+    // Animate section headers with staggered letter effect
+    const sectionHeaders = document.querySelectorAll('.section-header h2');
+    sectionHeaders.forEach(header => {
+        // Remove the animation code - we just keep the original text
+        // No letter-by-letter animation anymore
+    });
+    
+    // Enhanced background particles effect
+    function enhanceParticlesEffect() {
+        try {
+            if (particlesJS) {
+                const config = {
+                    particles: {
+                        number: {
+                            value: 60,
+                            density: {
+                                enable: true,
+                                value_area: 1000
+                            }
+                        },
+                        color: {
+                            value: ["#6c5ce7", "#fd79a8", "#00cec9"]
+                        },
+                        shape: {
+                            type: "circle",
+                            stroke: {
+                                width: 0,
+                                color: "#000000"
+                            }
+                        },
+                        opacity: {
+                            value: 0.3,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 0.8,
+                                opacity_min: 0.1,
+                                sync: false
+                            }
+                        },
+                        size: {
+                            value: 4,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 1.5,
+                                size_min: 0.1,
+                                sync: false
+                            }
+                        },
+                        line_linked: {
+                            enable: true,
+                            distance: 180,
+                            color: "#6c5ce7",
+                            opacity: 0.15,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 1.5,
+                            direction: "none",
+                            random: true,
+                            straight: false,
+                            out_mode: "out",
+                            bounce: false,
+                            attract: {
+                                enable: true,
+                                rotateX: 600,
+                                rotateY: 1200
+                            }
+                        }
+                    },
+                    interactivity: {
+                        detect_on: "canvas",
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: "grab"
+                            },
+                            onclick: {
+                                enable: true,
+                                mode: "push"
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            grab: {
+                                distance: 200,
+                                line_linked: {
+                                    opacity: 0.4
+                                }
+                            },
+                            push: {
+                                particles_nb: 3
+                            }
+                        }
+                    },
+                    retina_detect: true
+                };
+                
+                particlesJS('particles-js', config);
+            }
+        } catch (error) {
+            console.error('Error enhancing particles:', error);
         }
+    }
+    
+    enhanceParticlesEffect();
+    
+    // Animated count-up for skill percentages
+    function animateSkillPercentages() {
+        const skillItems = document.querySelectorAll('.skill-item');
+        
+        skillItems.forEach(item => {
+            const progress = item.querySelector('.progress');
+            const width = progress.style.width;
+            const percentage = parseInt(width);
+            
+            // Add percentage text
+            const percentText = document.createElement('span');
+            percentText.className = 'percent-text';
+            percentText.textContent = '0%';
+            percentText.style.position = 'absolute';
+            percentText.style.right = '0';
+            percentText.style.top = '-25px';
+            percentText.style.fontSize = '0.9rem';
+            percentText.style.fontWeight = '500';
+            percentText.style.color = 'var(--primary-color)';
+            
+            const progressBar = item.querySelector('.progress-bar');
+            progressBar.style.position = 'relative';
+            progressBar.appendChild(percentText);
+            
+            // Animate percentage on intersection
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        let count = 0;
+                        const interval = setInterval(() => {
+                            count += 1;
+                            percentText.textContent = count + '%';
+                            if (count >= percentage) {
+                                clearInterval(interval);
+                            }
+                        }, 15);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            observer.observe(item);
+        });
+    }
+    
+    animateSkillPercentages();
+    
+    // Add parallax effect to certificates
+    function addCertificateParallax() {
+        // Function emptied to remove the tilt animation
+        // Keeping the function definition to avoid breaking any references
+    }
+    
+    addCertificateParallax();
+    
+    // Add parallax scrolling effect
+    const heroSection = document.querySelector('.hero');
+    if (heroSection) {
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.pageYOffset;
+            heroSection.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
+        });
+    }
+    
+    // Add scroll reveal animations with different directions
+    const fromBottom = document.querySelectorAll('.section-header, .project-card, .certificate-card');
+    const fromLeft = document.querySelectorAll('.about-img, .contact-info');
+    const fromRight = document.querySelectorAll('.about-text, .contact-form');
+    
+    const observerOptions = {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    // Bottom animation
+    const bottomObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-bottom');
+                bottomObserver.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    // Left animation
+    const leftObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-left');
+                leftObserver.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    // Right animation
+    const rightObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-right');
+                rightObserver.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    fromBottom.forEach(item => {
+        item.classList.add('hidden-bottom');
+        bottomObserver.observe(item);
+    });
+    
+    fromLeft.forEach(item => {
+        item.classList.add('hidden-left');
+        leftObserver.observe(item);
+    });
+    
+    fromRight.forEach(item => {
+        item.classList.add('hidden-right');
+        rightObserver.observe(item);
+    });
+    
+    // Add floating animation to card icons
+    const icons = document.querySelectorAll('.card-icon');
+    icons.forEach(icon => {
+        icon.classList.add('floating-icon');
+    });
+    
+    // Add a scroll progress indicator
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress';
+    document.body.appendChild(progressBar);
+    
+    window.addEventListener('scroll', () => {
+        const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollProgress = (window.pageYOffset / scrollTotal) * 100;
+        progressBar.style.width = scrollProgress + '%';
     });
 
-    // Function to create floating shapes animation
-    function createShapeAnimation() {
-        // Find particles-js div and remove it
-        const particlesElement = document.getElementById('particles-js');
-        if (particlesElement) {
-            particlesElement.remove();
-        }
-        
-        // Create the shape animation container
-        const shapeAnimationContainer = document.createElement('div');
-        shapeAnimationContainer.className = 'shape-animation';
-        
-        // Create the 5 main shapes
-        for (let i = 1; i <= 5; i++) {
-            const shape = document.createElement('div');
-            shape.className = `shape shape-${i}`;
-            shapeAnimationContainer.appendChild(shape);
-        }
-        
-        // Add more random smaller shapes for enhanced effect
-        for (let i = 1; i <= 10; i++) {
-            const randomShape = document.createElement('div');
-            randomShape.className = 'shape';
-            randomShape.style.width = Math.floor(Math.random() * 80 + 40) + 'px';
-            randomShape.style.height = randomShape.style.width;
-            randomShape.style.opacity = (Math.random() * 0.2 + 0.2).toString();
-            randomShape.style.background = `rgba(${Math.floor(Math.random() * 100 + 100)}, ${Math.floor(Math.random() * 100 + 100)}, ${Math.floor(Math.random() * 255)}, 0.7)`;
-            randomShape.style.top = Math.floor(Math.random() * 90 + 5) + '%';
-            randomShape.style.left = Math.floor(Math.random() * 90 + 5) + '%';
-            randomShape.style.animationDuration = Math.floor(Math.random() * 20 + 10) + 's';
-            randomShape.style.animationDirection = Math.random() > 0.5 ? 'normal' : 'reverse';
-            shapeAnimationContainer.appendChild(randomShape);
-        }
-        
-        // Add the container to the body
-        document.body.appendChild(shapeAnimationContainer);
-        
-        // Also create the wave animation
-        createWaveAnimation();
-    }
-
-    // Function to create wave animation
-    function createWaveAnimation() {
-        const waveContainer = document.createElement('div');
-        waveContainer.className = 'wave-container';
-        
-        for (let i = 1; i <= 3; i++) {
-            const wave = document.createElement('div');
-            wave.className = `wave wave-${i}`;
-            waveContainer.appendChild(wave);
-        }
-        
-        document.body.appendChild(waveContainer);
-    }
-
-    // Certificate interactions
+    // Certificate Lightbox Functionality
     const certificateCards = document.querySelectorAll('.certificate-card');
     
     // Create lightbox elements
@@ -249,11 +477,12 @@ document.addEventListener('DOMContentLoaded', () => {
         card.addEventListener('click', () => {
             const img = card.querySelector('img');
             const title = card.querySelector('.overlay h3').textContent;
-            const category = card.querySelector('.cert-category').textContent;
+            const categoryElement = card.querySelector('.cert-category');
+            const category = categoryElement ? categoryElement.textContent : '';
             
             // Set image source and caption
             lightboxImage.src = img.src;
-            caption.textContent = `${title} - ${category}`;
+            caption.textContent = category ? `${title} - ${category}` : title;
             
             // Show lightbox with loading animation
             document.body.style.overflow = 'hidden';
@@ -266,37 +495,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 100);
         });
     });
-    
-    // Enhanced certificate animation
-    const animateCertificates = () => {
-        certificateCards.forEach((card, index) => {
-            // Make sure the card is initially hidden
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            
-            // Add a slight delay for each card for a staggered effect
-            setTimeout(() => {
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, index * 150);
-        });
-    };
-    
-    // Trigger animation when scrolled into view
-    const certificatesSection = document.querySelector('#certificates');
-    
-    if (certificatesSection) {
-        window.addEventListener('scroll', function checkScroll() {
-            const sectionTop = certificatesSection.getBoundingClientRect().top;
-            const isVisible = sectionTop < window.innerHeight - 100;
-            
-            if (isVisible) {
-                animateCertificates();
-                window.removeEventListener('scroll', checkScroll);
-            }
-        });
-    }
 
     // Theme Toggle Functionality
     const themeToggle = document.getElementById('theme-toggle');
@@ -349,5 +547,76 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateThemeIcon(theme) {
         themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
     }
+
+    // Add click event for scroll indicator
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', () => {
+            const aboutSection = document.querySelector('#about');
+            if (aboutSection) {
+                aboutSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+        
+        // Show/hide scroll indicator based on scroll position
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200) {
+                scrollIndicator.style.opacity = '0';
+            } else {
+                scrollIndicator.style.opacity = '1';
+            }
+        });
+    }
+    
+    // Enhanced smooth scroll behavior
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                // Smooth scroll with custom timing function
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+                
+                // Highlight the section with a subtle animation
+                setTimeout(() => {
+                    targetElement.classList.add('section-highlight');
+                    setTimeout(() => {
+                        targetElement.classList.remove('section-highlight');
+                    }, 1500);
+                }, 800);
+            }
+        });
+    });
+
+    // Add subtle parallax effect to sections
+    function addParallaxEffect() {
+        const sections = document.querySelectorAll('section');
+        
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                // Only apply effect when section is in viewport
+                if (scrollY > sectionTop - window.innerHeight && scrollY < sectionTop + sectionHeight) {
+                    const yPos = (scrollY - sectionTop) * 0.1; // Subtle movement
+                    section.style.backgroundPositionY = yPos + 'px';
+                }
+            });
+        });
+    }
+
+    addParallaxEffect();
 });
 
