@@ -105,10 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     skillBars.forEach(bar => {
-                        const width = bar.style.width;
-                        bar.style.width = '0';
-                        setTimeout(() => {
-                            bar.style.width = width;
+                const width = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = width;
                         }, 200);
                     });
                     observer.unobserve(entry.target);
@@ -311,15 +311,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     animateSkillPercentages();
-    
+
     // Add parallax effect to certificates
     function addCertificateParallax() {
-        // Function emptied to remove the tilt animation
-        // Keeping the function definition to avoid breaking any references
+        // Remove the tilt animation functionality
+        // This function is kept but emptied to avoid breaking any references to it
+        console.log('Certificate parallax effect disabled');
     }
     
     addCertificateParallax();
-    
+
     // Add parallax scrolling effect
     const heroSection = document.querySelector('.hero');
     if (heroSection) {

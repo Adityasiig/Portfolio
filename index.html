@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aditya Singh - Portfolio</title>
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Aditya Singh - Portfolio">
+    <meta property="og:description" content="BSc IT Student, Web Developer & Tech Enthusiast. Check out my projects, skills, and certificates.">
+    <meta property="og:image" content="https://adityasiig.github.io/Portfolio-main/public/images/preview.jpg">
+    <meta property="og:url" content="https://adityasiig.github.io/Portfolio-main/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#6c5ce7">
+    
     <link rel="stylesheet" href="public/css/style.css">
     <!-- Favicon -->
     <link rel="icon" href="public/images/favicon.png" type="image/png">
@@ -48,6 +58,12 @@
             <div class="hero-content">
                 <h1>Hi, I'm <span class="highlight">Aditya Singh</span></h1>
                 <h2>BSc IT Student & <span class="typed-text"></span></h2>
+                <div class="hero-tags">
+                    <span class="tag">Web Dev</span>
+                    <span class="tag">Cybersecurity</span>
+                    <span class="tag">Programming</span>
+                    <span class="tag">IT</span>
+                </div>
                 <p>Passionate about coding and learning new technologies.</p>
                 <div class="hero-btns">
                     <a href="#contact" class="btn primary-btn">Get In Touch</a>
@@ -59,6 +75,10 @@
                     <a href="mailto:adityaajaysingh0104@gmail.com"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
@@ -208,46 +228,74 @@
                 <h2>My Projects</h2>
                 <div class="underline"></div>
             </div>
-            <div class="projects-content">
-                <!-- Real projects -->
-                <div class="project-card">
+            
+            <!-- Featured Project -->
+            <div class="featured-project-container">
+                <h3 class="featured-label">Featured Project</h3>
+                <div class="project-card featured-project">
                     <div class="card-icon">
                         <i class="fas fa-tasks"></i>
                     </div>
                     <h3>TODO List Application</h3>
-                    <p>A beautifully designed and feature-rich TODO list application with responsive UI, data persistence, and animated backgrounds.</p>
+                    <p>A beautifully designed and feature-rich TODO list application with responsive UI, data persistence, and animated backgrounds. Users can add, edit, and delete tasks with real-time updates.</p>
                     <div class="project-technologies">
-                        <span>Node.js</span>
-                        <span>Express</span>
-                        <span>JavaScript</span>
+                        <span>HTML</span>
                         <span>CSS</span>
-                        <span>EJS</span>
+                        <span>JavaScript</span>
+                        <span>Local Storage</span>
+                    </div>
+                    <div class="project-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Responsive design</li>
+                            <li><i class="fas fa-check"></i> Data persistence</li>
+                            <li><i class="fas fa-check"></i> Task categories</li>
+                            <li><i class="fas fa-check"></i> Filter capabilities</li>
+                        </ul>
                     </div>
                     <div class="project-links">
                         <a href="https://github.com/Adityasiig/TODO-list" target="_blank" class="btn">View Code <i class="fab fa-github"></i></a>
+                        <a href="https://Adityasiig.github.io/TODO-list/" target="_blank" class="btn secondary-btn">Live Demo <i class="fas fa-external-link-alt"></i></a>
                     </div>
                 </div>
-                <!-- Placeholder projects -->
-                <div class="project-card coming-soon-card">
-                    <div class="card-icon">
-                        <i class="fas fa-code"></i>
+            </div>
+            
+            <!-- Other Projects -->
+            <div class="other-projects-container">
+                <h3 class="upcoming-label">Upcoming Projects</h3>
+                <div class="projects-grid">
+                    <!-- Project 1 -->
+                    <div class="project-card coming-soon-card">
+                        <div class="card-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Open Source Contributions</h3>
+                        <p>Working on contributing to open-source projects to enhance my skills and collaborate with other developers.</p>
+                        <div class="project-status">
+                            <span>In Progress</span>
+                        </div>
                     </div>
-                    <h3>Open Source Contributions</h3>
-                    <p>Working on contributing to open-source projects to enhance my skills and collaborate with other developers.</p>
-                </div>
-                <div class="project-card coming-soon-card">
-                    <div class="card-icon">
-                        <i class="fas fa-lightbulb"></i>
+                    <!-- Project 2 -->
+                    <div class="project-card coming-soon-card">
+                        <div class="card-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Experimental Side Projects</h3>
+                        <p>Experimenting with new ideas and technologies to develop creative solutions and expand my knowledge.</p>
+                        <div class="project-status">
+                            <span>Coming Soon</span>
+                        </div>
                     </div>
-                    <h3>Experimental Side Projects</h3>
-                    <p>Experimenting with new ideas and technologies to develop creative solutions and expand my knowledge.</p>
-                </div>
-                <div class="project-card coming-soon-card">
-                    <div class="card-icon">
-                        <i class="fas fa-book"></i>
+                    <!-- Project 3 -->
+                    <div class="project-card coming-soon-card">
+                        <div class="card-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3>Learning Resources</h3>
+                        <p>Preparing to share useful code snippets, tutorials, and learning resources to help fellow developers.</p>
+                        <div class="project-status">
+                            <span>Planned</span>
+                        </div>
                     </div>
-                    <h3>Learning Resources</h3>
-                    <p>Preparing to share useful code snippets, tutorials, and learning resources to help fellow developers.</p>
                 </div>
             </div>
         </div>
@@ -320,6 +368,16 @@
                         <img src="public/Certificates/Everything About Kali Linux OS_page-0001.jpg" alt="Kali Linux OS Certificate">
                         <div class="overlay">
                             <h3>Kali Linux OS</h3>
+                            <span class="view-cert">View Certificate</span>
+                        </div>
+                    </div>
+                    
+                    <!-- New Certificates -->
+                    <div class="certificate-card">
+                        <span class="cert-category">Cybersecurity</span>
+                        <img src="public/Certificates/1747098730146_page-0001.jpg" alt="Introduction to Cybersecurity">
+                        <div class="overlay">
+                            <h3>Introduction to Cybersecurity</h3>
                             <span class="view-cert">View Certificate</span>
                         </div>
                     </div>
