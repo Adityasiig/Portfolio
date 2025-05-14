@@ -619,5 +619,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     addParallaxEffect();
+
+    // Disable animations on mobile for better performance
+    function disableAnimationsOnMobile() {
+        // Check if device is mobile
+        const isMobile = window.innerWidth <= 768;
+        
+        if (isMobile) {
+            // Remove any existing animations or effects
+            document.querySelectorAll('.project-card, .certificate-card, .img-container, .logo, .social-icons a, .btn, .section-header')
+                .forEach(el => {
+                    // Remove any inline transforms
+                    el.style.transform = 'none';
+                    el.style.transition = 'none';
+                    el.style.animation = 'none';
+                });
+                
+            // Disable particle animations if they exist
+            if (window.pJSDom && window.pJSDom.length > 0) {
+                try {
+                    // Reduce particles count significantly on mobile
+                    window.pJSDom[0].pJS.particles.number.value = 20;
+                    window.pJSDom[0].pJS.particles.move.speed = 1;
+                    window.pJSDom[0].pJS.fn.particlesRefresh();
+                } catch (e) {
+                    console.log('Could not optimize particles for mobile');
+                }
+            }
+        }
+    }
+
+    // Run on page load and window resize
+    disableAnimationsOnMobile();
+    
+    // Listen for window resize events
+    window.addEventListener('resize', function() {
+        disableAnimationsOnMobile();
+    });
 });
 
