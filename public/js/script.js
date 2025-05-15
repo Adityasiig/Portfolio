@@ -415,20 +415,31 @@ document.addEventListener('DOMContentLoaded', () => {
         const lightboxContent = document.createElement('div');
         lightboxContent.className = 'lightbox-content';
         
+        // Create image wrapper
+        const imageWrapper = document.createElement('div');
+        imageWrapper.className = 'lightbox-image-wrapper';
+        lightboxContent.appendChild(imageWrapper);
+        
         // Create image element
         const lightboxImage = document.createElement('img');
         lightboxImage.className = 'lightbox-image';
-        lightboxContent.appendChild(lightboxImage);
+        imageWrapper.appendChild(lightboxImage);
+        
+        // Create loader
+        const loader = document.createElement('div');
+        loader.className = 'lightbox-loader';
+        loader.innerHTML = '<div class="spinner"></div>';
+        imageWrapper.appendChild(loader);
         
         // Create close button
         const closeButton = document.createElement('div');
         closeButton.className = 'lightbox-close';
         closeButton.innerHTML = '&times;';
-        closeButton.addEventListener('click', () => {
-            lightbox.classList.remove('active');
-            setTimeout(() => {
-                document.body.style.overflow = 'auto';
-            }, 300);
+        closeButton.setAttribute('aria-label', 'Close');
+        closeButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            closeLightbox();
         });
         lightboxContent.appendChild(closeButton);
         
@@ -443,58 +454,87 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add lightbox to body
         document.body.appendChild(lightbox);
         
+        // Image load handler
+        lightboxImage.addEventListener('load', () => {
+            // Hide loader
+            loader.style.display = 'none';
+            // Show image
+            lightboxImage.style.opacity = '1';
+        });
+        
+        // Image error handler
+        lightboxImage.addEventListener('error', () => {
+            loader.style.display = 'none';
+            lightboxImage.src = 'public/images/image-error.png'; // fallback image
+            lightboxImage.style.opacity = '1';
+        });
+        
         // Close on click outside content
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) {
-                lightbox.classList.remove('active');
-                setTimeout(() => {
-                    document.body.style.overflow = 'auto';
-                }, 300);
+                closeLightbox();
             }
         });
         
         // Close on escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-                lightbox.classList.remove('active');
-                setTimeout(() => {
-                    document.body.style.overflow = 'auto';
-                }, 300);
+                closeLightbox();
             }
         });
+        
+        // Function to close the lightbox
+        const closeLightbox = () => {
+            lightbox.classList.remove('active');
+            setTimeout(() => {
+                document.body.style.overflow = '';
+            }, 300);
+        };
         
         return {
             lightbox,
             lightboxImage,
-            caption
+            caption,
+            loader,
+            closeLightbox
         };
     };
     
     // Initialize lightbox
-    const { lightbox, lightboxImage, caption } = createLightbox();
+    const { lightbox, lightboxImage, caption, loader, closeLightbox } = createLightbox();
     
     // Add click event to certificates to open in lightbox
     certificateCards.forEach(card => {
         card.addEventListener('click', () => {
-            const img = card.querySelector('img');
+            // Find the image inside the card
+            const img = card.querySelector('.certificate-image-container img');
             const title = card.querySelector('.overlay h3').textContent;
             const categoryElement = card.querySelector('.cert-category');
             const category = categoryElement ? categoryElement.textContent : '';
+            
+            // Show loader
+            loader.style.display = 'flex';
+            lightboxImage.style.opacity = '0';
             
             // Set image source and caption
             lightboxImage.src = img.src;
             caption.textContent = category ? `${title} - ${category}` : title;
             
-            // Show lightbox with loading animation
+            // Disable page scrolling
             document.body.style.overflow = 'hidden';
-            lightbox.classList.add('active');
             
-            // Add loading animation
-            lightboxImage.style.opacity = '0';
-            setTimeout(() => {
-                lightboxImage.style.opacity = '1';
-            }, 100);
+            // Show lightbox
+            lightbox.classList.add('active');
         });
+    });
+    
+    // Handle orientation change and resize
+    window.addEventListener('orientationchange', () => {
+        setTimeout(() => {
+            if (lightbox.classList.contains('active')) {
+                // Add any specific adjustments needed on orientation change
+            }
+        }, 300);
     });
 
     // Theme Toggle Functionality
@@ -619,42 +659,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     addParallaxEffect();
-
-    // Disable animations on mobile for better performance
-    function disableAnimationsOnMobile() {
-        // Check if device is mobile
-        const isMobile = window.innerWidth <= 768;
-        
-        if (isMobile) {
-            // Remove any existing animations or effects
-            document.querySelectorAll('.project-card, .certificate-card, .img-container, .logo, .social-icons a, .btn, .section-header')
-                .forEach(el => {
-                    // Remove any inline transforms
-                    el.style.transform = 'none';
-                    el.style.transition = 'none';
-                    el.style.animation = 'none';
-                });
-                
-            // Disable particle animations if they exist
-            if (window.pJSDom && window.pJSDom.length > 0) {
-                try {
-                    // Reduce particles count significantly on mobile
-                    window.pJSDom[0].pJS.particles.number.value = 20;
-                    window.pJSDom[0].pJS.particles.move.speed = 1;
-                    window.pJSDom[0].pJS.fn.particlesRefresh();
-                } catch (e) {
-                    console.log('Could not optimize particles for mobile');
-                }
-            }
-        }
-    }
-
-    // Run on page load and window resize
-    disableAnimationsOnMobile();
-    
-    // Listen for window resize events
-    window.addEventListener('resize', function() {
-        disableAnimationsOnMobile();
-    });
 });
 

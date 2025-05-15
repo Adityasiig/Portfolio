@@ -58,6 +58,7 @@ body {
     width: 100%;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
+    
 }
 
 #particles-js {
@@ -691,43 +692,69 @@ header.scrolled {
     align-items: center;
 }
 
+/* Certificate grid - using flex instead of grid for better compatibility */
 .certificate-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
     width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
+/* Certificate card - universal approach */
 .certificate-card {
-    height: 280px;
-    background: transparent;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    flex: 0 0 calc(33.333% - 20px);
+    max-width: calc(33.333% - 20px);
+    min-width: 260px;
     position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    background-color: #f9f9f9;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-    border: 5px solid rgba(255, 255, 255, 0.7);
-    transform: none !important;
-    will-change: box-shadow, opacity;
+    border: 3px solid rgba(255, 255, 255, 0.9);
+}
+
+/* Make sure the card maintains aspect ratio */
+.certificate-card::before {
+    content: "";
+    display: block;
+    padding-top: 75%; /* 4:3 aspect ratio */
 }
 
 .certificate-card:hover {
-    transform: translateY(-10px) !important;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Certificate image container */
+.certificate-image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 .certificate-card img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s ease;
+    transition: transform 0.5s ease;
 }
 
 .certificate-card:hover img {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
+/* Certificate overlay */
 .overlay {
     position: absolute;
     bottom: 0;
@@ -735,9 +762,9 @@ header.scrolled {
     right: 0;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 100%);
     color: white;
-    padding: 25px 20px;
+    padding: 15px;
     transform: translateY(100%);
-    transition: transform 0.4s ease;
+    transition: transform 0.3s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -748,8 +775,8 @@ header.scrolled {
 }
 
 .overlay h3 {
-    margin: 0 0 10px;
-    font-size: 1.3rem;
+    margin: 0 0 8px;
+    font-size: 1.1rem;
     font-weight: 600;
     text-align: center;
     color: #fff;
@@ -758,11 +785,11 @@ header.scrolled {
 
 .view-cert {
     display: inline-block;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: var(--accent-color);
     font-weight: 500;
     background: rgba(0, 0, 0, 0.3);
-    padding: 5px 15px;
+    padding: 4px 12px;
     border-radius: 20px;
     margin-top: 5px;
     transition: all 0.3s ease;
@@ -776,26 +803,26 @@ header.scrolled {
 /* Certificate category badges */
 .cert-category {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 10px;
+    right: 10px;
     background: var(--primary-color);
     color: white;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
+    padding: 3px 8px;
+    border-radius: 15px;
+    font-size: 0.7rem;
     font-weight: 500;
     z-index: 5;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Certificate Lightbox */
+/* Certificate Lightbox - Mobile First approach */
 .certificate-lightbox {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.92);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -803,6 +830,8 @@ header.scrolled {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .certificate-lightbox.active {
@@ -812,38 +841,50 @@ header.scrolled {
 
 .lightbox-content {
     position: relative;
-    max-width: 90%;
-    max-height: 90%;
-    transform: scale(0.9);
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
     transition: transform 0.3s ease;
+    background-color: transparent;
+    transform: scale(0.95);
+    z-index: 2;
 }
 
 .certificate-lightbox.active .lightbox-content {
     transform: scale(1);
 }
 
+.lightbox-image-wrapper {
+    width: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
 .lightbox-image {
-    max-width: 100%;
-    max-height: 90vh;
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
-    border: 5px solid white;
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
 }
 
 .lightbox-close {
     position: absolute;
-    top: -40px;
+    top: -30px;
     right: 0;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
     color: white;
-    font-size: 30px;
+    font-size: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
     border-radius: 50%;
     transition: all 0.3s ease;
+    z-index: 10;
 }
 
 .lightbox-close:hover {
@@ -852,65 +893,180 @@ header.scrolled {
 }
 
 .lightbox-caption {
-    position: absolute;
-    bottom: -40px;
-    left: 0;
-    right: 0;
-    text-align: center;
     color: white;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     padding: 10px;
+    text-align: center;
     background: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
+    border-radius: 0 0 4px 4px;
+    margin-top: 5px;
 }
 
+/* Lightbox loader */
+.lightbox-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    border-radius: 4px;
+}
+
+.spinner {
+    width: 30px;
+    height: 30px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Dark theme adjustments */
 [data-theme="dark"] .certificate-card {
-    border-color: rgba(30, 30, 30, 0.7);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(40, 40, 40, 0.7);
+    background-color: #1a1a1a;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
-[data-theme="dark"] .lightbox-image {
-    border-color: #333;
+/* Responsive styles - using multiple breakpoints for better adaptation */
+/* Tablets and medium screens */
+@media screen and (max-width: 991px) {
+    .certificate-card {
+        flex: 0 0 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+        min-width: 220px;
+    }
 }
 
+/* Small tablets and large phones */
 @media screen and (max-width: 768px) {
     .certificate-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
+        gap: 15px;
     }
     
     .certificate-card {
-        height: 250px;
+        flex: 0 0 calc(50% - 15px);
+        max-width: calc(50% - 15px);
+        min-width: 160px;
+        border-width: 2px;
+    }
+    
+    .certificate-card::before {
+        padding-top: 75%; /* Maintain 4:3 aspect ratio */
     }
     
     .overlay h3 {
-        font-size: 1.2rem;
+        font-size: 1rem;
+        margin-bottom: 5px;
     }
     
-    .theme-toggle {
-        margin-right: 15px;
-        z-index: 1001;
+    .view-cert {
+        font-size: 0.7rem;
+        padding: 3px 10px;
+    }
+    
+    .cert-category {
+        font-size: 0.65rem;
+        padding: 2px 7px;
+    }
+    
+    .lightbox-content {
+        width: 95%;
     }
 }
 
+/* Mobile phones */
 @media screen and (max-width: 576px) {
     .certificate-grid {
-        grid-template-columns: 1fr;
+        gap: 10px;
     }
     
     .certificate-card {
-        height: 220px;
+        flex: 0 0 calc(50% - 10px);
+        max-width: calc(50% - 10px);
+        min-width: 140px;
     }
     
-    .theme-toggle {
-        margin-right: 10px;
-        width: 30px;
-        height: 30px;
+    .certificate-card::before {
+        padding-top: 80%; /* Slightly taller aspect ratio for small screens */
     }
     
-    .theme-toggle i {
-        font-size: 1rem;
+    .overlay {
+        padding: 10px;
+    }
+    
+    .overlay h3 {
+        font-size: 0.9rem;
+    }
+    
+    .view-cert {
+        font-size: 0.65rem;
+        padding: 2px 8px;
+    }
+    
+    .cert-category {
+        top: 5px;
+        right: 5px;
+        font-size: 0.6rem;
+        padding: 2px 6px;
+    }
+    
+    .lightbox-close {
+        top: -25px;
+        width: 25px;
+        height: 25px;
+        font-size: 18px;
+    }
+    
+    .lightbox-caption {
+        font-size: 12px;
+        padding: 8px;
+    }
+}
+
+/* Very small phones */
+@media screen and (max-width: 400px) {
+    .certificate-grid {
+        gap: 8px;
+    }
+    
+    .certificate-card {
+        flex: 0 0 calc(50% - 8px);
+        max-width: calc(50% - 8px);
+        min-width: 120px;
+    }
+    
+    .overlay h3 {
+        font-size: 0.8rem;
+        margin-bottom: 3px;
+    }
+    
+    .view-cert {
+        font-size: 0.6rem;
+        padding: 2px 6px;
+    }
+}
+
+/* Support for very small screens - single column layout */
+@media screen and (max-width: 320px) {
+    .certificate-card {
+        flex: 0 0 100%;
+        max-width: 100%;
+        min-width: 100%;
+    }
+    
+    .certificate-card::before {
+        padding-top: 70%; /* Wider aspect ratio for single column */
     }
 }
 
@@ -1585,6 +1741,7 @@ section::after {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
+    overflow: hidden;
 }
 
 .certificate-lightbox.active {
@@ -1594,10 +1751,11 @@ section::after {
 
 .lightbox-content {
     position: relative;
-    max-width: 90%;
-    max-height: 90%;
-    transform: scale(0.9);
+    max-width: 85%;
+    max-height: 85%;
+    transform: scale(0.95);
     transition: transform 0.3s ease;
+    margin: 30px 0;
 }
 
 .certificate-lightbox.active .lightbox-content {
@@ -1605,10 +1763,14 @@ section::after {
 }
 
 .lightbox-image {
+    display: block;
     max-width: 100%;
-    max-height: 90vh;
+    height: auto;
+    max-height: 80vh;
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
-    border: 5px solid white;
+    border: 3px solid white;
+    object-fit: contain;
+    background-color: rgba(245, 245, 245, 0.2);
 }
 
 .lightbox-close {
@@ -1623,9 +1785,10 @@ section::after {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
     border-radius: 50%;
     transition: all 0.3s ease;
+    z-index: 10000;
 }
 
 .lightbox-close:hover {
@@ -1642,6 +1805,9 @@ section::after {
     color: white;
     font-size: 16px;
     font-weight: 500;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
 }
 
 .certificate-card {
@@ -2472,4 +2638,31 @@ input, textarea, select, button {
         transform: translateX(-50%) scale(1.1);
         color: var(--accent-color);
     }
+}
+
+/* Certificate lightbox loader */
+.lightbox-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
