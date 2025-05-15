@@ -10,7 +10,7 @@
     --border-color: #e0e0e0;
     --card-bg: #ffffff;
     --box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    --transition: all 0.5s ease;
+    --transition: all 0.3s ease;
     --gradient-1: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
     --gradient-2: linear-gradient(135deg, #c2e9fb 0%, #a1c4fd 100%);
     --gradient-3: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -36,15 +36,11 @@
 
 html {
     scroll-behavior: smooth;
-    transition: color 0.8s ease, background-color 0.8s ease;
-    overflow-x: hidden;
-    width: 100%;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
+    transition: color 0.5s ease, background-color 0.5s ease;
 }
 
 html * {
-    transition: color 0.8s ease, background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;
+    transition: color 0.5s ease, background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
 }
 
 body {
@@ -53,12 +49,6 @@ body {
     color: var(--text-color);
     background-color: var(--background-color);
     overflow-x: hidden;
-    background-position: 0 0;
-    animation: subtleBackgroundShift 120s ease infinite alternate;
-    width: 100%;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    
 }
 
 #particles-js {
@@ -74,8 +64,6 @@ body {
 a {
     text-decoration: none;
     color: inherit;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    will-change: transform, opacity, box-shadow;
 }
 
 ul {
@@ -99,11 +87,6 @@ section {
     background: transparent;
     position: relative;
     z-index: 1;
-    transition: transform 0.8s ease;
-}
-
-section:hover {
-    transform: translateY(-5px);
 }
 
 .section-header {
@@ -117,11 +100,6 @@ section:hover {
     width: auto;
     margin-left: auto;
     margin-right: auto;
-    transition: transform 0.8s ease, box-shadow 0.8s ease;
-}
-
-.section-header:hover {
-    transform: translateY(-3px);
 }
 
 .section-header h2 {
@@ -129,11 +107,6 @@ section:hover {
     font-weight: 700;
     color: var(--primary-color);
     margin-bottom: 10px;
-    transition: color 0.6s ease, transform 0.6s ease;
-}
-
-.section-header:hover h2 {
-    color: var(--accent-color);
 }
 
 .underline {
@@ -152,8 +125,6 @@ section:hover {
     cursor: pointer;
     border: none;
     outline: none;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    will-change: transform, opacity, box-shadow;
 }
 
 .primary-btn {
@@ -163,8 +134,8 @@ section:hover {
 
 .primary-btn:hover {
     background: var(--secondary-color);
-    transform: translateY(-5px);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .secondary-btn {
@@ -215,9 +186,6 @@ header.scrolled {
     align-items: center;
     justify-content: center;
     transition: var(--transition);
-    animation: logoPulse 5s ease-in-out infinite alternate;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    will-change: transform, opacity, box-shadow;
 }
 
 .logo:hover {
@@ -232,8 +200,6 @@ header.scrolled {
 
 .nav-links li {
     margin: 0 15px;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    will-change: transform, opacity, box-shadow;
 }
 
 .nav-links a {
@@ -242,8 +208,6 @@ header.scrolled {
     color: var(--text-color);
     transition: var(--transition);
     position: relative;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    will-change: transform, opacity, box-shadow;
 }
 
 .nav-links a::after {
@@ -254,7 +218,7 @@ header.scrolled {
     width: 0;
     height: 2px;
     background: var(--primary-color);
-    transition: width 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: var(--transition);
 }
 
 .nav-links a:hover, .nav-links a.active {
@@ -277,8 +241,6 @@ header.scrolled {
     margin: 5px auto;
     background-color: var(--text-color);
     transition: var(--transition);
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    will-change: transform, opacity, box-shadow;
 }
 
 /* ===== HERO SECTION ===== */
@@ -327,6 +289,7 @@ header.scrolled {
 
 .highlight {
     color: var(--primary-color);
+    display: inline-block;
 }
 
 .typed-text {
@@ -357,8 +320,6 @@ header.scrolled {
     background: var(--primary-color);
     color: #fff;
     transition: var(--transition);
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    will-change: transform, opacity, box-shadow;
 }
 
 .social-icons a:hover {
@@ -416,10 +377,8 @@ header.scrolled {
     margin: 0 auto;
     border: 5px solid var(--primary-color);
     position: relative;
-    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.8s ease;
-    animation: pulse 4s infinite;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    will-change: transform, opacity, box-shadow;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: pulse 2s infinite;
 }
 
 .img-container:hover {
@@ -449,6 +408,7 @@ header.scrolled {
     background: linear-gradient(45deg, rgba(108, 92, 231, 0.2), rgba(253, 121, 168, 0.2));
     opacity: 0;
     transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
 .img-container:hover::after {
@@ -566,7 +526,7 @@ header.scrolled {
     height: 100%;
     background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
     border-radius: 10px;
-    transition: width 2.5s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: width 1.5s ease-in-out;
 }
 
 /* ===== PROJECTS SECTION ===== */
@@ -607,7 +567,7 @@ header.scrolled {
     border-radius: 10px;
     box-shadow: var(--box-shadow);
     padding: 30px;
-    transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: var(--transition);
     flex: 1;
     min-width: 300px;
     max-width: 350px;
@@ -617,13 +577,11 @@ header.scrolled {
     z-index: 2;
     backdrop-filter: blur(5px);
     border: 1px solid rgba(200, 200, 200, 0.3);
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    will-change: transform, opacity, box-shadow;
 }
 
 .project-card:hover {
-    transform: translateY(-15px) scale(1.03);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
     border-color: var(--primary-color);
 }
 
@@ -692,69 +650,41 @@ header.scrolled {
     align-items: center;
 }
 
-/* Certificate grid - using flex instead of grid for better compatibility */
 .certificate-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
-/* Certificate card - universal approach */
 .certificate-card {
-    flex: 0 0 calc(33.333% - 20px);
-    max-width: calc(33.333% - 20px);
-    min-width: 260px;
-    position: relative;
-    border-radius: 10px;
+    height: 280px;
+    background: transparent;
+    border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-    background-color: #f9f9f9;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
     cursor: pointer;
-    border: 3px solid rgba(255, 255, 255, 0.9);
-}
-
-/* Make sure the card maintains aspect ratio */
-.certificate-card::before {
-    content: "";
-    display: block;
-    padding-top: 75%; /* 4:3 aspect ratio */
+    border: 5px solid rgba(255, 255, 255, 0.7);
 }
 
 .certificate-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
-}
-
-/* Certificate image container */
-.certificate-image-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
 }
 
 .certificate-card img {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.6s ease;
 }
 
 .certificate-card:hover img {
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
-/* Certificate overlay */
 .overlay {
     position: absolute;
     bottom: 0;
@@ -762,9 +692,9 @@ header.scrolled {
     right: 0;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 100%);
     color: white;
-    padding: 15px;
+    padding: 25px 20px;
     transform: translateY(100%);
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -775,8 +705,8 @@ header.scrolled {
 }
 
 .overlay h3 {
-    margin: 0 0 8px;
-    font-size: 1.1rem;
+    margin: 0 0 10px;
+    font-size: 1.3rem;
     font-weight: 600;
     text-align: center;
     color: #fff;
@@ -785,11 +715,11 @@ header.scrolled {
 
 .view-cert {
     display: inline-block;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: var(--accent-color);
     font-weight: 500;
     background: rgba(0, 0, 0, 0.3);
-    padding: 4px 12px;
+    padding: 5px 15px;
     border-radius: 20px;
     margin-top: 5px;
     transition: all 0.3s ease;
@@ -803,26 +733,26 @@ header.scrolled {
 /* Certificate category badges */
 .cert-category {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
     background: var(--primary-color);
     color: white;
-    padding: 3px 8px;
-    border-radius: 15px;
-    font-size: 0.7rem;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
     font-weight: 500;
     z-index: 5;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Certificate Lightbox - Mobile First approach */
+/* Certificate Lightbox */
 .certificate-lightbox {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.92);
+    background-color: rgba(0, 0, 0, 0.9);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -830,8 +760,6 @@ header.scrolled {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
 }
 
 .certificate-lightbox.active {
@@ -841,50 +769,38 @@ header.scrolled {
 
 .lightbox-content {
     position: relative;
-    width: 90%;
-    max-width: 500px;
-    margin: 20px auto;
+    max-width: 90%;
+    max-height: 90%;
+    transform: scale(0.9);
     transition: transform 0.3s ease;
-    background-color: transparent;
-    transform: scale(0.95);
-    z-index: 2;
 }
 
 .certificate-lightbox.active .lightbox-content {
     transform: scale(1);
 }
 
-.lightbox-image-wrapper {
-    width: 100%;
-    border-radius: 4px;
-    overflow: hidden;
-    position: relative;
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
 .lightbox-image {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
+    max-width: 100%;
+    max-height: 90vh;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
+    border: 5px solid white;
 }
 
 .lightbox-close {
     position: absolute;
-    top: -30px;
+    top: -40px;
     right: 0;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
     color: white;
-    font-size: 24px;
+    font-size: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     transition: all 0.3s ease;
-    z-index: 10;
 }
 
 .lightbox-close:hover {
@@ -893,180 +809,65 @@ header.scrolled {
 }
 
 .lightbox-caption {
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+    right: 0;
+    text-align: center;
     color: white;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     padding: 10px;
-    text-align: center;
     background: rgba(0, 0, 0, 0.5);
-    border-radius: 0 0 4px 4px;
-    margin-top: 5px;
+    border-radius: 5px;
 }
 
-/* Lightbox loader */
-.lightbox-loader {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 1;
-    border-radius: 4px;
-}
-
-.spinner {
-    width: 30px;
-    height: 30px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: var(--primary-color);
-    animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-/* Dark theme adjustments */
 [data-theme="dark"] .certificate-card {
-    border-color: rgba(40, 40, 40, 0.7);
-    background-color: #1a1a1a;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    border-color: rgba(30, 30, 30, 0.7);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Responsive styles - using multiple breakpoints for better adaptation */
-/* Tablets and medium screens */
-@media screen and (max-width: 991px) {
-    .certificate-card {
-        flex: 0 0 calc(50% - 20px);
-        max-width: calc(50% - 20px);
-        min-width: 220px;
-    }
+[data-theme="dark"] .lightbox-image {
+    border-color: #333;
 }
 
-/* Small tablets and large phones */
 @media screen and (max-width: 768px) {
     .certificate-grid {
-        gap: 15px;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
     }
     
     .certificate-card {
-        flex: 0 0 calc(50% - 15px);
-        max-width: calc(50% - 15px);
-        min-width: 160px;
-        border-width: 2px;
-    }
-    
-    .certificate-card::before {
-        padding-top: 75%; /* Maintain 4:3 aspect ratio */
+        height: 250px;
     }
     
     .overlay h3 {
-        font-size: 1rem;
-        margin-bottom: 5px;
+        font-size: 1.2rem;
     }
     
-    .view-cert {
-        font-size: 0.7rem;
-        padding: 3px 10px;
-    }
-    
-    .cert-category {
-        font-size: 0.65rem;
-        padding: 2px 7px;
-    }
-    
-    .lightbox-content {
-        width: 95%;
+    .theme-toggle {
+        margin-right: 15px;
+        z-index: 1001;
     }
 }
 
-/* Mobile phones */
 @media screen and (max-width: 576px) {
     .certificate-grid {
-        gap: 10px;
+        grid-template-columns: 1fr;
     }
     
     .certificate-card {
-        flex: 0 0 calc(50% - 10px);
-        max-width: calc(50% - 10px);
-        min-width: 140px;
+        height: 220px;
     }
     
-    .certificate-card::before {
-        padding-top: 80%; /* Slightly taller aspect ratio for small screens */
+    .theme-toggle {
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
     }
     
-    .overlay {
-        padding: 10px;
-    }
-    
-    .overlay h3 {
-        font-size: 0.9rem;
-    }
-    
-    .view-cert {
-        font-size: 0.65rem;
-        padding: 2px 8px;
-    }
-    
-    .cert-category {
-        top: 5px;
-        right: 5px;
-        font-size: 0.6rem;
-        padding: 2px 6px;
-    }
-    
-    .lightbox-close {
-        top: -25px;
-        width: 25px;
-        height: 25px;
-        font-size: 18px;
-    }
-    
-    .lightbox-caption {
-        font-size: 12px;
-        padding: 8px;
-    }
-}
-
-/* Very small phones */
-@media screen and (max-width: 400px) {
-    .certificate-grid {
-        gap: 8px;
-    }
-    
-    .certificate-card {
-        flex: 0 0 calc(50% - 8px);
-        max-width: calc(50% - 8px);
-        min-width: 120px;
-    }
-    
-    .overlay h3 {
-        font-size: 0.8rem;
-        margin-bottom: 3px;
-    }
-    
-    .view-cert {
-        font-size: 0.6rem;
-        padding: 2px 6px;
-    }
-}
-
-/* Support for very small screens - single column layout */
-@media screen and (max-width: 320px) {
-    .certificate-card {
-        flex: 0 0 100%;
-        max-width: 100%;
-        min-width: 100%;
-    }
-    
-    .certificate-card::before {
-        padding-top: 70%; /* Wider aspect ratio for single column */
+    .theme-toggle i {
+        font-size: 1rem;
     }
 }
 
@@ -1402,7 +1203,7 @@ footer .social-icons a:hover {
     }
     
     .section-header h2 {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
     }
     
     .hero-btns .btn {
@@ -1416,29 +1217,6 @@ footer .social-icons a:hover {
     .img-container {
         width: 200px;
         height: 200px;
-    }
-    
-    .container {
-        width: 95%;
-        padding: 0 10px;
-    }
-    
-    p, .detail-item span, .skill-item h4 {
-        font-size: 0.95rem;
-    }
-    
-    .hero-content {
-        padding: 0 5px;
-    }
-    
-    .form-group input, .form-group textarea {
-        font-size: 16px;
-        padding: 10px;
-    }
-    
-    .btn {
-        padding: 10px 20px;
-        margin: 5px;
     }
 }
 
@@ -1741,7 +1519,6 @@ section::after {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
-    overflow: hidden;
 }
 
 .certificate-lightbox.active {
@@ -1751,11 +1528,10 @@ section::after {
 
 .lightbox-content {
     position: relative;
-    max-width: 85%;
-    max-height: 85%;
-    transform: scale(0.95);
+    max-width: 90%;
+    max-height: 90%;
+    transform: scale(0.9);
     transition: transform 0.3s ease;
-    margin: 30px 0;
 }
 
 .certificate-lightbox.active .lightbox-content {
@@ -1763,37 +1539,29 @@ section::after {
 }
 
 .lightbox-image {
-    display: block;
     max-width: 100%;
-    height: auto;
-    max-height: 80vh;
+    max-height: 90vh;
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
-    border: 3px solid white;
-    object-fit: contain;
-    background-color: rgba(245, 245, 245, 0.2);
+    border: 5px solid white;
 }
 
 .lightbox-close {
     position: absolute;
     top: -40px;
     right: 0;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
     color: white;
     font-size: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    z-index: 10000;
+    transition: transform 0.3s ease;
 }
 
 .lightbox-close:hover {
     transform: rotate(90deg);
-    background: var(--primary-color);
 }
 
 .lightbox-caption {
@@ -1805,9 +1573,6 @@ section::after {
     color: white;
     font-size: 16px;
     font-weight: 500;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
 }
 
 .certificate-card {
@@ -1905,11 +1670,11 @@ section::after {
 
 /* Theme transition */
 html {
-    transition: color 0.8s ease, background-color 0.8s ease;
+    transition: color 0.5s ease, background-color 0.5s ease;
 }
 
 html * {
-    transition: color 0.8s ease, background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;
+    transition: color 0.5s ease, background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
 }
 
 .theme-transition {
@@ -2084,28 +1849,6 @@ html * {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2) !important;
 }
 
-/* Typing animation */
-.typing-animation {
-    position: relative;
-    display: inline-block;
-}
-
-.typing-animation::after {
-    content: '|';
-    position: absolute;
-    right: -7px;
-    animation: blink 0.7s infinite;
-}
-
-.typing-done::after {
-    animation: blink 0.7s infinite;
-}
-
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-
 /* Project filters */
 .project-filters {
     display: flex;
@@ -2155,514 +1898,4 @@ html * {
     background: var(--primary-color);
     color: white;
     border-color: var(--primary-color);
-}
-
-/* Enhanced Animation Styles */
-
-/* Direction-based animations */
-.hidden-bottom {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-.hidden-left {
-    opacity: 0;
-    transform: translateX(-50px);
-    transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-.hidden-right {
-    opacity: 0;
-    transform: translateX(50px);
-    transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-.reveal-bottom, .reveal-left, .reveal-right {
-    opacity: 1;
-    transform: translate(0, 0);
-}
-
-/* Floating icon animation */
-.floating-icon {
-    animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-15px);
-    }
-}
-
-/* Scroll progress bar */
-.scroll-progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 4px;
-    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-    z-index: 9999;
-    transition: width 0.2s ease;
-}
-
-/* Fade in animation for hero subheading */
-.animate-fade-in {
-    animation: fadeInUp 1s ease-in-out;
-}
-
-/* Enhanced card hover effects */
-.project-card:hover .card-icon {
-    transform: scale(1.1) translateY(-5px);
-    background: var(--accent-color);
-    box-shadow: 0 10px 20px rgba(253, 121, 168, 0.3);
-}
-
-/* Add glowing effect to featured project */
-.featured-project {
-    animation: subtle-glow 5s infinite alternate;
-}
-
-@keyframes subtle-glow {
-    0% {
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
-    100% {
-        box-shadow: 0 10px 30px rgba(108, 92, 231, 0.3);
-    }
-}
-
-/* Smooth transitions for all elements */
-* {
-    transition-property: background-color, border-color, color, box-shadow, transform, opacity;
-    transition-duration: 0.3s;
-    transition-timing-function: ease;
-}
-
-/* Enhanced Visual Effects */
-
-/* Animated gradient background for featured project */
-.featured-project {
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-}
-
-.featured-project::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, rgba(108, 92, 231, 0.1), rgba(253, 121, 168, 0.1), rgba(108, 92, 231, 0.1));
-    transform: rotate(30deg);
-    z-index: -1;
-    animation: gradientMove 15s ease infinite;
-}
-
-@keyframes gradientMove {
-    0% {
-        transform: rotate(30deg) translateY(10%) translateX(10%);
-    }
-    50% {
-        transform: rotate(30deg) translateY(-10%) translateX(-10%);
-    }
-    100% {
-        transform: rotate(30deg) translateY(10%) translateX(10%);
-    }
-}
-
-/* Animated border effect for certificates */
-.certificate-card {
-    position: relative;
-    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.8s ease;
-}
-
-.certificate-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border: 2px solid transparent;
-    border-radius: 15px;
-    animation: borderColor 4s ease infinite;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.certificate-card:hover::after {
-    opacity: 1;
-}
-
-@keyframes borderColor {
-    0% {
-        border-color: var(--primary-color);
-    }
-    50% {
-        border-color: var(--accent-color);
-    }
-    100% {
-        border-color: var(--primary-color);
-    }
-}
-
-/* Shimmer effect for section headers */
-.section-header h2 {
-    position: relative;
-    overflow: hidden;
-}
-
-.section-header h2::after {
-    content: '';
-    display: none;
-}
-
-@keyframes shimmer {
-    0% {
-        left: -100%;
-    }
-    100% {
-        left: 200%;
-    }
-}
-
-/* Interactive skills bars */
-.skill-item:hover .progress {
-    animation: progressPulse 1s ease infinite alternate;
-}
-
-@keyframes progressPulse {
-    0% {
-        background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-    }
-    100% {
-        background: linear-gradient(to right, var(--accent-color), var(--primary-color));
-    }
-}
-
-/* 3D button effect */
-.btn {
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: all 0.5s ease;
-}
-
-.btn:hover::before {
-    left: 100%;
-}
-
-.btn:active {
-    transform: translateY(2px) scale(0.98);
-}
-
-/* Animated text in hero section */
-.hero-content h1 .highlight {
-    position: relative;
-    display: inline-block;
-}
-
-.hero-content h1 .highlight::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 5px;
-    bottom: 0;
-    left: 0;
-    background: var(--accent-color);
-    transform: scaleX(0);
-    transform-origin: bottom right;
-    transition: transform 0.5s ease;
-}
-
-.hero-content:hover h1 .highlight::before {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-}
-
-/* Animated logo */
-.logo {
-    animation: logoPulse 5s ease-in-out infinite alternate;
-}
-
-@keyframes logoPulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.15);
-        transform: scale(1);
-    }
-    100% {
-        box-shadow: 0 0 0 10px rgba(108, 92, 231, 0);
-        transform: scale(1.05);
-    }
-}
-
-/* Enhanced image hover effect */
-.img-container:hover img {
-    transform: scale(1.08);
-    filter: brightness(1.05);
-}
-
-.img-container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: radial-gradient(circle at center, transparent 30%, rgba(108, 92, 231, 0.2) 100%);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-.img-container:hover::after {
-    opacity: 1;
-}
-
-/* Hero tags styling */
-.hero-tags {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin: 15px 0;
-}
-
-.tag {
-    background: rgba(108, 92, 231, 0.15);
-    color: var(--primary-color);
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(108, 92, 231, 0.3);
-    transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
-    animation: tagAppear 0.8s ease forwards;
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-.tag:nth-child(1) {
-    animation-delay: 0.1s;
-}
-
-.tag:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.tag:nth-child(3) {
-    animation-delay: 0.3s;
-}
-
-.tag:nth-child(4) {
-    animation-delay: 0.4s;
-}
-
-.tag:hover {
-    background: var(--primary-color);
-    color: white;
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
-}
-
-@keyframes tagAppear {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Scroll indicator */
-.scroll-indicator {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: var(--primary-color);
-    font-size: 0.85rem;
-    animation: fadeInUp 2s ease infinite alternate;
-    cursor: pointer;
-    transition: all 0.6s ease;
-    width: auto;
-    text-align: center;
-}
-
-.scroll-indicator:hover {
-    transform: scale(1.05);
-}
-
-.scroll-indicator span {
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
-.scroll-indicator i {
-    font-size: 1.2rem;
-    animation: bounce 3s infinite;
-}
-
-/* Mobile-specific styles for scroll indicator */
-@media screen and (max-width: 576px) {
-    .scroll-indicator {
-        width: 100%;
-        bottom: 20px;
-        left: 0;
-        transform: none;
-        padding: 0 10px;
-    }
-    
-    .scroll-indicator:hover {
-        transform: scale(1.05);
-    }
-}
-
-/* Override any animations for section headers */
-.section-header h2 span {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-}
-
-/* Section highlight effect */
-.section-highlight {
-    animation: sectionHighlight 1.5s ease;
-}
-
-@keyframes sectionHighlight {
-    0% {
-        box-shadow: none;
-    }
-    20% {
-        box-shadow: 0 0 30px rgba(108, 92, 231, 0.2);
-    }
-    100% {
-        box-shadow: none;
-    }
-}
-
-/* Dynamic content transition */
-.content-transition {
-    transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-/* Enhanced hover states for elements */
-a, button, .btn, .logo, .project-card, .certificate-card, .nav-links li, .social-icons a, .img-container {
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    will-change: transform, opacity, box-shadow;
-}
-
-/* Subtle background motion */
-body {
-    background-position: 0 0;
-    animation: subtleBackgroundShift 120s ease infinite alternate;
-}
-
-@keyframes subtleBackgroundShift {
-    0% {
-        background-position: 0% 0%;
-    }
-    100% {
-        background-position: 100% 100%;
-    }
-}
-
-/* Smooth transitions for theme toggle */
-[data-theme="dark"], [data-theme="light"] {
-    transition: background-color 1.2s cubic-bezier(0.19, 1, 0.22, 1), 
-                color 1.2s cubic-bezier(0.19, 1, 0.22, 1),
-                border-color 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-/* Breathing effect for social icons */
-.social-icons a {
-    animation: breathe 6s ease-in-out infinite alternate;
-}
-
-@keyframes breathe {
-    0% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(1.08);
-    }
-}
-
-/* Enhance focus states for better accessibility and aesthetics */
-a:focus, button:focus, input:focus, textarea:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.4);
-    transition: box-shadow 0.5s ease;
-}
-
-/* Input and form element fixes for mobile */
-input, textarea, select, button {
-    font-size: 16px; /* Prevents iOS zoom on form elements */
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-12px);
-    }
-    60% {
-        transform: translateY(-6px);
-    }
-}
-
-/* Desktop hover effect for scroll indicator */
-@media screen and (min-width: 577px) {
-    .scroll-indicator:hover {
-        transform: translateX(-50%) scale(1.1);
-        color: var(--accent-color);
-    }
-}
-
-/* Certificate lightbox loader */
-.lightbox-loader {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1;
-}
-
-.spinner {
-    width: 40px;
-    height: 40px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: var(--primary-color);
-    animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
 }
