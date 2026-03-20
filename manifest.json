@@ -1,0 +1,22 @@
+{
+  "name": "Aditya Singh Portfolio",
+  "short_name": "Aditya Singh",
+  "description": "Web Developer & Security Researcher — BSc IT Student",
+  "start_url": "/Portfolio/",
+  "display": "standalone",
+  "background_color": "#0a0818",
+  "theme_color": "#6c5ce7",
+  "icons": [
+    {
+      "src": "public/images/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "public/images/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

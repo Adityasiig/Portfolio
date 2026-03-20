@@ -1,0 +1,929 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aditya Singh â€” BSc IT Student, Web Developer & Security Researcher. I build web apps and security tools. Check out my projects, skills, and certifications.">
+    <meta name="author" content="Aditya Singh">
+    <meta name="keywords" content="Aditya Singh, Web Developer, Portfolio, BSc IT, Python, JavaScript, Cybersecurity, Ethical Hacking, Security Researcher, WebVulnScanner">
+    <meta property="og:title" content="Aditya Singh | Web Developer & Security Researcher">
+    <meta property="og:description" content="BSc IT Student who builds real tools â€” from web vulnerability scanners to sleek task managers.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="public/images/profile.jpg">
+    <title>Aditya Singh | Web Developer & Security Researcher</title>
+    <link rel="icon" href="public/images/favicon.ico" sizes="any">
+    <link rel="icon" href="public/images/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="public/images/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="public/images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="public/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        (function() {
+            // Replace with your EmailJS Public Key from https://dashboard.emailjs.com/admin/account
+            emailjs.init({ publicKey: '42_vwBZ0ZtAHGQkag' });
+        })();
+    </script>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loader" class="loader">
+        <div class="loader-inner">
+            <div class="loader-logo">AS</div>
+            <div class="loader-bar"><div class="loader-progress"></div></div>
+        </div>
+    </div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <!-- Navigation -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#home" class="logo">
+                    <span class="logo-text">AS</span>
+                    <span class="logo-dot"></span>
+                </a>
+                <div class="nav-wrapper">
+                    <ul class="nav-links" id="nav-links">
+                        <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+                        <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+                        <li><a href="#skills" class="nav-link" data-section="skills">Skills</a></li>
+                        <li><a href="#projects" class="nav-link" data-section="projects">Projects</a></li>
+                        <li><a href="#certificates" class="nav-link" data-section="certificates">Certificates</a></li>
+                        <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="nav-actions">
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </button>
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobile-menu">
+        <ul class="mobile-nav-links">
+            <li><a href="#home" class="mobile-link">Home</a></li>
+            <li><a href="#about" class="mobile-link">About</a></li>
+            <li><a href="#skills" class="mobile-link">Skills</a></li>
+            <li><a href="#projects" class="mobile-link">Projects</a></li>
+            <li><a href="#certificates" class="mobile-link">Certificates</a></li>
+            <li><a href="#contact" class="mobile-link">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- ====== HERO SECTION ====== -->
+    <section id="home" class="hero">
+        <!-- Animated Background -->
+        <div class="hero-bg">
+            <div class="aurora"></div>
+            <div class="grid-overlay"></div>
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+                <div class="shape shape-5"></div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge" data-animate="fade-up">
+                    <span class="badge-dot"></span>
+                    <span>Available for opportunities</span>
+                </div>
+                <div class="currently-building" data-animate="fade-up">
+                    <span class="building-icon"><i class="fas fa-hammer"></i></span>
+                    <span>Currently building: <strong>WebVulnScanner v2</strong> â€” AI-powered exploit suggestions</span>
+                </div>
+                <h1 class="hero-title" data-animate="fade-up" data-delay="100">
+                    <span class="line">Hi, I'm</span>
+                    <span class="line gradient-text">Aditya Singh</span>
+                </h1>
+                <div class="hero-subtitle" data-animate="fade-up" data-delay="200">
+                    <span class="typed-prefix">A </span><span class="typed-text" id="typed-text"></span>
+                </div>
+                <p class="hero-description" data-animate="fade-up" data-delay="300">
+                    BSc IT student who builds real tools â€” from web vulnerability scanners to sleek task managers. I write clean code, break things on purpose, and put them back together better.
+                </p>
+                <div class="hero-cta" data-animate="fade-up" data-delay="400">
+                    <a href="#projects" class="btn btn-primary">
+                        <span>View My Work</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="public/files/cv.pdf" class="btn btn-outline" download>
+                        <span>Download CV</span>
+                        <i class="fas fa-download"></i>
+                    </a>
+                </div>
+                <div class="hero-socials" data-animate="fade-up" data-delay="500">
+                    <a href="https://github.com/Adityasiig" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://in.linkedin.com/in/singhaditya70" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="mailto:adityaajaysingh0104@gmail.com" class="social-link" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator" data-animate="fade-up" data-delay="600">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <span>Scroll Down</span>
+        </div>
+    </section>
+
+    <!-- ====== ABOUT SECTION ====== -->
+    <section id="about" class="about section">
+        <div class="container">
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-tag">Get to know me</span>
+                <h2 class="section-title">About Me</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-image-col" data-animate="fade-right">
+                    <div class="about-image-wrapper">
+                        <div class="about-image-frame about-illus-frame">
+                            <svg class="about-illus" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg" aria-label="Developer avatar">
+                              <defs>
+                                <radialGradient id="avBgD" cx="50%" cy="38%" r="65%">
+                                  <stop offset="0%" stop-color="#3a3090"/><stop offset="60%" stop-color="#201c60"/><stop offset="100%" stop-color="#110e3a"/>
+                                </radialGradient>
+                                <radialGradient id="avBgL" cx="50%" cy="38%" r="65%">
+                                  <stop offset="0%" stop-color="#ddd6ff"/><stop offset="60%" stop-color="#b8aff5"/><stop offset="100%" stop-color="#9b8fe8"/>
+                                </radialGradient>
+                                <linearGradient id="avSkinD" x1="0%" y1="0%" x2="0%" y2="100%">
+                                  <stop offset="0%" stop-color="#f8cc8a"/><stop offset="100%" stop-color="#e0a050"/>
+                                </linearGradient>
+                                <linearGradient id="avSkinL" x1="0%" y1="0%" x2="0%" y2="100%">
+                                  <stop offset="0%" stop-color="#fad898"/><stop offset="100%" stop-color="#eab060"/>
+                                </linearGradient>
+                                <linearGradient id="avSuitD" x1="0%" y1="0%" x2="100%" y2="100%">
+                                  <stop offset="0%" stop-color="#252060"/><stop offset="50%" stop-color="#1e1858"/><stop offset="100%" stop-color="#141040"/>
+                                </linearGradient>
+                                <linearGradient id="avSuitL" x1="0%" y1="0%" x2="100%" y2="100%">
+                                  <stop offset="0%" stop-color="#2e2870"/><stop offset="50%" stop-color="#252060"/><stop offset="100%" stop-color="#1a1850"/>
+                                </linearGradient>
+                                <clipPath id="avCl"><circle cx="200" cy="210" r="196"/></clipPath>
+                                <filter id="avBdg" x="-25%" y="-25%" width="150%" height="150%">
+                                  <feGaussianBlur stdDeviation="2.5" result="b"/>
+                                  <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                                </filter>
+                              </defs>
+
+                              <!-- outer rings -->
+                              <circle cx="200" cy="210" r="200" fill="none" stroke="#a29bfe" stroke-width="1" opacity="0.18" class="av-ring2"/>
+                              <circle cx="200" cy="210" r="196" fill="none" stroke="#6c5ce7" stroke-width="3" opacity="0.55" class="av-ring1"/>
+                              <!-- bg circle -->
+                              <circle cx="200" cy="210" r="194" fill="url(#avBgD)" class="av-bg"/>
+
+                              <g clip-path="url(#avCl)">
+                                <!-- depth wings -->
+                                <path fill="#0d0b2e" class="av-wing" d="M200,210 Q55,55 10,170 Q-10,260 40,360 Q80,420 200,420 Z" opacity="0.62"/>
+                                <path fill="#0d0b2e" class="av-wing" d="M200,210 Q345,55 390,170 Q410,260 360,360 Q320,420 200,420 Z" opacity="0.62"/>
+
+                                <!-- suit body -->
+                                <path fill="url(#avSuitD)" class="av-suit" d="M30,420 Q40,305 110,272 L162,252 L200,285 L238,252 L290,272 Q360,305 370,420 Z"/>
+                                <!-- shoulder shadows -->
+                                <path fill="#120f38" d="M30,420 Q40,305 110,272 L145,258 Q120,280 110,320 Q80,370 55,420 Z" class="av-shadow" opacity="0.38"/>
+                                <path fill="#120f38" d="M370,420 Q360,305 290,272 L255,258 Q280,280 290,320 Q320,370 345,420 Z" class="av-shadow" opacity="0.38"/>
+
+                                <!-- lapels -->
+                                <path fill="#1a1650" d="M200,285 L162,252 Q148,270 153,289 Q170,300 192,306 Z" class="av-lapel"/>
+                                <path fill="#1a1650" d="M200,285 L238,252 Q252,270 247,289 Q230,300 208,306 Z" class="av-lapel"/>
+
+                                <!-- shirt -->
+                                <path fill="#c4b8ff" opacity="0.22" d="M192,306 Q200,318 208,306 L213,375 Q200,384 187,375 Z" class="av-shirt"/>
+
+                                <!-- tie -->
+                                <path d="M194,300 L206,300 L212,362 L200,376 L188,362 Z" fill="#6c5ce7"/>
+                                <path d="M192,293 L208,293 L200,304 Z" fill="#5046c0"/>
+                                <path d="M198,304 L202,304 L206,340 L200,346 L194,340 Z" fill="#8070f0" opacity="0.4"/>
+
+                                <!-- neck -->
+                                <rect x="182" y="228" width="36" height="44" rx="16" fill="url(#avSkinD)" class="av-skin"/>
+
+                                <!-- head glow -->
+                                <ellipse cx="200" cy="178" rx="72" ry="74" fill="#6c5ce7" opacity="0.06"/>
+                                <!-- head -->
+                                <ellipse cx="200" cy="178" rx="70" ry="72" fill="url(#avSkinD)" class="av-skin"/>
+                                <!-- forehead shine -->
+                                <ellipse cx="192" cy="152" rx="28" ry="18" fill="white" opacity="0.07"/>
+
+                                <!-- hair -->
+                                <path fill="#1a1848" class="av-hair" d="M130,178 Q132,104 200,100 Q268,104 270,178 Q254,142 200,142 Q146,142 130,178 Z"/>
+                                <path fill="#1a1848" class="av-hair" d="M130,178 Q125,158 130,145 Q134,130 142,138 Q130,158 130,178 Z"/>
+                                <path fill="#1a1848" class="av-hair" d="M270,178 Q275,158 270,145 Q266,130 258,138 Q270,158 270,178 Z"/>
+                                <path fill="#2e2870" class="av-hair-sh" d="M160,118 Q185,104 222,108 Q200,102 178,110 Z" opacity="0.7"/>
+
+                                <!-- ears -->
+                                <ellipse cx="130" cy="188" rx="11" ry="16" fill="url(#avSkinD)" class="av-skin"/>
+                                <ellipse cx="130" cy="188" rx="6" ry="10" fill="#d49448" class="av-ear" opacity="0.55"/>
+                                <ellipse cx="270" cy="188" rx="11" ry="16" fill="url(#avSkinD)" class="av-skin"/>
+                                <ellipse cx="270" cy="188" rx="6" ry="10" fill="#d49448" class="av-ear" opacity="0.55"/>
+                              </g>
+
+                              <!-- badges -->
+                              <g transform="translate(14,52)" filter="url(#avBdg)">
+                                <rect width="68" height="34" rx="10" fill="rgba(108,92,231,0.18)" stroke="#6c5ce7" stroke-width="1.8" stroke-opacity="0.85" class="av-bdg-1"/>
+                                <text x="9" y="24" font-family="JetBrains Mono,monospace" font-size="15" fill="#a29bfe" class="av-btx-1" font-weight="700">&lt;/&gt;</text>
+                              </g>
+                              <g transform="translate(300,44)" filter="url(#avBdg)">
+                                <rect width="68" height="34" rx="10" fill="rgba(0,206,201,0.15)" stroke="#00cec9" stroke-width="1.8" stroke-opacity="0.8" class="av-bdg-2"/>
+                                <text x="10" y="24" font-family="JetBrains Mono,monospace" font-size="14" fill="#00cec9" class="av-btx-2" font-weight="700">{ }</text>
+                              </g>
+                              <g transform="translate(10,210)" filter="url(#avBdg)">
+                                <rect width="58" height="34" rx="10" fill="rgba(253,121,168,0.13)" stroke="#fd79a8" stroke-width="1.8" stroke-opacity="0.75" class="av-bdg-3"/>
+                                <text x="10" y="24" font-family="JetBrains Mono,monospace" font-size="14" fill="#fd79a8" class="av-btx-3" font-weight="700">()</text>
+                              </g>
+                              <g transform="translate(332,195)" filter="url(#avBdg)">
+                                <rect width="56" height="34" rx="10" fill="rgba(253,203,110,0.12)" stroke="#fdcb6e" stroke-width="1.8" stroke-opacity="0.7" class="av-bdg-4"/>
+                                <text x="7" y="24" font-family="JetBrains Mono,monospace" font-size="14" fill="#fdcb6e" class="av-btx-4" font-weight="700">.py</text>
+                              </g>
+                              <g transform="translate(150,22)" filter="url(#avBdg)">
+                                <rect width="80" height="32" rx="10" fill="rgba(108,92,231,0.18)" stroke="#6c5ce7" stroke-width="1.8" stroke-opacity="0.85" class="av-bdg-1"/>
+                                <text x="10" y="22" font-family="JetBrains Mono,monospace" font-size="13" fill="#a29bfe" class="av-btx-1" font-weight="700">git âœ“</text>
+                              </g>
+
+                              <!-- pulsing dots -->
+                              <circle cx="44" cy="155" r="4" fill="#6c5ce7" class="av-dot-1" opacity="0.7"><animate attributeName="r" values="4;7;4" dur="2.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.7;1;0.7" dur="2.4s" repeatCount="indefinite"/></circle>
+                              <circle cx="356" cy="148" r="3.5" fill="#00cec9" class="av-dot-2" opacity="0.65"><animate attributeName="r" values="3.5;6;3.5" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.65;1;0.65" dur="2s" repeatCount="indefinite"/></circle>
+                              <circle cx="200" cy="14" r="3.5" fill="#fd79a8" class="av-dot-3" opacity="0.6"><animate attributeName="r" values="3.5;6;3.5" dur="2.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.6;1;0.6" dur="2.8s" repeatCount="indefinite"/></circle>
+                              <circle cx="28" cy="350" r="3" fill="#a29bfe" class="av-dot-4" opacity="0.6"><animate attributeName="r" values="3;5.5;3" dur="3.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.5;0.95;0.5" dur="3.2s" repeatCount="indefinite"/></circle>
+                              <circle cx="375" cy="355" r="3" fill="#6c5ce7" class="av-dot-1" opacity="0.55"><animate attributeName="r" values="3;5.5;3" dur="2.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.5;0.95;0.5" dur="2.6s" repeatCount="indefinite"/></circle>
+
+                              <!-- sparkles -->
+                              <polygon points="352,76 354,69 356,76 363,78 356,80 354,87 352,80 345,78" fill="#6c5ce7" class="av-dot-1" opacity="0.6"><animate attributeName="opacity" values="0.6;0.08;0.6" dur="3.4s" repeatCount="indefinite"/></polygon>
+                              <polygon points="34,305 36,298 38,305 45,307 38,309 36,316 34,309 27,307" fill="#00cec9" class="av-dot-2" opacity="0.55"><animate attributeName="opacity" values="0.55;0.05;0.55" dur="4.2s" repeatCount="indefinite"/></polygon>
+                              <polygon points="366,300 368,294 370,300 377,302 370,304 368,310 366,304 359,302" fill="#fd79a8" class="av-dot-3" opacity="0.5"><animate attributeName="opacity" values="0.5;0.05;0.5" dur="2.9s" repeatCount="indefinite"/></polygon>
+                            </svg>
+                        </div>
+                        <div class="about-image-decoration"></div>
+                        <div class="about-image-dots"></div>
+                    </div>
+                    <!-- Stats Cards -->
+                    <div class="floating-stat stat-1">
+                        <div class="stat-icon"><i class="fas fa-code"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-number" data-count="10">0</span>+
+                            <span class="stat-label">Projects</span>
+                        </div>
+                    </div>
+                    <div class="floating-stat stat-2">
+                        <div class="stat-icon"><i class="fas fa-certificate"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-number" data-count="9">0</span>+
+                            <span class="stat-label">Certificates</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-text-col" data-animate="fade-left">
+                    <h3 class="about-greeting">Developer. Security Enthusiast. Problem Solver.</h3>
+                    <p class="about-bio">
+                        I'm Aditya Singh â€” a third-year BSc IT student who loves building things that actually work. From crafting clean, animated front-ends to writing Python security tools that crawl and scan live websites, I'm drawn to projects where code meets real-world impact. When I'm not building, I'm learning â€” exploring ethical hacking, system design, and everything in between.
+                    </p>
+                    <div class="about-details-grid">
+                        <div class="detail-card">
+                            <div class="detail-icon"><i class="fas fa-graduation-cap"></i></div>
+                            <div>
+                                <h4>Education</h4>
+                                <p>BSc Information Technology â€” 3rd Year</p>
+                            </div>
+                        </div>
+                        <div class="detail-card">
+                            <div class="detail-icon"><i class="fas fa-laptop-code"></i></div>
+                            <div>
+                                <h4>Focus</h4>
+                                <p>Web Development & Security Tooling</p>
+                            </div>
+                        </div>
+                        <div class="detail-card">
+                            <div class="detail-icon"><i class="fas fa-shield-alt"></i></div>
+                            <div>
+                                <h4>Passion</h4>
+                                <p>Ethical Hacking & Penetration Testing</p>
+                            </div>
+                        </div>
+                        <div class="detail-card">
+                            <div class="detail-icon"><i class="fas fa-brain"></i></div>
+                            <div>
+                                <h4>Currently Learning</h4>
+                                <p>System Design & Advanced Algorithms</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#contact" class="btn btn-primary">
+                        <span>Let's Connect</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== SKILLS SECTION ====== -->
+    <section id="skills" class="skills section">
+        <div class="container">
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-tag">What I know</span>
+                <h2 class="section-title">My Skills</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="skills-bento">
+                <!-- Programming Languages - Large Card -->
+                <div class="bento-card bento-large" data-animate="fade-up" data-delay="100">
+                    <div class="bento-header">
+                        <div class="bento-icon"><i class="fas fa-terminal"></i></div>
+                        <h3>Programming Languages</h3>
+                    </div>
+                    <div class="skill-pills">
+                        <div class="skill-pill" data-level="85">
+                            <span class="pill-name">Python</span>
+                            <div class="pill-bar"><div class="pill-fill" style="--fill: 85%"></div></div>
+                        </div>
+                        <div class="skill-pill" data-level="85">
+                            <span class="pill-name">C++</span>
+                            <div class="pill-bar"><div class="pill-fill" style="--fill: 85%"></div></div>
+                        </div>
+                        <div class="skill-pill" data-level="80">
+                            <span class="pill-name">JavaScript</span>
+                            <div class="pill-bar"><div class="pill-fill" style="--fill: 80%"></div></div>
+                        </div>
+                        <div class="skill-pill" data-level="75">
+                            <span class="pill-name">Core Java</span>
+                            <div class="pill-bar"><div class="pill-fill" style="--fill: 75%"></div></div>
+                        </div>
+                        <div class="skill-pill" data-level="70">
+                            <span class="pill-name">SQL / PL-SQL</span>
+                            <div class="pill-bar"><div class="pill-fill" style="--fill: 70%"></div></div>
+                        </div>
+                        <div class="skill-pill" data-level="65">
+                            <span class="pill-name">R Programming</span>
+                            <div class="pill-bar"><div class="pill-fill" style="--fill: 65%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web Development -->
+                <div class="bento-card bento-medium" data-animate="fade-up" data-delay="200">
+                    <div class="bento-header">
+                        <div class="bento-icon"><i class="fas fa-globe"></i></div>
+                        <h3>Web Development</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag"><i class="fab fa-html5"></i> HTML5</span>
+                        <span class="skill-tag"><i class="fab fa-css3-alt"></i> CSS3</span>
+                        <span class="skill-tag"><i class="fab fa-js"></i> Vanilla JS</span>
+                        <span class="skill-tag"><i class="fab fa-node-js"></i> Node.js</span>
+                        <span class="skill-tag"><i class="fab fa-react"></i> React.js</span>
+                        <span class="skill-tag"><i class="fas fa-database"></i> MongoDB</span>
+                        <span class="skill-tag"><i class="fab fa-python"></i> Flask</span>
+                    </div>
+                </div>
+
+                <!-- Tools & Platforms -->
+                <div class="bento-card bento-medium" data-animate="fade-up" data-delay="300">
+                    <div class="bento-header">
+                        <div class="bento-icon"><i class="fas fa-tools"></i></div>
+                        <h3>Tools & Platforms</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag"><i class="fab fa-git-alt"></i> Git & GitHub</span>
+                        <span class="skill-tag"><i class="fab fa-linux"></i> Linux</span>
+                        <span class="skill-tag"><i class="fas fa-terminal"></i> Kali Linux</span>
+                        <span class="skill-tag"><i class="fab fa-ubuntu"></i> Ubuntu Server</span>
+                        <span class="skill-tag"><i class="fas fa-bug"></i> Burp Suite</span>
+                        <span class="skill-tag"><i class="fas fa-search"></i> sqlmap / nmap</span>
+                        <span class="skill-tag"><i class="fas fa-code"></i> VS Code</span>
+                    </div>
+                </div>
+
+                <!-- CS Fundamentals -->
+                <div class="bento-card bento-wide" data-animate="fade-up" data-delay="400">
+                    <div class="bento-header">
+                        <div class="bento-icon"><i class="fas fa-microchip"></i></div>
+                        <h3>CS Fundamentals</h3>
+                    </div>
+                    <div class="fundamentals-grid">
+                        <div class="fundamental-item">
+                            <div class="fundamental-ring" data-percent="80">
+                                <svg viewBox="0 0 36 36">
+                                    <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                    <path class="ring-fill" stroke-dasharray="80, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                </svg>
+                                <span>80%</span>
+                            </div>
+                            <p>Data Structures</p>
+                        </div>
+                        <div class="fundamental-item">
+                            <div class="fundamental-ring" data-percent="85">
+                                <svg viewBox="0 0 36 36">
+                                    <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                    <path class="ring-fill" stroke-dasharray="85, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                </svg>
+                                <span>85%</span>
+                            </div>
+                            <p>Linux Admin</p>
+                        </div>
+                        <div class="fundamental-item">
+                            <div class="fundamental-ring" data-percent="80">
+                                <svg viewBox="0 0 36 36">
+                                    <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                    <path class="ring-fill" stroke-dasharray="80, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                </svg>
+                                <span>80%</span>
+                            </div>
+                            <p>Networking</p>
+                        </div>
+                        <div class="fundamental-item">
+                            <div class="fundamental-ring" data-percent="75">
+                                <svg viewBox="0 0 36 36">
+                                    <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                    <path class="ring-fill" stroke-dasharray="75, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                </svg>
+                                <span>75%</span>
+                            </div>
+                            <p>Web Security</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== GITHUB ACTIVITY SECTION ====== -->
+    <section class="github-activity section">
+        <div class="container">
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-tag">Open source activity</span>
+                <h2 class="section-title">Contributions</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="github-activity-wrap" data-animate="fade-up" data-delay="100">
+                <div class="github-activity-header">
+                    <span class="github-activity-user"><i class="fab fa-github"></i> Adityasiig</span>
+                    <span class="github-activity-label" id="gh-contrib-count">Loading contributions...</span>
+                </div>
+                <div class="github-graph-container">
+                    <div id="gh-calendar">
+                        <div class="gh-cal-loading"><i class="fas fa-spinner fa-spin"></i> Loading contributions...</div>
+                    </div>
+                    <div class="gh-cal-legend">
+                        <span class="gh-cal-legend-label">Less</span>
+                        <span class="gh-cal-cell" data-level="0"></span>
+                        <span class="gh-cal-cell" data-level="1"></span>
+                        <span class="gh-cal-cell" data-level="2"></span>
+                        <span class="gh-cal-cell" data-level="3"></span>
+                        <span class="gh-cal-cell" data-level="4"></span>
+                        <span class="gh-cal-legend-label">More</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== PROJECTS SECTION ====== -->
+    <section id="projects" class="projects section">
+        <div class="container">
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-tag">My recent work</span>
+                <h2 class="section-title">Projects</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <!-- Featured Project -->
+            <div class="featured-project" data-animate="fade-up" data-delay="100">
+                <div class="featured-content">
+                    <span class="featured-label"><i class="fas fa-star"></i> Featured Project</span>
+                    <h3 class="featured-title">WebVulnScan â€” Web Vulnerability Scanner</h3>
+                    <p class="featured-desc">
+                        A Python-based modular web vulnerability scanner built for security researchers. Crawls target sites and detects SQLi, XSS, open redirects, directory traversal, sensitive file exposure, misconfigured headers, and SSL/TLS weaknesses â€” complete with detailed exploitation steps and HTML/JSON reports.
+                    </p>
+                    <div class="featured-tech">
+                        <span>Python</span>
+                        <span>Requests</span>
+                        <span>BeautifulSoup4</span>
+                        <span>Jinja2</span>
+                        <span>Colorama</span>
+                        <span>SSL</span>
+                    </div>
+                    <ul class="featured-features">
+                        <li><i class="fas fa-check-circle"></i> 7 vulnerability modules (SQLi, XSS, Headers, SSL, Traversal, Redirect, Sensitive)</li>
+                        <li><i class="fas fa-check-circle"></i> Auto web crawler with configurable depth</li>
+                        <li><i class="fas fa-check-circle"></i> Exploitation steps for every finding</li>
+                        <li><i class="fas fa-check-circle"></i> Beautiful dark-theme HTML + JSON reports</li>
+                    </ul>
+                    <div class="featured-actions">
+                        <a href="https://github.com/Adityasiig/WebVulnScanner" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                            <i class="fab fa-github"></i> <span>Source Code</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="featured-visual">
+                    <div class="code-window">
+                        <div class="window-header">
+                            <div class="window-dots">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <span class="window-title">scanner.py</span>
+                        </div>
+                        <div class="window-body">
+                            <pre><code><span class="code-comment"># WebVulnScan - Security Scanner</span>
+<span class="code-keyword">from</span> modules <span class="code-keyword">import</span> sqli, xss, headers
+<span class="code-keyword">from</span> modules <span class="code-keyword">import</span> ssl_check, redirect
+
+<span class="code-keyword">def</span> <span class="code-func">run_scan</span>(target_url):
+    crawler = <span class="code-func">Crawler</span>(target_url)
+    crawl_data = crawler.<span class="code-func">crawl</span>()
+
+    findings = []
+    findings += sqli.<span class="code-func">scan</span>(crawl_data)
+    findings += xss.<span class="code-func">scan</span>(crawl_data)
+    findings += headers.<span class="code-func">scan</span>(crawl_data)
+    findings += ssl_check.<span class="code-func">scan</span>(crawl_data)
+
+    <span class="code-func">generate_report</span>(findings)
+    <span class="code-keyword">return</span> findings</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Projects Grid -->
+            <div class="projects-grid">
+                <div class="project-card" data-animate="fade-up" data-delay="200">
+                    <div class="card-glow"></div>
+                    <div class="card-preview">
+                        <div class="card-preview-bar">
+                            <span></span><span></span><span></span>
+                            <span class="card-preview-url">adityasiig.github.io/TODO-list</span>
+                        </div>
+                        <div class="taskflow-preview">
+                            <div class="tf-sidebar">
+                                <div class="tf-logo"><i class="fas fa-bolt"></i> TaskFlow</div>
+                                <div class="tf-nav-item tf-active"><i class="fas fa-list-ul"></i> All Tasks</div>
+                                <div class="tf-nav-item"><i class="fas fa-fire"></i> Today</div>
+                                <div class="tf-nav-item"><i class="fas fa-check"></i> Done</div>
+                            </div>
+                            <div class="tf-main">
+                                <div class="tf-task tf-done">
+                                    <span class="tf-check tf-checked"><i class="fas fa-check"></i></span>
+                                    <span class="tf-text">Design UI layout</span>
+                                    <span class="tf-badge tf-high">High</span>
+                                </div>
+                                <div class="tf-task tf-active-task">
+                                    <span class="tf-check"><i class="fas fa-circle"></i></span>
+                                    <span class="tf-text">Add drag &amp; drop</span>
+                                    <span class="tf-badge tf-med">Med</span>
+                                </div>
+                                <div class="tf-task">
+                                    <span class="tf-check"><i class="fas fa-circle"></i></span>
+                                    <span class="tf-text">Dark mode toggle</span>
+                                    <span class="tf-badge tf-low">Low</span>
+                                </div>
+                                <div class="tf-progress-bar">
+                                    <div class="tf-progress-label"><span>Progress</span><span>33%</span></div>
+                                    <div class="tf-bar"><div class="tf-fill"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-tasks"></i></div>
+                        <div class="card-links">
+                            <a href="https://github.com/Adityasiig/TODO-list" target="_blank" rel="noopener noreferrer" title="Source Code"><i class="fab fa-github"></i></a>
+                            <a href="https://adityasiig.github.io/TODO-list/" target="_blank" rel="noopener noreferrer" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="card-title">TaskFlow â€” Smart TODO App</h3>
+                    <p class="card-desc">A beautifully designed task manager with priority levels, due dates, drag & drop reordering, real-time search, dark/light theme, and keyboard shortcuts. Pure vanilla HTML/CSS/JS.</p>
+                    <div class="card-tech">
+                        <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-status status-live"><span class="status-dot"></span> Live</div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-animate="fade-up" data-delay="300">
+                    <div class="card-glow"></div>
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-flask"></i></div>
+                        <div class="card-links">
+                            <a href="https://github.com/Adityasiig" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="card-title">More Coming Soon</h3>
+                    <p class="card-desc">Currently building new projects exploring AI integrations, full-stack web apps, and more security tooling. Stay tuned!</p>
+                    <div class="card-footer">
+                        <div class="card-status status-soon"><span class="status-dot"></span> Coming Soon</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== CERTIFICATES SECTION ====== -->
+    <section id="certificates" class="certificates section">
+        <div class="container">
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-tag">My achievements</span>
+                <h2 class="section-title">Certificates</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="cert-timeline">
+
+                <!-- Node 1 -->
+                <div class="tl-item tl-left" data-animate="fade-right" data-delay="100">
+                    <div class="tl-card" data-img="public/Certificates/c++.jpg">
+                        <div class="tl-thumb">
+                            <img src="public/Certificates/c++.jpg" alt="C++ Certificate" loading="lazy">
+                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt"></i></div>
+                        </div>
+                        <div class="tl-body">
+                            <span class="tl-category cat-programming"><i class="fas fa-code"></i> Programming</span>
+                            <h3 class="tl-title">C++ Programming</h3>
+                            <p class="tl-desc">Fundamentals of C++ including OOP, memory management, and data structures.</p>
+                        </div>
+                    </div>
+                    <div class="tl-node"><i class="fas fa-code"></i></div>
+                </div>
+
+                <!-- Node 2 -->
+                <div class="tl-item tl-right" data-animate="fade-left" data-delay="150">
+                    <div class="tl-node"><i class="fas fa-database"></i></div>
+                    <div class="tl-card" data-img="public/Certificates/PL SQL.jpg">
+                        <div class="tl-thumb">
+                            <img src="public/Certificates/PL SQL.jpg" alt="PL SQL Certificate" loading="lazy">
+                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt"></i></div>
+                        </div>
+                        <div class="tl-body">
+                            <span class="tl-category cat-database"><i class="fas fa-database"></i> Database</span>
+                            <h3 class="tl-title">PL/SQL Database</h3>
+                            <p class="tl-desc">Stored procedures, triggers, and advanced SQL queries using Oracle PL/SQL.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 3 -->
+                <div class="tl-item tl-left" data-animate="fade-right" data-delay="200">
+                    <div class="tl-card" data-img="public/Certificates/R programming.jpeg">
+                        <div class="tl-thumb">
+                            <img src="public/Certificates/R programming.jpeg" alt="R Programming Certificate" loading="lazy">
+                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt"></i></div>
+                        </div>
+                        <div class="tl-body">
+                            <span class="tl-category cat-data"><i class="fas fa-chart-bar"></i> Data Analysis</span>
+                            <h3 class="tl-title">R Programming</h3>
+                            <p class="tl-desc">Statistical computing and data visualization using R and ggplot2.</p>
+                        </div>
+                    </div>
+                    <div class="tl-node"><i class="fas fa-chart-bar"></i></div>
+                </div>
+
+                <!-- Node 4 -->
+                <div class="tl-item tl-right" data-animate="fade-left" data-delay="250">
+                    <div class="tl-node"><i class="fas fa-network-wired"></i></div>
+                    <div class="tl-card" data-img="public/Certificates/Computer Networking.jpg">
+                        <div class="tl-thumb">
+                            <img src="public/Certificates/Computer Networking.jpg" alt="Computer Networking Certificate" loading="lazy">
+                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt"></i></div>
+                        </div>
+                        <div class="tl-body">
+                            <span class="tl-category cat-networking"><i class="fas fa-network-wired"></i> Networking</span>
+                            <h3 class="tl-title">Computer Networking</h3>
+                            <p class="tl-desc">TCP/IP protocols, OSI model, subnetting, and network architecture fundamentals.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 5 -->
+                <div class="tl-item tl-left" data-animate="fade-right" data-delay="300">
+                    <div class="tl-card" data-img="public/Certificates/Ubuntu Network Server_page-0001.jpg">
+                        <div class="tl-thumb">
+                            <img src="public/Certificates/Ubuntu Network Server_page-0001.jpg" alt="Ubuntu Network Server Certificate" loading="lazy">
+                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt"></i></div>
+                        </div>
+                        <div class="tl-body">
+                            <span class="tl-category cat-server"><i class="fas fa-server"></i> Server</span>
+                            <h3 class="tl-title">Ubuntu Network Server</h3>
+                            <p class="tl-desc">Configuring and managing Ubuntu servers, services, and network infrastructure.</p>
+                        </div>
+                    </div>
+                    <div class="tl-node"><i class="fas fa-server"></i></div>
+                </div>
+
+                <!-- Node 6 -->
+                <div class="tl-item tl-right" data-animate="fade-left" data-delay="350">
+                    <div class="tl-node"><i class="fas fa-user-secret"></i></div>
+                    <div class="tl-card" data-img="public/Certificates/Ethical Hacking_- Exploit Linux Server_.jpg">
+                        <div class="tl-thumb">
+                            <img src="public/Certificates/Ethical Hacking_- Exploit Linux Server_.jpg" alt="Ethical Hacking Certificate" loading="lazy">
+                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt"></i></div>
+                        </div>
+                        <div class="tl-body">
+                            <span class="tl-category cat-security"><i class="fas fa-shield-alt"></i> Security</span>
+                            <h3 class="tl-title">Ethical Hacking</h3>
+                            <p class="tl-desc">Exploitation techniques, Linux server attacks, and penetration testing methodology.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 7 -->
+                <div class="tl-item tl-left" data-animate="fade-right" data-delay="400">
+                    <div class="tl-card" data-img="public/Certificates/Everything About Kali Linux OS_page-0001.jpg">
+                        <div class="tl-thumb">
+                            <img src="public/Certificates/Everything About Kali Linux OS_page-0001.jpg" alt="Kali Linux OS Certificate" loading="lazy">
+                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt"></i></div>
+                        </div>
+                        <div class="tl-body">
+                            <span class="tl-category cat-security"><i class="fas fa-shield-alt"></i> Security</span>
+                            <h3 class="tl-title">Kali Linux OS</h3>
+                            <p class="tl-desc">Complete guide to Kali Linux tools, environment setup, and security workflows.</p>
+                        </div>
+                    </div>
+                    <div class="tl-node"><i class="fas fa-terminal"></i></div>
+                </div>
+
+                <!-- Node 8 -->
+                <div class="tl-item tl-right" data-animate="fade-left" data-delay="450">
+                    <div class="tl-node"><i class="fas fa-lock"></i></div>
+                    <div class="tl-card" data-img="public/Certificates/1747098730146_page-0001.jpg">
+                        <div class="tl-thumb">
+                            <img src="public/Certificates/1747098730146_page-0001.jpg" alt="Introduction to Cybersecurity" loading="lazy">
+                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt"></i></div>
+                        </div>
+                        <div class="tl-body">
+                            <span class="tl-category cat-security"><i class="fas fa-shield-alt"></i> Cybersecurity</span>
+                            <h3 class="tl-title">Intro to Cybersecurity</h3>
+                            <p class="tl-desc">Core concepts of cybersecurity â€” threats, vulnerabilities, and defense strategies.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 9 -->
+                <div class="tl-item tl-left" data-animate="fade-right" data-delay="500">
+                    <div class="tl-card" data-img="public/Certificates/Document from ADITYA ðŸ˜¼_page-0001.jpg">
+                        <div class="tl-thumb">
+                            <img src="public/Certificates/Document from ADITYA ðŸ˜¼_page-0001.jpg" alt="Basic Structure of Computer Certificate" loading="lazy">
+                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt"></i></div>
+                        </div>
+                        <div class="tl-body">
+                            <span class="tl-category cat-cs"><i class="fas fa-microchip"></i> Computer Science</span>
+                            <h3 class="tl-title">Basic Structure of Computer</h3>
+                            <p class="tl-desc">Hardware components, CPU architecture, memory hierarchy, and I/O systems.</p>
+                        </div>
+                    </div>
+                    <div class="tl-node"><i class="fas fa-microchip"></i></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightbox-close"><i class="fas fa-times"></i></button>
+        <img class="lightbox-img" id="lightbox-img" alt="Certificate">
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+
+    <!-- ====== CONTACT SECTION ====== -->
+    <section id="contact" class="contact section">
+        <div class="container">
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-tag">Let's talk</span>
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info-col" data-animate="fade-right">
+                    <h3>Have an idea? Let's make it real.</h3>
+                    <p>I'm open to internships, freelance projects, collaborations, or just a good tech conversation. Drop me a message and I'll get back to you.</p>
+
+                    <div class="contact-cards">
+                        <a href="mailto:adityaajaysingh0104@gmail.com" class="contact-card">
+                            <div class="contact-card-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>adityaajaysingh0104@gmail.com</p>
+                            </div>
+                        </a>
+                        <a href="https://github.com/Adityasiig" target="_blank" rel="noopener noreferrer" class="contact-card">
+                            <div class="contact-card-icon"><i class="fab fa-github"></i></div>
+                            <div>
+                                <h4>GitHub</h4>
+                                <p>github.com/Adityasiig</p>
+                            </div>
+                        </a>
+                        <a href="https://in.linkedin.com/in/singhaditya70" target="_blank" rel="noopener noreferrer" class="contact-card">
+                            <div class="contact-card-icon"><i class="fab fa-linkedin-in"></i></div>
+                            <div>
+                                <h4>LinkedIn</h4>
+                                <p>linkedin.com/in/singhaditya70</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-form-col" data-animate="fade-left">
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" placeholder="Your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="What's this about?" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Tell me about your project..." rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
+                            <span class="btn-text">Send Message</span>
+                            <i class="fas fa-paper-plane btn-icon"></i>
+                            <i class="fas fa-spinner fa-spin btn-spinner" style="display:none;"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== FOOTER ====== -->
+    <footer class="footer">
+        <div class="footer-wave">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+                <path d="M0,40 C360,100 720,0 1080,50 C1260,75 1380,60 1440,40 L1440,100 L0,100 Z"></path>
+            </svg>
+        </div>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">AS</span>
+                    <p>Building things that work. Breaking things to learn.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#certificates">Certificates</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-socials">
+                    <a href="https://github.com/Adityasiig" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+                    <a href="https://in.linkedin.com/in/singhaditya70" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:adityaajaysingh0104@gmail.com"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Aditya Singh. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="public/js/script.js"></script>
+</body>
+</html>
