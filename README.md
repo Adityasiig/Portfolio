@@ -1,65 +1,94 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=140&section=header&text=Aditya%20Singh&fontSize=42&fontColor=ffffff&animation=fadeIn&fontAlignY=65" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=180&section=header&text=Aditya%20Singh&fontSize=52&fontColor=ffffff&animation=fadeIn&fontAlignY=65&desc=Portfolio%20Website&descSize=20&descAlignY=82&descColor=ccbbff" width="100%" />
 
-# Portfolio — Aditya Singh
+<br/>
 
-**BSc IT Student · Web Developer · Security Researcher**
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=22&duration=3000&pause=800&color=6C5CE7&center=true&vCenter=true&width=600&lines=BSc+IT+Student+%F0%9F%8E%93;Web+Developer+%F0%9F%92%BB;Security+Researcher+%F0%9F%94%90;Building+cool+things+on+the+web+%F0%9F%9A%80)](https://git.io/typing-svg)
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-6C5CE7?style=for-the-badge&logo=googlechrome&logoColor=white)](https://adityasiig.github.io/Portfolio/)
-[![GitHub](https://img.shields.io/badge/Source_Code-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Adityasiig/Portfolio)
-[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
-[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+<br/>
+
+[![Live Demo](https://img.shields.io/badge/%F0%9F%8C%90_Live_Demo-6C5CE7?style=for-the-badge&logoColor=white)](https://adityasiig.github.io/Portfolio/)
+[![Portfolio Repo](https://img.shields.io/badge/GitHub-Portfolio-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Adityasiig/Portfolio)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Aditya_Singh-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/adityasiig)
+
+<br/>
+
+![Profile Views](https://komarev.com/ghpvc/?username=Adityasiig&color=6c5ce7&style=flat-square&label=Profile+Views)
 
 </div>
 
 ---
 
-## Overview
+## 🧑‍💻 About
 
 A modern, design-heavy personal portfolio built with **pure HTML, CSS & JavaScript** — no frameworks, no build tools. Features a glassmorphism aesthetic with aurora-animated backgrounds, live GitHub contribution calendar, EmailJS-powered contact form, and a fully responsive layout that looks great in both dark and light modes.
 
 ---
 
-## Features
+## ✨ Features
 
-### Design & UX
-- **Aurora Animated Background** — Multi-layer gradient mesh with floating geometric shapes
-- **Glassmorphism Cards** — Frosted-glass effect on project, skill, and certificate cards
-- **Dark / Light Theme** — Smooth toggle with purple-lavender light palette, saved to `localStorage`
-- **Scroll Animations** — Fade-in/slide-up via `IntersectionObserver`
-- **3D Tilt Effect** — Cards tilt toward the cursor on hover
-- **Magnetic Buttons** — Subtle follow-cursor effect on CTA buttons
-- **Scroll Progress Bar** — Reading progress indicator pinned to the top
-- **Custom Loading Screen** — Branded splash with animated progress bar
-- **Flat-Design Developer Avatar** — Inline SVG portrait with dark/light mode theming
+<table>
+<tr>
+<td width="50%">
 
-### Sections
-- **Hero** — Animated typed subtitle, dynamic time-based greeting, "Currently Building" banner
-- **About** — Bio, detail cards, inline SVG avatar, floating stat counters
-- **Skills** — Bento-grid layout with progress bars and ring charts (Security, Web, Tools)
-- **GitHub Activity** — Live contribution calendar fetched from API, purple-themed cells, auto-fills 12 months
-- **Projects** — Featured project with code-editor window + secondary cards (WebVulnScanner, TaskFlow)
-- **Certificates** — Vertical timeline with alternating cards, category colour badges, lightbox viewer
-- **Contact** — EmailJS-powered form with loading state, success/error toast notifications
+**🎨 Design & UX**
+- Aurora animated background with floating shapes
+- Glassmorphism frosted-glass cards
+- Dark / Light theme toggle (saved to `localStorage`)
+- Scroll animations via `IntersectionObserver`
+- 3D tilt effect on project cards
+- Magnetic follow-cursor buttons
+- Scroll progress indicator bar
+- Custom branded loading screen
+- Flat-design developer avatar (inline SVG)
 
-### Technical
-- **EmailJS Integration** — Sends emails directly from the browser, no backend required
-- **Live GitHub Calendar** — Fetches from `github-contributions-api.jogruber.de`, custom purple renderer
-- **Typed.js** — Animated subtitle cycling through roles
-- **Animated Stat Counters** — Numbers count up when scrolled into view
-- **Dynamic Greeting** — Morning / Afternoon / Evening based on local time
-- **Toast Notification System** — Success / error / info toasts with icons
-- **Lightbox** — Click-to-expand certificate viewer with keyboard navigation
-- **Fully Responsive** — Mobile-first, tested across all screen sizes
+</td>
+<td width="50%">
+
+**⚙️ Technical Highlights**
+- EmailJS — send mail without a backend
+- Live GitHub contribution calendar (custom renderer)
+- Typed.js animated role subtitle
+- Animated stat counters on scroll
+- Dynamic time-based greeting
+- Toast notification system
+- Lightbox certificate viewer (keyboard nav)
+- Mobile-first, fully responsive
+
+</td>
+</tr>
+</table>
+
+**📄 Sections**
+
+| Section | Description |
+|---------|-------------|
+| **Hero** | Typed subtitle, time-based greeting, "Currently Building" banner |
+| **About** | Bio, detail cards, SVG avatar, floating stat counters |
+| **Skills** | Bento-grid layout with progress bars and ring charts |
+| **GitHub Activity** | Live purple-themed contribution calendar — 12 months rolling |
+| **Projects** | Code-editor style feature card + secondary project cards |
+| **Certificates** | Vertical timeline with category badges and lightbox viewer |
+| **Contact** | EmailJS form with loading state and toast feedback |
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-| Category | Technologies |
-|----------|-------------|
+<div align="center">
+
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![EmailJS](https://img.shields.io/badge/EmailJS-FF6B35?style=for-the-badge&logo=maildotru&logoColor=white)
+![Font Awesome](https://img.shields.io/badge/Font_Awesome-528DD7?style=for-the-badge&logo=fontawesome&logoColor=white)
+![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-222222?style=for-the-badge&logo=githubpages&logoColor=white)
+
+</div>
+
+| Category | Details |
+|----------|---------|
 | **Markup** | HTML5 (semantic) |
 | **Styling** | CSS3 — Custom Properties, Grid, Flexbox, Keyframe Animations |
 | **Scripts** | Vanilla JavaScript ES6+ |
@@ -71,17 +100,32 @@ A modern, design-heavy personal portfolio built with **pure HTML, CSS & JavaScri
 
 ---
 
-## Projects Featured
+## 📊 GitHub Stats
 
-| Project | Tech | Description |
-|---------|------|-------------|
-| **WebVulnScanner** | Python, Flask, Requests | Automated web vulnerability scanner — XSS, SQLi, header analysis, crawling |
-| **TaskFlow** | HTML, CSS, JS | Minimal task manager with progress tracking and local storage |
-| **Portfolio** | HTML, CSS, JS | This site — glassmorphism, aurora bg, live GitHub calendar |
+<div align="center">
+
+<img src="https://github-readme-stats.vercel.app/api?username=Adityasiig&show_icons=true&theme=tokyonight&border_color=6c5ce7&title_color=6c5ce7&icon_color=a29bfe&hide_border=false&count_private=true" height="170" />
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Adityasiig&layout=compact&theme=tokyonight&border_color=6c5ce7&title_color=6c5ce7&hide_border=false" height="170" />
+
+<br/>
+
+<img src="https://github-readme-streak-stats.herokuapp.com/?user=Adityasiig&theme=tokyonight&border=6c5ce7&ring=6c5ce7&fire=a29bfe&currStreakLabel=a29bfe" height="170" />
+
+</div>
 
 ---
 
-## Project Structure
+## 🚀 Projects Featured
+
+| Project | Tech | Description |
+|---------|------|-------------|
+| **WebVulnScanner** | Python · Flask · Requests | Automated web vulnerability scanner — XSS, SQLi, header analysis, crawling |
+| **TaskFlow** | HTML · CSS · JS | Minimal task manager with progress tracking and local storage |
+| **Portfolio** | HTML · CSS · JS | This site — glassmorphism, aurora bg, live GitHub calendar |
+
+---
+
+## 📁 Project Structure
 
 ```
 Portfolio/
@@ -93,7 +137,7 @@ Portfolio/
     ├── js/
     │   └── script.js        # Interactions, EmailJS, GitHub calendar, animations
     ├── images/
-    │   ├── avatar.svg       # Inline developer avatar (SVG, theme-aware)
+    │   ├── avatar.svg       # Developer avatar (SVG, theme-aware)
     │   ├── favicon.ico
     │   ├── favicon.png
     │   └── favicon.svg
@@ -105,7 +149,7 @@ Portfolio/
 
 ---
 
-## Getting Started
+## ⚡ Getting Started
 
 ```bash
 # Clone the repository
@@ -123,11 +167,15 @@ xdg-open index.html    # Linux
 
 ---
 
-## Contact
+## 📬 Contact
 
-- **Email** — via the contact form on the site
-- **GitHub** — [@Adityasiig](https://github.com/Adityasiig)
-- **LinkedIn** — [Aditya Singh](https://linkedin.com/in/adityasiig)
+<div align="center">
+
+[![Email](https://img.shields.io/badge/Contact_Form-6C5CE7?style=for-the-badge&logo=gmail&logoColor=white)](https://adityasiig.github.io/Portfolio/#contact)
+[![GitHub](https://img.shields.io/badge/@Adityasiig-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Adityasiig)
+[![LinkedIn](https://img.shields.io/badge/Aditya_Singh-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/adityasiig)
+
+</div>
 
 ---
 
@@ -135,6 +183,6 @@ xdg-open index.html    # Linux
 
 **Built with passion by Aditya Singh**
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=100&section=footer" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=120&section=footer" width="100%" />
 
 </div>
