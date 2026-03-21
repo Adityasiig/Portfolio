@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://adityasiig.github.io/Portfolio/sitemap.xml
