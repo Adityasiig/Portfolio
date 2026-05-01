@@ -925,5 +925,23 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script src="public/js/script.js"></script>
+
+
+<script>
+  (function(d,t) {
+    var BASE_URL="https://148-72-168-137.nip.io";
+    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=BASE_URL+"/packs/js/sdk.js";
+    g.async = true;
+    s.parentNode.insertBefore(g,s);
+    g.onload=function(){
+      window.chatwootSDK.run({
+        websiteToken: 'WXUvkcU6jUEyNuUUGkBbkgGi',
+        baseUrl: BASE_URL
+      })
+    }
+  })(document,"script");
+</script>
+
 </body>
 </html>
