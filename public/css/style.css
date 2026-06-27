@@ -3270,6 +3270,36 @@ header.scrolled {
     gap: 10px;
 }
 
+/* ===== Launch button (live web demos — purple/cyan gradient) ===== */
+.btn-launch {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: var(--gradient-primary);
+    color: #fff !important;
+    transition: all var(--transition-normal);
+    box-shadow: 0 4px 15px rgba(108, 92, 231, 0.25);
+    text-decoration: none;
+    letter-spacing: 0.2px;
+}
+
+.btn-launch:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+    color: #fff !important;
+}
+
+.btn-launch i {
+    font-size: 0.85rem;
+    transition: transform var(--transition-fast);
+}
+
+.btn-launch:hover i { transform: translate(2px, -2px); }
+
 /* ===== APK download button (Android green gradient) ===== */
 .btn-apk {
     display: inline-flex;
