@@ -589,12 +589,12 @@ header.scrolled {
 [data-theme="light"] .about,
 [data-theme="light"] .projects,
 [data-theme="light"] .contact {
-    background: linear-gradient(180deg, #f0fdf4 0%, #eceaff 100%);
+    background: linear-gradient(180deg, #f4f3ff 0%, #eceaff 100%);
 }
 
 [data-theme="light"] .skills,
 [data-theme="light"] .certificates {
-    background: linear-gradient(180deg, #eceaff 0%, #f0fdf4 100%);
+    background: linear-gradient(180deg, #eceaff 0%, #f4f3ff 100%);
 }
 
 /* Light mode — hero text */
@@ -1074,7 +1074,7 @@ header.scrolled {
 [data-theme="light"] .av-ear    { fill: #e09850; }
 [data-theme="light"] .av-hair   { fill: #2a2060; }
 [data-theme="light"] .av-hair-sh { fill: #3a2e80; }
-[data-theme="light"] .av-bdg-1  { fill: #6c5ce7; fill-opacity: 0.1; stroke: #00d68f; stroke-opacity: 1; }
+[data-theme="light"] .av-bdg-1  { fill: #6c5ce7; fill-opacity: 0.1; stroke: #6c5ce7; stroke-opacity: 1; }
 [data-theme="light"] .av-bdg-2  { fill: #00cec9; fill-opacity: 0.08; stroke: #00a0a0; stroke-opacity: 1; }
 [data-theme="light"] .av-bdg-3  { fill: #fd79a8; fill-opacity: 0.08; stroke: #d04070; stroke-opacity: 1; }
 [data-theme="light"] .av-bdg-4  { fill: #f5a000; fill-opacity: 0.08; stroke: #c07800; stroke-opacity: 1; }
@@ -1639,7 +1639,7 @@ header.scrolled {
     box-shadow: 0 0 7px rgba(var(--accent-rgb), 0.45);
 }
 .gh-cal-cell[data-level="4"] {
-    background: #00d68f;
+    background: var(--accent-1);
     box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.75), 0 0 20px rgba(var(--accent-rgb), 0.3);
 }
 
@@ -2556,7 +2556,7 @@ header.scrolled {
 }
 
 [data-theme="light"] .tl-node {
-    background: #f0fdf4;
+    background: #f4f3ff;
 }
 
 [data-theme="light"] .cert-timeline::before {
