@@ -645,6 +645,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })();
 
     // ===== CONSOLE BRANDING =====
-    console.log('%c Aditya Singh - Portfolio', 'color: #6c5ce7; font-size: 20px; font-weight: bold; font-family: sans-serif;');
+    console.log('%c Aditya Singh - Portfolio', 'color: #00d68f; font-size: 20px; font-weight: bold; font-family: sans-serif;');
     console.log('%c Built with passion and clean code', 'color: #00cec9; font-size: 12px; font-family: sans-serif;');
 });
