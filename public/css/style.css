@@ -1706,10 +1706,11 @@ header.scrolled {
 
 /* Card preview (project screenshot) */
 .card-preview {
-    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    border-radius: var(--radius-md);
     overflow: hidden;
-    border-bottom: 1px solid var(--border-color);
+    border: 1px solid var(--border-color);
     background: #1a1a2e;
+    margin-bottom: 18px;
 }
 
 .card-preview-bar {
@@ -3149,12 +3150,13 @@ header.scrolled {
 
 /* ===== Health Tracker app preview ===== */
 .ht-preview {
-    height: 155px;
+    height: 160px;
     background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
-    padding: 10px 12px;
+    padding: 12px 14px 18px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    justify-content: space-between;
+    gap: 9px;
     overflow: hidden;
 }
 
