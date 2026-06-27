@@ -3391,3 +3391,12 @@ body.light-mode .btn-apk {
 .av-tie { fill: var(--accent-1); }
 .av-glow { fill: var(--accent-1); }
 .ring-grad-start { stop-color: var(--accent-1); }
+
+/* ===== Card actions wrapper — groups multiple CTA buttons (Open Live + Download APK) ===== */
+.card-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
