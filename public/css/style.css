@@ -3146,3 +3146,163 @@ header.scrolled {
     background: rgba(108, 92, 231, 0.3);
     color: var(--text-primary);
 }
+
+/* ===== Health Tracker app preview ===== */
+.ht-preview {
+    height: 155px;
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+}
+
+.ht-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+}
+
+.ht-logo {
+    color: #00d68f;
+    font-weight: 700;
+    font-size: 10.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ht-logo i { font-size: 9px; }
+
+.ht-date {
+    color: rgba(255,255,255,0.45);
+    font-family: var(--font-mono);
+    font-size: 8.5px;
+    letter-spacing: 1px;
+    background: rgba(255,255,255,0.04);
+    padding: 2px 7px;
+    border-radius: 4px;
+}
+
+.ht-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.ht-stat {
+    background: rgba(108,92,231,0.12);
+    border: 1px solid rgba(108,92,231,0.22);
+    border-radius: 8px;
+    padding: 6px 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.ht-stat-green {
+    background: rgba(0,214,143,0.1);
+    border-color: rgba(0,214,143,0.28);
+}
+
+.ht-stat-num {
+    color: #f0f0f5;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: var(--font-mono);
+    line-height: 1;
+}
+
+.ht-stat-label {
+    color: rgba(255,255,255,0.5);
+    font-size: 8.5px;
+    letter-spacing: 0.8px;
+    font-weight: 500;
+}
+
+.ht-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 2px;
+}
+
+.ht-bar-label {
+    color: rgba(255,255,255,0.55);
+    font-size: 9px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2px;
+    font-family: var(--font-mono);
+}
+
+.ht-bar-label span:last-child {
+    color: rgba(255,255,255,0.35);
+}
+
+.ht-bar-track {
+    height: 3.5px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.ht-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00cec9, #6c5ce7);
+    border-radius: 2px;
+}
+
+.ht-bar-pink {
+    background: linear-gradient(90deg, #fd79a8, #6c5ce7);
+}
+
+/* ===== Card footer becomes flex (backwards-compatible with single-child cards) ===== */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* ===== APK download button (Android green gradient) ===== */
+.btn-apk {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #00d68f, #00cec9);
+    color: #0a0a0f !important;
+    transition: all var(--transition-normal);
+    box-shadow: 0 4px 15px rgba(0, 214, 143, 0.25);
+    text-decoration: none;
+    letter-spacing: 0.2px;
+}
+
+.btn-apk:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 214, 143, 0.4);
+    color: #0a0a0f !important;
+}
+
+.btn-apk i {
+    font-size: 0.95rem;
+    transition: transform var(--transition-fast);
+}
+
+.btn-apk:hover i { transform: scale(1.15); }
+
+/* Light mode tweak — keep button readable */
+body.light-mode .ht-preview {
+    background: linear-gradient(135deg, #1a1730 0%, #251f3d 100%);
+}
+
+body.light-mode .btn-apk {
+    color: #0a0a0f !important;
+}
