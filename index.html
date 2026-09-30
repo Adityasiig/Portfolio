@@ -1,29 +1,55 @@
 ﻿<!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark" class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Aditya Singh — BSc IT Student, Web Developer & Security Researcher. I build web apps and security tools. Check out my projects, skills, and certifications.">
     <meta name="author" content="Aditya Singh">
-    <meta name="keywords" content="Aditya Singh, Web Developer, Portfolio, BSc IT, Python, JavaScript, Cybersecurity, Ethical Hacking, Security Researcher, WebVulnScanner">
+    <meta name="theme-color" content="#0a0a0f">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://adityasiig.github.io/Portfolio/">
     <meta property="og:title" content="Aditya Singh | Web Developer & Security Researcher">
     <meta property="og:description" content="BSc IT Student who builds real tools — from web vulnerability scanners to sleek task managers.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="public/images/profile.jpg">
+    <meta property="og:url" content="https://adityasiig.github.io/Portfolio/">
+    <meta property="og:site_name" content="Aditya Singh">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://adityasiig.github.io/Portfolio/public/images/profile.jpg">
+    <meta property="og:image:alt" content="Aditya Singh">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Aditya Singh | Web Developer & Security Researcher">
+    <meta name="twitter:description" content="BSc IT Student who builds real tools — from web vulnerability scanners to sleek task managers.">
+    <meta name="twitter:image" content="https://adityasiig.github.io/Portfolio/public/images/profile.jpg">
     <title>Aditya Singh | Web Developer & Security Researcher</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" href="public/images/favicon.ico" sizes="any">
     <link rel="icon" href="public/images/favicon.svg" type="image/svg+xml">
     <link rel="icon" href="public/images/favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="public/images/favicon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="public/css/icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="public/css/style.css?v=20260629a-clean-rebuild">
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script>
-        (function() {
-            // Replace with your EmailJS Public Key from https://dashboard.emailjs.com/admin/account
-            emailjs.init({ publicKey: '42_vwBZ0ZtAHGQkag' });
-        })();
+    <!-- EmailJS is only needed on contact-form submit, so it must not block paint.
+         script.js calls emailjs.init() once the library has loaded. -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js" integrity="sha384-SALc35EccAf6RzGw4iNsyj7kTPr33K7RoGzYu+7heZhT8s0GZouafRiCg1qy44AS" crossorigin="anonymous"></script>
+    <script>document.documentElement.classList.remove('no-js');
+            window.EMAILJS_PUBLIC_KEY = '42_vwBZ0ZtAHGQkag';</script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Aditya Singh",
+      "url": "https://adityasiig.github.io/Portfolio/",
+      "image": "https://adityasiig.github.io/Portfolio/public/images/profile.jpg",
+      "jobTitle": "Web Developer & Security Researcher",
+      "email": "mailto:adityaajaysingh0104@gmail.com",
+      "knowsAbout": ["Web Development", "Cybersecurity", "Python", "JavaScript", "Ethical Hacking"],
+      "sameAs": [
+        "https://github.com/Adityasiig",
+        "https://in.linkedin.com/in/singhaditya70"
+      ]
+    }
     </script>
 </head>
 <body>
@@ -35,13 +61,15 @@
         </div>
     </div>
 
+    <a href="#main" class="skip-link">Skip to content</a>
+
     <!-- Scroll Progress -->
     <div class="scroll-progress" id="scroll-progress"></div>
 
     <!-- Navigation -->
     <header id="header">
         <div class="container">
-            <nav class="navbar">
+            <nav class="navbar" aria-label="Primary">
                 <a href="#home" class="logo">
                     <span class="logo-text">AS</span>
                     <span class="logo-dot"></span>
@@ -58,20 +86,20 @@
                 </div>
                 <div class="nav-actions">
                     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-                        <i class="fas fa-moon" id="theme-icon"></i>
+                        <i class="fas fa-moon" id="theme-icon" aria-hidden="true"></i>
                     </button>
-                    <div class="hamburger" id="hamburger">
+                    <button type="button" class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
                         <span></span>
                         <span></span>
                         <span></span>
-                    </div>
+                    </button>
                 </div>
             </nav>
         </div>
     </header>
 
     <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu" id="mobile-menu">
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile">
         <ul class="mobile-nav-links">
             <li><a href="#home" class="mobile-link">Home</a></li>
             <li><a href="#about" class="mobile-link">About</a></li>
@@ -80,7 +108,9 @@
             <li><a href="#certificates" class="mobile-link">Certificates</a></li>
             <li><a href="#contact" class="mobile-link">Contact</a></li>
         </ul>
-    </div>
+    </nav>
+
+    <main id="main">
 
     <!-- ====== HERO SECTION ====== -->
     <section id="home" class="hero">
@@ -104,7 +134,7 @@
                     <span>Available for opportunities</span>
                 </div>
                 <div class="currently-building" data-animate="fade-up">
-                    <span class="building-icon"><i class="fas fa-hammer"></i></span>
+                    <span class="building-icon"><i class="fas fa-hammer" aria-hidden="true"></i></span>
                     <span>Currently building: <strong>WebVulnScanner v2</strong> — AI-powered exploit suggestions</span>
                 </div>
                 <h1 class="hero-title" data-animate="fade-up" data-delay="100">
@@ -112,7 +142,7 @@
                     <span class="line gradient-text">Aditya Singh</span>
                 </h1>
                 <div class="hero-subtitle" data-animate="fade-up" data-delay="200">
-                    <span class="typed-prefix">A </span><span class="typed-text" id="typed-text"></span>
+                    <span aria-hidden="true"><span class="typed-prefix">A </span><span class="typed-text" id="typed-text"></span></span><span class="sr-only">A Web Developer, Security Researcher and Python Developer.</span>
                 </div>
                 <p class="hero-description" data-animate="fade-up" data-delay="300">
                     BSc IT student who builds real tools — from web vulnerability scanners to sleek task managers. I write clean code, break things on purpose, and put them back together better.
@@ -120,22 +150,22 @@
                 <div class="hero-cta" data-animate="fade-up" data-delay="400">
                     <a href="#projects" class="btn btn-primary">
                         <span>View My Work</span>
-                        <i class="fas fa-arrow-right"></i>
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
                     </a>
                     <a href="public/files/cv.pdf" class="btn btn-outline" download>
                         <span>Download CV</span>
-                        <i class="fas fa-download"></i>
+                        <i class="fas fa-download" aria-hidden="true"></i>
                     </a>
                 </div>
                 <div class="hero-socials" data-animate="fade-up" data-delay="500">
                     <a href="https://github.com/Adityasiig" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
-                        <i class="fab fa-github"></i>
+                        <i class="fab fa-github" aria-hidden="true"></i>
                     </a>
                     <a href="https://in.linkedin.com/in/singhaditya70" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin-in"></i>
+                        <i class="fab fa-linkedin-in" aria-hidden="true"></i>
                     </a>
                     <a href="mailto:adityaajaysingh0104@gmail.com" class="social-link" aria-label="Email">
-                        <i class="fas fa-envelope"></i>
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
@@ -162,7 +192,7 @@
                 <div class="about-image-col" data-animate="fade-right">
                     <div class="about-image-wrapper">
                         <div class="about-image-frame about-illus-frame">
-                            <svg class="about-illus" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg" aria-label="Developer avatar">
+                            <svg class="about-illus" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Developer avatar">
                               <defs>
                                 <radialGradient id="avBgD" cx="50%" cy="38%" r="65%">
                                   <stop offset="0%" stop-color="#10503e"/><stop offset="60%" stop-color="#0a2e25"/><stop offset="100%" stop-color="#031a14"/>
@@ -260,7 +290,7 @@
                               </g>
                               <g transform="translate(150,22)" filter="url(#avBdg)">
                                 <rect width="80" height="32" rx="10" fill="rgba(0, 214, 143,0.18)" stroke="#00d68f" stroke-width="1.8" stroke-opacity="0.85" class="av-bdg-1"/>
-                                <text x="10" y="22" font-family="JetBrains Mono,monospace" font-size="13" fill="#a29bfe" class="av-btx-1" font-weight="700">git âœ“</text>
+                                <text x="10" y="22" font-family="JetBrains Mono,monospace" font-size="13" fill="#a29bfe" class="av-btx-1" font-weight="700">git ✓</text>
                               </g>
 
                               <!-- pulsing dots -->
@@ -281,14 +311,14 @@
                     </div>
                     <!-- Stats Cards -->
                     <div class="floating-stat stat-1">
-                        <div class="stat-icon"><i class="fas fa-code"></i></div>
+                        <div class="stat-icon"><i class="fas fa-code" aria-hidden="true"></i></div>
                         <div class="stat-info">
                             <span class="stat-number" data-count="10">0</span>+
                             <span class="stat-label">Projects</span>
                         </div>
                     </div>
                     <div class="floating-stat stat-2">
-                        <div class="stat-icon"><i class="fas fa-certificate"></i></div>
+                        <div class="stat-icon"><i class="fas fa-certificate" aria-hidden="true"></i></div>
                         <div class="stat-info">
                             <span class="stat-number" data-count="9">0</span>+
                             <span class="stat-label">Certificates</span>
@@ -303,28 +333,28 @@
                     </p>
                     <div class="about-details-grid">
                         <div class="detail-card">
-                            <div class="detail-icon"><i class="fas fa-graduation-cap"></i></div>
+                            <div class="detail-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></div>
                             <div>
                                 <h4>Education</h4>
                                 <p>BSc Information Technology — 3rd Year</p>
                             </div>
                         </div>
                         <div class="detail-card">
-                            <div class="detail-icon"><i class="fas fa-laptop-code"></i></div>
+                            <div class="detail-icon"><i class="fas fa-laptop-code" aria-hidden="true"></i></div>
                             <div>
                                 <h4>Focus</h4>
                                 <p>Web Development & Security Tooling</p>
                             </div>
                         </div>
                         <div class="detail-card">
-                            <div class="detail-icon"><i class="fas fa-shield-alt"></i></div>
+                            <div class="detail-icon"><i class="fas fa-shield-alt" aria-hidden="true"></i></div>
                             <div>
                                 <h4>Passion</h4>
                                 <p>Ethical Hacking & Penetration Testing</p>
                             </div>
                         </div>
                         <div class="detail-card">
-                            <div class="detail-icon"><i class="fas fa-brain"></i></div>
+                            <div class="detail-icon"><i class="fas fa-brain" aria-hidden="true"></i></div>
                             <div>
                                 <h4>Currently Learning</h4>
                                 <p>System Design & Advanced Algorithms</p>
@@ -333,7 +363,7 @@
                     </div>
                     <a href="#contact" class="btn btn-primary">
                         <span>Let's Connect</span>
-                        <i class="fas fa-arrow-right"></i>
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
@@ -353,7 +383,7 @@
                 <!-- Programming Languages - Large Card -->
                 <div class="bento-card bento-large" data-animate="fade-up" data-delay="100">
                     <div class="bento-header">
-                        <div class="bento-icon"><i class="fas fa-terminal"></i></div>
+                        <div class="bento-icon"><i class="fas fa-terminal" aria-hidden="true"></i></div>
                         <h3>Programming Languages</h3>
                     </div>
                     <div class="skill-pills">
@@ -387,34 +417,34 @@
                 <!-- Web Development -->
                 <div class="bento-card bento-medium" data-animate="fade-up" data-delay="200">
                     <div class="bento-header">
-                        <div class="bento-icon"><i class="fas fa-globe"></i></div>
+                        <div class="bento-icon"><i class="fas fa-globe" aria-hidden="true"></i></div>
                         <h3>Web Development</h3>
                     </div>
                     <div class="skill-tags">
-                        <span class="skill-tag"><i class="fab fa-html5"></i> HTML5</span>
-                        <span class="skill-tag"><i class="fab fa-css3-alt"></i> CSS3</span>
-                        <span class="skill-tag"><i class="fab fa-js"></i> Vanilla JS</span>
-                        <span class="skill-tag"><i class="fab fa-node-js"></i> Node.js</span>
-                        <span class="skill-tag"><i class="fab fa-react"></i> React.js</span>
-                        <span class="skill-tag"><i class="fas fa-database"></i> MongoDB</span>
-                        <span class="skill-tag"><i class="fab fa-python"></i> Flask</span>
+                        <span class="skill-tag"><i class="fab fa-html5" aria-hidden="true"></i> HTML5</span>
+                        <span class="skill-tag"><i class="fab fa-css3-alt" aria-hidden="true"></i> CSS3</span>
+                        <span class="skill-tag"><i class="fab fa-js" aria-hidden="true"></i> Vanilla JS</span>
+                        <span class="skill-tag"><i class="fab fa-node-js" aria-hidden="true"></i> Node.js</span>
+                        <span class="skill-tag"><i class="fab fa-react" aria-hidden="true"></i> React.js</span>
+                        <span class="skill-tag"><i class="fas fa-database" aria-hidden="true"></i> MongoDB</span>
+                        <span class="skill-tag"><i class="fab fa-python" aria-hidden="true"></i> Flask</span>
                     </div>
                 </div>
 
                 <!-- Tools & Platforms -->
                 <div class="bento-card bento-medium" data-animate="fade-up" data-delay="300">
                     <div class="bento-header">
-                        <div class="bento-icon"><i class="fas fa-tools"></i></div>
+                        <div class="bento-icon"><i class="fas fa-tools" aria-hidden="true"></i></div>
                         <h3>Tools & Platforms</h3>
                     </div>
                     <div class="skill-tags">
-                        <span class="skill-tag"><i class="fab fa-git-alt"></i> Git & GitHub</span>
-                        <span class="skill-tag"><i class="fab fa-linux"></i> Linux</span>
-                        <span class="skill-tag"><i class="fas fa-terminal"></i> Kali Linux</span>
-                        <span class="skill-tag"><i class="fab fa-ubuntu"></i> Ubuntu Server</span>
-                        <span class="skill-tag"><i class="fas fa-bug"></i> Burp Suite</span>
-                        <span class="skill-tag"><i class="fas fa-search"></i> sqlmap / nmap</span>
-                        <span class="skill-tag"><i class="fas fa-code"></i> VS Code</span>
+                        <span class="skill-tag"><i class="fab fa-git-alt" aria-hidden="true"></i> Git & GitHub</span>
+                        <span class="skill-tag"><i class="fab fa-linux" aria-hidden="true"></i> Linux</span>
+                        <span class="skill-tag"><i class="fas fa-terminal" aria-hidden="true"></i> Kali Linux</span>
+                        <span class="skill-tag"><i class="fab fa-ubuntu" aria-hidden="true"></i> Ubuntu Server</span>
+                        <span class="skill-tag"><i class="fas fa-bug" aria-hidden="true"></i> Burp Suite</span>
+                        <span class="skill-tag"><i class="fas fa-search" aria-hidden="true"></i> sqlmap / nmap</span>
+                        <span class="skill-tag"><i class="fas fa-code" aria-hidden="true"></i> VS Code</span>
                     </div>
                 </div>
 
@@ -430,7 +460,7 @@
                         </defs>
                     </svg>
                     <div class="bento-header">
-                        <div class="bento-icon"><i class="fas fa-microchip"></i></div>
+                        <div class="bento-icon"><i class="fas fa-microchip" aria-hidden="true"></i></div>
                         <h3>CS Fundamentals</h3>
                     </div>
                     <div class="fundamentals-grid">
@@ -490,12 +520,12 @@
             </div>
             <div class="github-activity-wrap" data-animate="fade-up" data-delay="100">
                 <div class="github-activity-header">
-                    <span class="github-activity-user"><i class="fab fa-github"></i> Adityasiig</span>
-                    <span class="github-activity-label" id="gh-contrib-count">Loading contributions...</span>
+                    <span class="github-activity-user"><i class="fab fa-github" aria-hidden="true"></i> Adityasiig</span>
+                    <span class="github-activity-label" id="gh-contrib-count" aria-live="polite">Loading contributions...</span>
                 </div>
                 <div class="github-graph-container">
                     <div id="gh-calendar">
-                        <div class="gh-cal-loading"><i class="fas fa-spinner fa-spin"></i> Loading contributions...</div>
+                        <div class="gh-cal-loading"><i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Loading contributions...</div>
                     </div>
                     <div class="gh-cal-legend">
                         <span class="gh-cal-legend-label">Less</span>
@@ -523,7 +553,7 @@
             <!-- Featured Project -->
             <div class="featured-project" data-animate="fade-up" data-delay="100">
                 <div class="featured-content">
-                    <span class="featured-label"><i class="fas fa-star"></i> Featured Project</span>
+                    <span class="featured-label"><i class="fas fa-star" aria-hidden="true"></i> Featured Project</span>
                     <h3 class="featured-title">WebVulnScan — Web Vulnerability Scanner</h3>
                     <p class="featured-desc">
                         A Python-based modular web vulnerability scanner built for security researchers. Crawls target sites and detects SQLi, XSS, open redirects, directory traversal, sensitive file exposure, misconfigured headers, and SSL/TLS weaknesses — complete with detailed exploitation steps and HTML/JSON reports.
@@ -537,14 +567,14 @@
                         <span>SSL</span>
                     </div>
                     <ul class="featured-features">
-                        <li><i class="fas fa-check-circle"></i> 7 vulnerability modules (SQLi, XSS, Headers, SSL, Traversal, Redirect, Sensitive)</li>
-                        <li><i class="fas fa-check-circle"></i> Auto web crawler with configurable depth</li>
-                        <li><i class="fas fa-check-circle"></i> Exploitation steps for every finding</li>
-                        <li><i class="fas fa-check-circle"></i> Beautiful dark-theme HTML + JSON reports</li>
+                        <li><i class="fas fa-check-circle" aria-hidden="true"></i> 7 vulnerability modules (SQLi, XSS, Headers, SSL, Traversal, Redirect, Sensitive)</li>
+                        <li><i class="fas fa-check-circle" aria-hidden="true"></i> Auto web crawler with configurable depth</li>
+                        <li><i class="fas fa-check-circle" aria-hidden="true"></i> Exploitation steps for every finding</li>
+                        <li><i class="fas fa-check-circle" aria-hidden="true"></i> Beautiful dark-theme HTML + JSON reports</li>
                     </ul>
                     <div class="featured-actions">
                         <a href="https://github.com/Adityasiig/WebVulnScanner" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                            <i class="fab fa-github"></i> <span>Source Code</span>
+                            <i class="fab fa-github" aria-hidden="true"></i> <span>Source Code</span>
                         </a>
                     </div>
                 </div>
@@ -591,24 +621,24 @@
                         </div>
                         <div class="taskflow-preview">
                             <div class="tf-sidebar">
-                                <div class="tf-logo"><i class="fas fa-bolt"></i> TaskFlow</div>
-                                <div class="tf-nav-item tf-active"><i class="fas fa-list-ul"></i> All Tasks</div>
-                                <div class="tf-nav-item"><i class="fas fa-fire"></i> Today</div>
-                                <div class="tf-nav-item"><i class="fas fa-check"></i> Done</div>
+                                <div class="tf-logo"><i class="fas fa-bolt" aria-hidden="true"></i> TaskFlow</div>
+                                <div class="tf-nav-item tf-active"><i class="fas fa-list-ul" aria-hidden="true"></i> All Tasks</div>
+                                <div class="tf-nav-item"><i class="fas fa-fire" aria-hidden="true"></i> Today</div>
+                                <div class="tf-nav-item"><i class="fas fa-check" aria-hidden="true"></i> Done</div>
                             </div>
                             <div class="tf-main">
                                 <div class="tf-task tf-done">
-                                    <span class="tf-check tf-checked"><i class="fas fa-check"></i></span>
+                                    <span class="tf-check tf-checked"><i class="fas fa-check" aria-hidden="true"></i></span>
                                     <span class="tf-text">Design UI layout</span>
                                     <span class="tf-badge tf-high">High</span>
                                 </div>
                                 <div class="tf-task tf-active-task">
-                                    <span class="tf-check"><i class="fas fa-circle"></i></span>
+                                    <span class="tf-check"><i class="fas fa-circle" aria-hidden="true"></i></span>
                                     <span class="tf-text">Add drag &amp; drop</span>
                                     <span class="tf-badge tf-med">Med</span>
                                 </div>
                                 <div class="tf-task">
-                                    <span class="tf-check"><i class="fas fa-circle"></i></span>
+                                    <span class="tf-check"><i class="fas fa-circle" aria-hidden="true"></i></span>
                                     <span class="tf-text">Dark mode toggle</span>
                                     <span class="tf-badge tf-low">Low</span>
                                 </div>
@@ -620,10 +650,10 @@
                         </div>
                     </div>
                     <div class="card-header">
-                        <div class="card-icon"><i class="fas fa-tasks"></i></div>
+                        <div class="card-icon"><i class="fas fa-tasks" aria-hidden="true"></i></div>
                         <div class="card-links">
-                            <a href="https://github.com/Adityasiig/TODO-list" target="_blank" rel="noopener noreferrer" title="Source Code"><i class="fab fa-github"></i></a>
-                            <a href="https://adityasiig.github.io/TODO-list/" target="_blank" rel="noopener noreferrer" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                            <a href="https://github.com/Adityasiig/TODO-list" target="_blank" rel="noopener noreferrer" title="Source Code" aria-label="Source Code"><i class="fab fa-github" aria-hidden="true"></i></a>
+                            <a href="https://adityasiig.github.io/TODO-list/" target="_blank" rel="noopener noreferrer" title="Live Demo" aria-label="Live Demo"><i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <h3 class="card-title">TaskFlow &mdash; Smart TODO App</h3>
@@ -634,7 +664,7 @@
                     <div class="card-footer">
                         <div class="card-status status-live"><span class="status-dot"></span> Live</div>
                         <a href="public/apk/taskflow.apk" download="TaskFlow.apk" class="btn-apk" title="Download Android APK (3.1 MB)">
-                            <i class="fab fa-android"></i> <span>Download APK</span>
+                            <i class="fab fa-android" aria-hidden="true"></i> <span>Download APK</span>
                         </a>
                     </div>
                 </div>
@@ -648,7 +678,7 @@
                         </div>
                         <div class="ht-preview">
                             <div class="ht-top">
-                                <span class="ht-logo"><i class="fas fa-heartbeat"></i> Health Tracker</span>
+                                <span class="ht-logo"><i class="fas fa-heartbeat" aria-hidden="true"></i> Health Tracker</span>
                                 <span class="ht-date">TODAY</span>
                             </div>
                             <div class="ht-stats">
@@ -674,10 +704,10 @@
                         </div>
                     </div>
                     <div class="card-header">
-                        <div class="card-icon"><i class="fas fa-heartbeat"></i></div>
+                        <div class="card-icon"><i class="fas fa-heartbeat" aria-hidden="true"></i></div>
                         <div class="card-links">
-                            <a href="https://github.com/Adityasiig/health-tracker" target="_blank" rel="noopener noreferrer" title="Source Code"><i class="fab fa-github"></i></a>
-                            <a href="https://health-tracker-five-xi.vercel.app/" target="_blank" rel="noopener noreferrer" title="Live Web App"><i class="fas fa-external-link-alt"></i></a>
+                            <a href="https://github.com/Adityasiig/health-tracker" target="_blank" rel="noopener noreferrer" title="Source Code" aria-label="Source Code"><i class="fab fa-github" aria-hidden="true"></i></a>
+                            <a href="https://health-tracker-five-xi.vercel.app/" target="_blank" rel="noopener noreferrer" title="Live Web App" aria-label="Live Web App"><i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <h3 class="card-title">Health Tracker &mdash; Fitness &amp; Macros App</h3>
@@ -688,7 +718,7 @@
                     <div class="card-footer">
                         <div class="card-status status-live"><span class="status-dot"></span> Live</div>
                         <a href="public/apk/health-tracker.apk" download="HealthTracker.apk" class="btn-apk" title="Download Android APK (13.9 MB)">
-                            <i class="fab fa-android"></i> <span>Download APK</span>
+                            <i class="fab fa-android" aria-hidden="true"></i> <span>Download APK</span>
                         </a>
                     </div>
                 </div>
@@ -696,9 +726,9 @@
                 <div class="project-card" data-animate="fade-up" data-delay="350">
                     <div class="card-glow"></div>
                     <div class="card-header">
-                        <div class="card-icon"><i class="fas fa-flask"></i></div>
+                        <div class="card-icon"><i class="fas fa-flask" aria-hidden="true"></i></div>
                         <div class="card-links">
-                            <a href="https://github.com/Adityasiig" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+                            <a href="https://github.com/Adityasiig" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <h3 class="card-title">More Coming Soon</h3>
@@ -724,30 +754,30 @@
 
                 <!-- Node 1 -->
                 <div class="tl-item tl-left" data-animate="fade-right" data-delay="100">
-                    <div class="tl-card" data-img="public/Certificates/c++.jpg">
+                    <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/c++.webp">
                         <div class="tl-thumb">
-                            <img src="public/Certificates/c++.jpg" alt="C++ Certificate" loading="lazy">
-                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt"></i></div>
+                            <img src="public/Certificates/thumbs/c++.webp" alt="C++ Certificate" width="560" height="396" loading="lazy" decoding="async">
+                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt" aria-hidden="true"></i></div>
                         </div>
                         <div class="tl-body">
-                            <span class="tl-category cat-programming"><i class="fas fa-code"></i> Programming</span>
+                            <span class="tl-category cat-programming"><i class="fas fa-code" aria-hidden="true"></i> Programming</span>
                             <h3 class="tl-title">C++ Programming</h3>
                             <p class="tl-desc">Fundamentals of C++ including OOP, memory management, and data structures.</p>
                         </div>
                     </div>
-                    <div class="tl-node"><i class="fas fa-code"></i></div>
+                    <div class="tl-node"><i class="fas fa-code" aria-hidden="true"></i></div>
                 </div>
 
                 <!-- Node 2 -->
                 <div class="tl-item tl-right" data-animate="fade-left" data-delay="150">
-                    <div class="tl-node"><i class="fas fa-database"></i></div>
-                    <div class="tl-card" data-img="public/Certificates/PL SQL.jpg">
+                    <div class="tl-node"><i class="fas fa-database" aria-hidden="true"></i></div>
+                    <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/PL SQL.webp">
                         <div class="tl-thumb">
-                            <img src="public/Certificates/PL SQL.jpg" alt="PL SQL Certificate" loading="lazy">
-                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt"></i></div>
+                            <img src="public/Certificates/thumbs/PL SQL.webp" alt="PL SQL Certificate" width="560" height="396" loading="lazy" decoding="async">
+                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt" aria-hidden="true"></i></div>
                         </div>
                         <div class="tl-body">
-                            <span class="tl-category cat-database"><i class="fas fa-database"></i> Database</span>
+                            <span class="tl-category cat-database"><i class="fas fa-database" aria-hidden="true"></i> Database</span>
                             <h3 class="tl-title">PL/SQL Database</h3>
                             <p class="tl-desc">Stored procedures, triggers, and advanced SQL queries using Oracle PL/SQL.</p>
                         </div>
@@ -756,30 +786,30 @@
 
                 <!-- Node 3 -->
                 <div class="tl-item tl-left" data-animate="fade-right" data-delay="200">
-                    <div class="tl-card" data-img="public/Certificates/R programming.jpeg">
+                    <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/R programming.webp">
                         <div class="tl-thumb">
-                            <img src="public/Certificates/R programming.jpeg" alt="R Programming Certificate" loading="lazy">
-                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt"></i></div>
+                            <img src="public/Certificates/thumbs/R programming.webp" alt="R Programming Certificate" width="560" height="396" loading="lazy" decoding="async">
+                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt" aria-hidden="true"></i></div>
                         </div>
                         <div class="tl-body">
-                            <span class="tl-category cat-data"><i class="fas fa-chart-bar"></i> Data Analysis</span>
+                            <span class="tl-category cat-data"><i class="fas fa-chart-bar" aria-hidden="true"></i> Data Analysis</span>
                             <h3 class="tl-title">R Programming</h3>
                             <p class="tl-desc">Statistical computing and data visualization using R and ggplot2.</p>
                         </div>
                     </div>
-                    <div class="tl-node"><i class="fas fa-chart-bar"></i></div>
+                    <div class="tl-node"><i class="fas fa-chart-bar" aria-hidden="true"></i></div>
                 </div>
 
                 <!-- Node 4 -->
                 <div class="tl-item tl-right" data-animate="fade-left" data-delay="250">
-                    <div class="tl-node"><i class="fas fa-network-wired"></i></div>
-                    <div class="tl-card" data-img="public/Certificates/Computer Networking.jpg">
+                    <div class="tl-node"><i class="fas fa-network-wired" aria-hidden="true"></i></div>
+                    <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/Computer Networking.webp">
                         <div class="tl-thumb">
-                            <img src="public/Certificates/Computer Networking.jpg" alt="Computer Networking Certificate" loading="lazy">
-                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt"></i></div>
+                            <img src="public/Certificates/thumbs/Computer Networking.webp" alt="Computer Networking Certificate" width="560" height="396" loading="lazy" decoding="async">
+                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt" aria-hidden="true"></i></div>
                         </div>
                         <div class="tl-body">
-                            <span class="tl-category cat-networking"><i class="fas fa-network-wired"></i> Networking</span>
+                            <span class="tl-category cat-networking"><i class="fas fa-network-wired" aria-hidden="true"></i> Networking</span>
                             <h3 class="tl-title">Computer Networking</h3>
                             <p class="tl-desc">TCP/IP protocols, OSI model, subnetting, and network architecture fundamentals.</p>
                         </div>
@@ -788,30 +818,30 @@
 
                 <!-- Node 5 -->
                 <div class="tl-item tl-left" data-animate="fade-right" data-delay="300">
-                    <div class="tl-card" data-img="public/Certificates/Ubuntu Network Server_page-0001.jpg">
+                    <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/Ubuntu Network Server_page-0001.webp">
                         <div class="tl-thumb">
-                            <img src="public/Certificates/Ubuntu Network Server_page-0001.jpg" alt="Ubuntu Network Server Certificate" loading="lazy">
-                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt"></i></div>
+                            <img src="public/Certificates/thumbs/Ubuntu Network Server_page-0001.webp" alt="Ubuntu Network Server Certificate" width="560" height="417" loading="lazy" decoding="async">
+                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt" aria-hidden="true"></i></div>
                         </div>
                         <div class="tl-body">
-                            <span class="tl-category cat-server"><i class="fas fa-server"></i> Server</span>
+                            <span class="tl-category cat-server"><i class="fas fa-server" aria-hidden="true"></i> Server</span>
                             <h3 class="tl-title">Ubuntu Network Server</h3>
                             <p class="tl-desc">Configuring and managing Ubuntu servers, services, and network infrastructure.</p>
                         </div>
                     </div>
-                    <div class="tl-node"><i class="fas fa-server"></i></div>
+                    <div class="tl-node"><i class="fas fa-server" aria-hidden="true"></i></div>
                 </div>
 
                 <!-- Node 6 -->
                 <div class="tl-item tl-right" data-animate="fade-left" data-delay="350">
-                    <div class="tl-node"><i class="fas fa-user-secret"></i></div>
-                    <div class="tl-card" data-img="public/Certificates/Ethical Hacking_- Exploit Linux Server_.jpg">
+                    <div class="tl-node"><i class="fas fa-user-secret" aria-hidden="true"></i></div>
+                    <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/Ethical Hacking_- Exploit Linux Server_.webp">
                         <div class="tl-thumb">
-                            <img src="public/Certificates/Ethical Hacking_- Exploit Linux Server_.jpg" alt="Ethical Hacking Certificate" loading="lazy">
-                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt"></i></div>
+                            <img src="public/Certificates/thumbs/Ethical Hacking_- Exploit Linux Server_.webp" alt="Ethical Hacking Certificate" width="560" height="417" loading="lazy" decoding="async">
+                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt" aria-hidden="true"></i></div>
                         </div>
                         <div class="tl-body">
-                            <span class="tl-category cat-security"><i class="fas fa-shield-alt"></i> Security</span>
+                            <span class="tl-category cat-security"><i class="fas fa-shield-alt" aria-hidden="true"></i> Security</span>
                             <h3 class="tl-title">Ethical Hacking</h3>
                             <p class="tl-desc">Exploitation techniques, Linux server attacks, and penetration testing methodology.</p>
                         </div>
@@ -820,30 +850,30 @@
 
                 <!-- Node 7 -->
                 <div class="tl-item tl-left" data-animate="fade-right" data-delay="400">
-                    <div class="tl-card" data-img="public/Certificates/Everything About Kali Linux OS_page-0001.jpg">
+                    <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/Everything About Kali Linux OS_page-0001.webp">
                         <div class="tl-thumb">
-                            <img src="public/Certificates/Everything About Kali Linux OS_page-0001.jpg" alt="Kali Linux OS Certificate" loading="lazy">
-                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt"></i></div>
+                            <img src="public/Certificates/thumbs/Everything About Kali Linux OS_page-0001.webp" alt="Kali Linux OS Certificate" width="560" height="417" loading="lazy" decoding="async">
+                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt" aria-hidden="true"></i></div>
                         </div>
                         <div class="tl-body">
-                            <span class="tl-category cat-security"><i class="fas fa-shield-alt"></i> Security</span>
+                            <span class="tl-category cat-security"><i class="fas fa-shield-alt" aria-hidden="true"></i> Security</span>
                             <h3 class="tl-title">Kali Linux OS</h3>
                             <p class="tl-desc">Complete guide to Kali Linux tools, environment setup, and security workflows.</p>
                         </div>
                     </div>
-                    <div class="tl-node"><i class="fas fa-terminal"></i></div>
+                    <div class="tl-node"><i class="fas fa-terminal" aria-hidden="true"></i></div>
                 </div>
 
                 <!-- Node 8 -->
                 <div class="tl-item tl-right" data-animate="fade-left" data-delay="450">
-                    <div class="tl-node"><i class="fas fa-lock"></i></div>
-                    <div class="tl-card" data-img="public/Certificates/1747098730146_page-0001.jpg">
+                    <div class="tl-node"><i class="fas fa-lock" aria-hidden="true"></i></div>
+                    <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/1747098730146_page-0001.webp">
                         <div class="tl-thumb">
-                            <img src="public/Certificates/1747098730146_page-0001.jpg" alt="Introduction to Cybersecurity" loading="lazy">
-                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt"></i></div>
+                            <img src="public/Certificates/thumbs/1747098730146_page-0001.webp" alt="Introduction to Cybersecurity" width="560" height="433" loading="lazy" decoding="async">
+                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt" aria-hidden="true"></i></div>
                         </div>
                         <div class="tl-body">
-                            <span class="tl-category cat-security"><i class="fas fa-shield-alt"></i> Cybersecurity</span>
+                            <span class="tl-category cat-security"><i class="fas fa-shield-alt" aria-hidden="true"></i> Cybersecurity</span>
                             <h3 class="tl-title">Intro to Cybersecurity</h3>
                             <p class="tl-desc">Core concepts of cybersecurity — threats, vulnerabilities, and defense strategies.</p>
                         </div>
@@ -852,18 +882,18 @@
 
                 <!-- Node 9 -->
                 <div class="tl-item tl-left" data-animate="fade-right" data-delay="500">
-                    <div class="tl-card" data-img="public/Certificates/Document from ADITYA ðŸ˜¼_page-0001.jpg">
+                    <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/basic-structure-of-computer.webp">
                         <div class="tl-thumb">
-                            <img src="public/Certificates/Document from ADITYA ðŸ˜¼_page-0001.jpg" alt="Basic Structure of Computer Certificate" loading="lazy">
-                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt"></i></div>
+                            <img src="public/Certificates/thumbs/basic-structure-of-computer.webp" alt="Basic Structure of Computer Certificate" width="560" height="417" loading="lazy" decoding="async">
+                            <div class="tl-thumb-overlay"><i class="fas fa-expand-alt" aria-hidden="true"></i></div>
                         </div>
                         <div class="tl-body">
-                            <span class="tl-category cat-cs"><i class="fas fa-microchip"></i> Computer Science</span>
+                            <span class="tl-category cat-cs"><i class="fas fa-microchip" aria-hidden="true"></i> Computer Science</span>
                             <h3 class="tl-title">Basic Structure of Computer</h3>
                             <p class="tl-desc">Hardware components, CPU architecture, memory hierarchy, and I/O systems.</p>
                         </div>
                     </div>
-                    <div class="tl-node"><i class="fas fa-microchip"></i></div>
+                    <div class="tl-node"><i class="fas fa-microchip" aria-hidden="true"></i></div>
                 </div>
 
             </div>
@@ -871,9 +901,9 @@
     </section>
 
     <!-- Lightbox -->
-    <div class="lightbox" id="lightbox">
-        <button class="lightbox-close" id="lightbox-close"><i class="fas fa-times"></i></button>
-        <img class="lightbox-img" id="lightbox-img" alt="Certificate">
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption">
+        <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close"><i class="fas fa-times" aria-hidden="true"></i></button>
+        <img class="lightbox-img" id="lightbox-img" alt="" hidden>
         <div class="lightbox-caption" id="lightbox-caption"></div>
     </div>
 
@@ -893,21 +923,21 @@
 
                     <div class="contact-cards">
                         <a href="mailto:adityaajaysingh0104@gmail.com" class="contact-card">
-                            <div class="contact-card-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="contact-card-icon"><i class="fas fa-envelope" aria-hidden="true"></i></div>
                             <div>
                                 <h4>Email</h4>
                                 <p>adityaajaysingh0104@gmail.com</p>
                             </div>
                         </a>
                         <a href="https://github.com/Adityasiig" target="_blank" rel="noopener noreferrer" class="contact-card">
-                            <div class="contact-card-icon"><i class="fab fa-github"></i></div>
+                            <div class="contact-card-icon"><i class="fab fa-github" aria-hidden="true"></i></div>
                             <div>
                                 <h4>GitHub</h4>
                                 <p>github.com/Adityasiig</p>
                             </div>
                         </a>
                         <a href="https://in.linkedin.com/in/singhaditya70" target="_blank" rel="noopener noreferrer" class="contact-card">
-                            <div class="contact-card-icon"><i class="fab fa-linkedin-in"></i></div>
+                            <div class="contact-card-icon"><i class="fab fa-linkedin-in" aria-hidden="true"></i></div>
                             <div>
                                 <h4>LinkedIn</h4>
                                 <p>linkedin.com/in/singhaditya70</p>
@@ -938,14 +968,16 @@
                         </div>
                         <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
                             <span class="btn-text">Send Message</span>
-                            <i class="fas fa-paper-plane btn-icon"></i>
-                            <i class="fas fa-spinner fa-spin btn-spinner" style="display:none;"></i>
+                            <i class="fas fa-paper-plane btn-icon" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-spin btn-spinner" style="display:none;" aria-hidden="true"></i>
                         </button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
+
+    </main>
 
     <!-- ====== FOOTER ====== -->
     <footer class="footer">
@@ -969,9 +1001,9 @@
                     <a href="#contact">Contact</a>
                 </div>
                 <div class="footer-socials">
-                    <a href="https://github.com/Adityasiig" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-                    <a href="https://in.linkedin.com/in/singhaditya70" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="mailto:adityaajaysingh0104@gmail.com"><i class="fas fa-envelope"></i></a>
+                    <a href="https://github.com/Adityasiig" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+                    <a href="https://in.linkedin.com/in/singhaditya70" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                    <a href="mailto:adityaajaysingh0104@gmail.com" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -982,32 +1014,15 @@
 
     <!-- Back to Top -->
     <button class="back-to-top" id="back-to-top" aria-label="Back to top">
-        <i class="fas fa-chevron-up"></i>
+        <i class="fas fa-chevron-up" aria-hidden="true"></i>
     </button>
 
     <!-- Toast Container -->
-    <div id="toast-container"></div>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <script src="public/js/script.js"></script>
-
-
-<script>
-  (function(d,t) {
-    var BASE_URL="https://148-72-168-137.nip.io";
-    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-    g.src=BASE_URL+"/packs/js/sdk.js";
-    g.async = true;
-    s.parentNode.insertBefore(g,s);
-    g.onload=function(){
-      window.chatwootSDK.run({
-        websiteToken: 'WXUvkcU6jUEyNuUUGkBbkgGi',
-        baseUrl: BASE_URL
-      })
-    }
-  })(document,"script");
-</script>
+    <script defer src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" integrity="sha384-NMn9+T8zIKnDUstqb5le7vdLNSyAgSU9DtEPT/b7ks9NJQpPk4Dc9b1tI8oyzimc" crossorigin="anonymous"></script>
+    <script defer src="public/js/script.js"></script>
 
 </body>
 </html>
