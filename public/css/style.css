@@ -12,7 +12,7 @@
     --bg-glass: rgba(255, 255, 255, 0.03);
     --text-primary: #f0f0f5;
     --text-secondary: #8888a0;
-    --text-muted: #55556a;
+    --text-muted: #79798e;
     --accent-1: #00d68f;
     --accent-rgb: 0, 214, 143;
     --accent-2: #00cec9;
@@ -63,7 +63,7 @@
     --bg-glass: rgba(var(--accent-rgb), 0.04);
     --text-primary: #12102b;
     --text-secondary: #4a4870;
-    --text-muted: #8886a8;
+    --text-muted: #6d6b8d;
     --border-color: rgba(var(--accent-rgb), 0.12);
     --border-hover: rgba(var(--accent-rgb), 0.35);
     --shadow-sm: 0 2px 12px rgba(var(--accent-rgb), 0.10);
@@ -109,12 +109,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .section {
     padding: var(--section-padding) 0;
     position: relative;
-}
-
-/* ===== CUSTOM CURSOR (disabled) ===== */
-.cursor-dot,
-.cursor-outline {
-    display: none;
 }
 
 /* ===== LOADING SCREEN ===== */
@@ -597,19 +591,6 @@ header.scrolled {
     background: linear-gradient(180deg, #eceaff 0%, #f4f3ff 100%);
 }
 
-/* Light mode — hero text */
-[data-theme="light"] .hero-greeting,
-[data-theme="light"] .hero-name {
-    text-shadow: 0 2px 20px rgba(var(--accent-rgb), 0.15);
-}
-
-/* Light mode — stat cards */
-[data-theme="light"] .stat-card {
-    background: rgba(255, 255, 255, 0.9);
-    border-color: rgba(var(--accent-rgb), 0.15);
-    box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.12);
-}
-
 /* Light mode — bento cards */
 [data-theme="light"] .bento-card {
     background: rgba(255, 255, 255, 0.9);
@@ -712,11 +693,6 @@ header.scrolled {
 [data-theme="light"] .contact-card:hover {
     border-color: rgba(var(--accent-rgb), 0.35);
     box-shadow: 0 12px 40px rgba(var(--accent-rgb), 0.18);
-}
-
-[data-theme="light"] .contact-icon {
-    background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.15), rgba(0, 206, 201, 0.10));
-    color: var(--accent-1);
 }
 
 /* Light mode — navbar */
@@ -1088,23 +1064,6 @@ header.scrolled {
 [data-theme="light"] .av-dot-4  { fill: #6c5ce7; }
 [data-theme="light"] .av-ring1  { stroke: #6c5ce7; }
 [data-theme="light"] .av-ring2  { stroke: #6c5ce7; opacity: 0.3; }
-
-.about-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform var(--transition-slow);
-}
-
-.about-image-frame:hover .about-img {
-    transform: scale(1.05);
-}
-
-.image-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, transparent 60%, rgba(10, 10, 15, 0.4) 100%);
-}
 
 .about-image-decoration {
     position: absolute;
@@ -1914,10 +1873,10 @@ header.scrolled {
     overflow-x: auto;
 }
 
-/* Hide the ugly accessibility skip link */
+/* Hide the third-party widget's own skip link, but never .sr-only —
+   that is screen-reader text and must stay in the accessibility tree. */
 .github-graph-container .contrib-calendar-skip,
-.github-graph-container a[href="#contribution-graph-legend-list"],
-.github-graph-container .sr-only {
+.github-graph-container a[href="#contribution-graph-legend-list"] {
     display: none !important;
 }
 
@@ -2166,8 +2125,7 @@ header.scrolled {
 
 .code-keyword { color: #c792ea; }
 .code-func { color: #82aaff; }
-.code-string { color: #c3e88d; }
-.code-comment { color: #546e7a; }
+.code-comment { color: #6f8995; }
 
 /* Project Cards Grid */
 .projects-grid {
@@ -2284,17 +2242,6 @@ header.scrolled {
     border-radius: 50%;
 }
 
-.status-progress {
-    background: rgba(0, 206, 201, 0.1);
-    color: var(--accent-2);
-    border: 1px solid rgba(0, 206, 201, 0.2);
-}
-
-.status-progress .status-dot {
-    background: var(--accent-2);
-    animation: pulse-dot 2s infinite;
-}
-
 .status-soon {
     background: rgba(var(--accent-rgb), 0.1);
     color: var(--accent-1);
@@ -2302,14 +2249,6 @@ header.scrolled {
 }
 
 .status-soon .status-dot { background: var(--accent-1); }
-
-.status-planned {
-    background: rgba(253, 121, 168, 0.1);
-    color: var(--accent-3);
-    border: 1px solid rgba(253, 121, 168, 0.2);
-}
-
-.status-planned .status-dot { background: var(--accent-3); }
 
 .status-live {
     background: rgba(var(--accent-rgb), 0.1);
@@ -3061,10 +3000,6 @@ header.scrolled {
         grid-template-columns: 1fr 1fr;
     }
 
-    .cert-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
     .contact-grid {
         grid-template-columns: 1fr;
         gap: 40px;
@@ -3078,8 +3013,6 @@ header.scrolled {
 
     .github-activity-header { flex-direction: column; align-items: flex-start; gap: 4px; }
     .currently-building { margin-left: 0; margin-top: 8px; font-size: 0.78rem; }
-
-    .cursor-dot, .cursor-outline { display: none; }
 
     .section-header { margin-bottom: 48px; }
     .section-title { font-size: 2rem; }
@@ -3101,10 +3034,6 @@ header.scrolled {
     }
 
     .projects-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .cert-grid {
         grid-template-columns: 1fr;
     }
 
@@ -3278,36 +3207,6 @@ header.scrolled {
     gap: 10px;
 }
 
-/* ===== Launch button (live web demos — purple/cyan gradient) ===== */
-.btn-launch {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 7px 14px;
-    border-radius: var(--radius-full);
-    font-size: 0.78rem;
-    font-weight: 600;
-    background: var(--gradient-primary);
-    color: #fff !important;
-    transition: all var(--transition-normal);
-    box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.25);
-    text-decoration: none;
-    letter-spacing: 0.2px;
-}
-
-.btn-launch:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(var(--accent-rgb), 0.4);
-    color: #fff !important;
-}
-
-.btn-launch i {
-    font-size: 0.85rem;
-    transition: transform var(--transition-fast);
-}
-
-.btn-launch:hover i { transform: translate(2px, -2px); }
-
 /* ===== APK download button (Android green gradient) ===== */
 .btn-apk {
     display: inline-flex;
@@ -3337,15 +3236,6 @@ header.scrolled {
 }
 
 .btn-apk:hover i { transform: scale(1.15); }
-
-/* Light mode tweak — keep button readable */
-body.light-mode .ht-preview {
-    background: linear-gradient(135deg, #1a1730 0%, #251f3d 100%);
-}
-
-body.light-mode .btn-apk {
-    color: #0a0a0f !important;
-}
 
 
 /* ============================================================
@@ -3392,11 +3282,88 @@ body.light-mode .btn-apk {
 .av-glow { fill: var(--accent-1); }
 .ring-grad-start { stop-color: var(--accent-1); }
 
-/* ===== Card actions wrapper — groups multiple CTA buttons (Open Live + Download APK) ===== */
-.card-actions {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+/* ============================================================
+   ACCESSIBILITY
+   ============================================================ */
+
+/* Skip link — visually hidden until focused. */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 100000;
+    padding: 12px 20px;
+    background: var(--accent-1, #7c5cff);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 0 0 8px 0;
+    text-decoration: none;
+}
+
+.skip-link:focus {
+    left: 0;
+}
+
+/* The hamburger is a <button>; strip UA chrome without touching its layout. */
+.hamburger {
+    padding: 0;
+    border: none;
+    background: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Visible keyboard focus everywhere. Pointer clicks stay unaffected. */
+:focus-visible {
+    outline: 3px solid var(--accent-1, #7c5cff);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* .btn clips its own outline via overflow:hidden. */
+.btn:focus-visible,
+.tl-card:focus-visible {
+    overflow: visible;
+    outline-offset: 4px;
+}
+
+/* Honour the OS "reduce motion" setting. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    [data-animate] {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* Without JS the IntersectionObserver never adds .animated, so every
+   [data-animate] block would stay invisible. Reveal them instead. */
+.no-js [data-animate] {
+    opacity: 1;
+    transform: none;
+}
+
+.no-js .loader {
+    display: none;
+}
+
+/* Screen-reader-only text: available to AT, invisible on screen. */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
