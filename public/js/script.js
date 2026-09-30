@@ -3,62 +3,28 @@
    Interactive JavaScript
    ============================================ */
 
-document.addEventListener('DOMContentLoaded', () => {
+// The tag is deferred, so the DOM is already parsed; still guard in case the
+// script is ever loaded without defer.
+function initPortfolio() {
 
     // ===== LOADING SCREEN =====
     const loader = document.getElementById('loader');
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            loader.classList.add('loaded');
-            document.body.style.overflow = 'auto';
-            animateHeroElements();
-        }, 1200);
-    });
 
-    // Failsafe: hide loader after 3s regardless
-    setTimeout(() => {
-        if (loader && !loader.classList.contains('loaded')) {
-            loader.classList.add('loaded');
-            document.body.style.overflow = 'auto';
-            animateHeroElements();
-        }
-    }, 3000);
-
-    // ===== CUSTOM CURSOR =====
-    const cursorDot = document.getElementById('cursor-dot');
-    const cursorOutline = document.getElementById('cursor-outline');
-
-    if (cursorDot && cursorOutline && window.innerWidth > 768) {
-        let cursorX = 0, cursorY = 0;
-        let outlineX = 0, outlineY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            cursorX = e.clientX;
-            cursorY = e.clientY;
-            cursorDot.style.left = cursorX + 'px';
-            cursorDot.style.top = cursorY + 'px';
-        });
-
-        function animateCursor() {
-            outlineX += (cursorX - outlineX) * 0.15;
-            outlineY += (cursorY - outlineY) * 0.15;
-            cursorOutline.style.left = outlineX + 'px';
-            cursorOutline.style.top = outlineY + 'px';
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-
-        // Hover effect on interactive elements
-        const hoverTargets = document.querySelectorAll('a, button, .tl-card, .project-card, .bento-card, .detail-card, .contact-card, .skill-tag, input, textarea');
-        hoverTargets.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                document.body.classList.add('cursor-hover');
-            });
-            el.addEventListener('mouseleave', () => {
-                document.body.classList.remove('cursor-hover');
-            });
-        });
+    function dismissLoader() {
+        if (!loader || loader.classList.contains('loaded')) return;
+        loader.classList.add('loaded');
+        document.body.style.overflow = 'auto';
+        animateHeroElements();
     }
+
+    // Dismiss as soon as the DOM is ready — no artificial delay.
+    dismissLoader();
+
+    // Failsafe: if anything above threw before this point, still reveal on load.
+    window.addEventListener('load', dismissLoader);
+
+    // Respect the user's motion preference across every effect below.
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // ===== TYPED.JS =====
     const typedElement = document.getElementById('typed-text');
@@ -88,54 +54,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileLinks = document.querySelectorAll('.mobile-link');
     const navLinks = document.querySelectorAll('.nav-link');
 
-    // Scroll effect on header
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
-
     // Hamburger toggle
     if (hamburger && mobileMenu) {
+        function setMenu(open) {
+            hamburger.classList.toggle('active', open);
+            mobileMenu.classList.toggle('active', open);
+            hamburger.setAttribute('aria-expanded', String(open));
+            hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+            document.body.style.overflow = open ? 'hidden' : 'auto';
+        }
+
         hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+            setMenu(!mobileMenu.classList.contains('active'));
         });
 
         mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
+            link.addEventListener('click', () => setMenu(false));
         });
-    }
 
-    // Active nav link on scroll
-    const sections = document.querySelectorAll('section[id]');
-
-    function updateActiveNav() {
-        const scrollY = window.scrollY + 200;
-        sections.forEach(section => {
-            const top = section.offsetTop;
-            const height = section.offsetHeight;
-            const id = section.getAttribute('id');
-
-            if (scrollY >= top && scrollY < top + height) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('data-section') === id) {
-                        link.classList.add('active');
-                    }
-                });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                setMenu(false);
+                hamburger.focus();
             }
         });
     }
 
-    window.addEventListener('scroll', updateActiveNav);
+    // Active nav link — IntersectionObserver instead of measuring every section
+    // on every scroll tick (that forced a synchronous layout per section).
+    const sections = document.querySelectorAll('section[id]');
+
+    function setActiveNav(id) {
+        navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('data-section') === id);
+        });
+    }
+
+    const navObserver = new IntersectionObserver((entries) => {
+        // Pick the entry nearest the top of the viewport that is currently visible.
+        const visible = entries.filter(e => e.isIntersecting);
+        if (visible.length) {
+            visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+            setActiveNav(visible[0].target.id);
+        }
+    }, { rootMargin: '-200px 0px -60% 0px', threshold: 0 });
+
+    sections.forEach(section => navObserver.observe(section));
 
     // Smooth scroll for all anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -150,16 +114,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ===== SCROLL PROGRESS =====
+    // ===== UNIFIED SCROLL HANDLER =====
+    // One passive listener, rAF-coalesced: all reads happen up front, all writes
+    // after, so a scroll tick never interleaves layout reads with style writes.
     const scrollProgress = document.getElementById('scroll-progress');
-    window.addEventListener('scroll', () => {
+    const scrollTargets = {};
+    let scrollTicking = false;
+
+    function onScrollFrame() {
+        scrollTicking = false;
         const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const percent = (scrollTop / docHeight) * 100;
+        const viewportH = window.innerHeight;
+        const docHeight = document.documentElement.scrollHeight - viewportH;
+
+        header.classList.toggle('scrolled', scrollTop > 50);
+
         if (scrollProgress) {
-            scrollProgress.style.width = percent + '%';
+            scrollProgress.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
         }
-    });
+
+        if (scrollTargets.backToTop) {
+            scrollTargets.backToTop.classList.toggle('visible', scrollTop > 400);
+        }
+
+        if (scrollTargets.heroContent && scrollTop < viewportH) {
+            scrollTargets.heroContent.style.transform = `translateY(${scrollTop * 0.2}px)`;
+            scrollTargets.heroContent.style.opacity = 1 - (scrollTop / (viewportH * 0.8));
+        }
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!scrollTicking) {
+            scrollTicking = true;
+            requestAnimationFrame(onScrollFrame);
+        }
+    }, { passive: true });
 
     // ===== THEME TOGGLE =====
     const themeToggle = document.getElementById('theme-toggle');
@@ -170,6 +159,12 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('theme', theme);
         if (themeIcon) {
             themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            themeIcon.setAttribute('aria-hidden', 'true');
+        }
+        if (themeToggle) {
+            // Announce what the button will do, not just that it exists.
+            themeToggle.setAttribute('aria-label',
+                theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
         }
     }
 
@@ -281,25 +276,50 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxClose = document.getElementById('lightbox-close');
     const certCards = document.querySelectorAll('.tl-card');
 
-    certCards.forEach(card => {
-        card.addEventListener('click', () => {
-            const img = card.querySelector('.tl-thumb img');
-            const title = card.querySelector('.tl-title');
-            const category = card.querySelector('.tl-category');
+    let lastFocusedCard = null;
 
-            if (lightbox && img) {
-                lightboxImg.src = img.src;
-                lightboxCaption.textContent = (category ? category.textContent.trim() + ' — ' : '') + (title ? title.textContent : '');
-                lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
+    function openLightbox(card) {
+        const img = card.querySelector('.tl-thumb img');
+        const title = card.querySelector('.tl-title');
+        const category = card.querySelector('.tl-category');
+        if (!lightbox || !img) return;
+
+        // Cards render a small thumb; data-img holds the full-size version.
+        lightboxImg.src = card.dataset.img || img.src;
+        lightboxImg.alt = img.alt || 'Certificate';
+        lightboxImg.hidden = false;
+        lightboxCaption.textContent = (category ? category.textContent.trim() + ' — ' : '') + (title ? title.textContent : '');
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        lastFocusedCard = card;
+        // .lightbox transitions visibility, and an element is not focusable
+        // until that completes — so wait for the transition, with a timeout
+        // fallback in case it never fires.
+        if (lightboxClose) {
+            const focusClose = () => lightboxClose.focus();
+            lightbox.addEventListener('transitionend', focusClose, { once: true });
+            setTimeout(focusClose, 350);
+        }
+    }
+
+    certCards.forEach(card => {
+        card.addEventListener('click', () => openLightbox(card));
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openLightbox(card);
             }
         });
     });
 
     function closeLightbox() {
-        if (lightbox) {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = 'auto';
+        if (!lightbox || !lightbox.classList.contains('active')) return;
+        lightbox.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        if (lastFocusedCard) {
+            lastFocusedCard.focus();
+            lastFocusedCard = null;
         }
     }
 
@@ -308,13 +328,22 @@ document.addEventListener('DOMContentLoaded', () => {
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) closeLightbox();
         });
+        // Trap Tab inside the dialog while it is open.
+        lightbox.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab' && lightboxClose) {
+                e.preventDefault();
+                lightboxClose.focus();
+            }
+        });
     }
     document.addEventListener('keydown', (e) => {
+        // Only acts when the lightbox is open — closeLightbox() guards itself.
         if (e.key === 'Escape') closeLightbox();
     });
 
     // ===== CONTACT FORM =====
     const contactForm = document.getElementById('contactForm');
+    let emailjsReady = false;
 
     if (contactForm) {
         const inputs = contactForm.querySelectorAll('input, textarea');
@@ -349,13 +378,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!errorEl) {
                     errorEl = document.createElement('span');
                     errorEl.className = 'form-error';
+                    errorEl.id = input.id + '-error';
+                    // role=alert so the message is announced as it appears.
+                    errorEl.setAttribute('role', 'alert');
                     formGroup.appendChild(errorEl);
                 }
                 errorEl.textContent = errorMsg;
+                input.setAttribute('aria-invalid', 'true');
+                input.setAttribute('aria-describedby', errorEl.id);
             } else {
                 input.classList.remove('invalid');
                 if (input.value.trim()) input.classList.add('valid');
                 if (errorEl) errorEl.remove();
+                input.removeAttribute('aria-invalid');
+                input.removeAttribute('aria-describedby');
             }
 
             return isValid;
@@ -400,7 +436,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 to_email:   'adityaajaysingh0104@gmail.com'
             };
 
-            // Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with values from emailjs.com
+            // The EmailJS library is deferred, so init lazily on first submit.
+            if (typeof emailjs === 'undefined') {
+                showToast('Still loading — please try again in a moment.', 'error');
+                submitBtn.disabled = false;
+                btnText.textContent = 'Send Message';
+                btnIcon.style.display = 'inline-block';
+                btnSpinner.style.display = 'none';
+                return;
+            }
+            if (!emailjsReady) {
+                emailjs.init({ publicKey: window.EMAILJS_PUBLIC_KEY });
+                emailjsReady = true;
+            }
+
             emailjs.send('service_m70ckgj', 'template_fwa4xtm', templateParams)
                 .then(() => {
                     showToast('Message sent! I\'ll get back to you soon.', 'success');
@@ -430,7 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const toast = document.createElement('div');
         toast.className = `toast toast-${type}`;
         const icon = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle';
-        toast.innerHTML = `<i class="fas ${icon}"></i> ${message}`;
+        toast.innerHTML = `<i class="fas ${icon}" aria-hidden="true"></i> ${esc(message)}`;
         container.appendChild(toast);
 
         requestAnimationFrame(() => {
@@ -446,13 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== BACK TO TOP =====
     const backToTop = document.getElementById('back-to-top');
     if (backToTop) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 400) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-        });
+        scrollTargets.backToTop = backToTop;
 
         backToTop.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -463,50 +506,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const hero = document.querySelector('.hero');
     const heroContent = document.querySelector('.hero-content');
 
-    if (hero && heroContent && window.innerWidth > 768) {
-        window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY;
-            if (scrolled < window.innerHeight) {
-                heroContent.style.transform = `translateY(${scrolled * 0.2}px)`;
-                heroContent.style.opacity = 1 - (scrolled / (window.innerHeight * 0.8));
-            }
-        });
+    if (hero && heroContent && window.innerWidth > 768 && !reduceMotion) {
+        scrollTargets.heroContent = heroContent;
     }
 
-    // ===== TILT EFFECT ON CARDS =====
-    if (window.innerWidth > 768) {
+    // ===== TILT + MAGNETIC HOVER =====
+    // Rect is cached on mouseenter rather than read on every mousemove, so the
+    // pointer path no longer interleaves layout reads with transform writes.
+    if (window.innerWidth > 768 && !reduceMotion) {
         const tiltCards = document.querySelectorAll('.project-card, .bento-card, .tl-card');
         tiltCards.forEach(card => {
+            let rect = null;
+            card.addEventListener('mouseenter', () => { rect = card.getBoundingClientRect(); });
             card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+                if (!rect) return;
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * 5;
-                const rotateY = ((centerX - x) / centerX) * 5;
-
+                const rotateX = ((e.clientY - rect.top - centerY) / centerY) * 5;
+                const rotateY = ((centerX - (e.clientX - rect.left)) / centerX) * 5;
                 card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
             });
-
             card.addEventListener('mouseleave', () => {
+                rect = null;
                 card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateY(0)';
             });
         });
-    }
 
-    // ===== MAGNETIC BUTTONS =====
-    if (window.innerWidth > 768) {
-        const magneticBtns = document.querySelectorAll('.btn');
-        magneticBtns.forEach(btn => {
+        document.querySelectorAll('.btn').forEach(btn => {
+            let rect = null;
+            btn.addEventListener('mouseenter', () => { rect = btn.getBoundingClientRect(); });
             btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
+                if (!rect) return;
                 const x = e.clientX - rect.left - rect.width / 2;
                 const y = e.clientY - rect.top - rect.height / 2;
                 btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
             });
-
             btn.addEventListener('mouseleave', () => {
+                rect = null;
                 btn.style.transform = 'translate(0, 0)';
             });
         });
@@ -524,6 +560,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ===== GITHUB CONTRIBUTION CALENDAR (Custom) =====
+    // Escape text destined for an HTML attribute / text node.
+    const esc = (v) => String(v).replace(/[&<>"']/g, ch => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[ch]));
+
     (async function renderGithubCalendar() {
         const calEl = document.getElementById('gh-calendar');
         const countEl = document.getElementById('gh-contrib-count');
@@ -596,13 +637,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
 
-            // Render
-            let html = `<div class="gh-cal-grid" style="width:${gridW}px">`;
+            // Render. The grid is decorative detail for AT — the running total
+            // is announced via #gh-contrib-count instead of 365 colour-only cells.
+            let html = `<div class="gh-cal-grid" role="img" aria-label="GitHub contribution graph for the last year" style="width:${gridW}px">`;
 
             // Month labels row — absolutely positioned relative to cells area
             html += `<div class="gh-cal-months" style="position:relative;height:20px;margin-left:${DAY_COL + BODY_GAP}px;margin-bottom:6px;">`;
             monthLabels.forEach(({ wi, label }) => {
-                html += `<span class="gh-cal-month-label" style="position:absolute;left:${wi * STEP}px">${label}</span>`;
+                html += `<span class="gh-cal-month-label" style="position:absolute;left:${wi * STEP}px">${esc(label)}</span>`;
             });
             html += '</div>';
 
@@ -621,10 +663,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (future) {
                         html += `<span class="gh-cal-cell" data-level="0" style="${style}"></span>`;
                     } else {
-                        const tip = count === 0
+                        // date/count come from a third-party API — escape before
+                        // interpolating into an attribute.
+                        const tip = esc(count === 0
                             ? `No contributions on ${date}`
-                            : `${count} contribution${count > 1 ? 's' : ''} on ${date}`;
-                        html += `<span class="gh-cal-cell" data-level="${level}" title="${tip}" style="${style}"></span>`;
+                            : `${count} contribution${count > 1 ? 's' : ''} on ${date}`);
+                        html += `<span class="gh-cal-cell" data-level="${Number(level) || 0}" title="${tip}" style="${style}"></span>`;
                     }
                 });
                 html += '</div>';
@@ -647,4 +691,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== CONSOLE BRANDING =====
     console.log('%c Aditya Singh - Portfolio', 'color: #00d68f; font-size: 20px; font-weight: bold; font-family: sans-serif;');
     console.log('%c Built with passion and clean code', 'color: #00cec9; font-size: 12px; font-family: sans-serif;');
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPortfolio);
+} else {
+    initPortfolio();
+}

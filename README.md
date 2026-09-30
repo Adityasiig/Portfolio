@@ -130,6 +130,8 @@ A modern, design-heavy personal portfolio built with **pure HTML, CSS & JavaScri
 ```
 Portfolio/
 ├── index.html               # Single-page app entry point
+├── robots.txt
+├── sitemap.xml
 ├── README.md
 └── public/
     ├── css/
@@ -137,15 +139,21 @@ Portfolio/
     ├── js/
     │   └── script.js        # Interactions, EmailJS, GitHub calendar, animations
     ├── images/
-    │   ├── avatar.svg       # Developer avatar (SVG, theme-aware)
+    │   ├── profile.jpg      # Social-card image (og:image / twitter:image)
     │   ├── favicon.ico
     │   ├── favicon.png
     │   └── favicon.svg
     ├── files/
     │   └── cv.pdf           # Downloadable resume
+    ├── apk/
+    │   ├── taskflow.apk         # Android build, linked from the project card
+    │   └── health-tracker.apk
     └── Certificates/
-        └── [9 certificate images]
+        ├── thumbs/          # 560px WebP — what the grid actually loads
+        └── full/            # 1600px WebP — opened in the lightbox
 ```
+
+> The developer avatar is an inline SVG in `index.html`, not a separate file.
 
 ---
 
