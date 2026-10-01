@@ -29,10 +29,12 @@
     --accent-ink: #14110f; /* text on top of the accent */
 
     /* Kept for compatibility; flattened to solid colour, no rainbow. */
-    --gradient-primary: linear-gradient(135deg, #d4813f, #c96f3a);
-    --gradient-accent: linear-gradient(135deg, #d4813f, #b8564a);
-    --gradient-warm: linear-gradient(135deg, #d4813f, #b8564a);
-    --gradient-cool: linear-gradient(135deg, #7d9b76, #d4813f);
+    /* Flat, not two-tone. A gradient on a button is the clearest
+       generated-template tell, so these resolve to solid colour. */
+    --gradient-primary: #d4813f;
+    --gradient-accent: #c96f3a;
+    --gradient-warm: #d4813f;
+    --gradient-cool: #7d9b76;
 
     /* Hairlines do the work glassmorphism used to */
     --border-color: rgba(245, 240, 232, 0.10);
@@ -510,15 +512,6 @@ header.scrolled {
 }
 
 /* Aurora Background */
-.aurora {
-    position: absolute;
-    inset: -50%;
-    background:
-        radial-gradient(ellipse 80% 50% at 20% 40%, rgba(var(--accent-rgb), 0.15), transparent 60%),
-        radial-gradient(ellipse 60% 40% at 80% 50%, rgba(0, 206, 201, 0.12), transparent 60%),
-        radial-gradient(ellipse 50% 60% at 50% 80%, rgba(253, 121, 168, 0.08), transparent 60%);
-    animation: aurora-shift 12s ease-in-out infinite alternate;
-}
 
 @keyframes aurora-shift {
     0% { transform: translate(0, 0) rotate(0deg) scale(1); }
@@ -528,75 +521,13 @@ header.scrolled {
 }
 
 /* Grid Overlay */
-.grid-overlay {
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 0%, transparent 70%);
-    -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 0%, transparent 70%);
-}/* Light mode — section alternation *//* Light mode — bento cards *//* Light mode — project cards *//* Light mode — featured project *//* Light mode — code window *//* Light mode — section tag *//* Light mode — detail cards (about) *//* Light mode — contact cards *//* Light mode — navbar *//* Light mode — footer *//* Floating Shapes */
-.floating-shapes {
-    position: absolute;
-    inset: 0;
-}
+/* Light mode — section alternation *//* Light mode — bento cards *//* Light mode — project cards *//* Light mode — featured project *//* Light mode — code window *//* Light mode — section tag *//* Light mode — detail cards (about) *//* Light mode — contact cards *//* Light mode — navbar *//* Light mode — footer *//* Floating Shapes */
 
-.shape {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(1px);
-    opacity: 0.6;
-}
 
-.shape-1 {
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(var(--accent-rgb), 0.08), transparent 70%);
-    top: 10%;
-    left: 10%;
-    animation: float-1 20s ease-in-out infinite;
-}
 
-.shape-2 {
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(0, 206, 201, 0.08), transparent 70%);
-    top: 60%;
-    right: 15%;
-    animation: float-2 15s ease-in-out infinite;
-}
 
-.shape-3 {
-    width: 150px;
-    height: 150px;
-    background: radial-gradient(circle, rgba(253, 121, 168, 0.06), transparent 70%);
-    bottom: 20%;
-    left: 20%;
-    animation: float-3 18s ease-in-out infinite;
-}
 
-.shape-4 {
-    width: 100px;
-    height: 100px;
-    border: 1px solid rgba(var(--accent-rgb), 0.1);
-    border-radius: var(--radius-md);
-    top: 30%;
-    right: 25%;
-    animation: float-4 12s ease-in-out infinite;
-    transform: rotate(45deg);
-}
 
-.shape-5 {
-    width: 60px;
-    height: 60px;
-    border: 1px solid rgba(0, 206, 201, 0.1);
-    border-radius: 50%;
-    bottom: 30%;
-    right: 10%;
-    animation: float-5 10s ease-in-out infinite;
-}
 
 @keyframes float-1 {
     0%, 100% { transform: translate(0, 0); }
@@ -665,7 +596,7 @@ header.scrolled {
     display: inline-flex;
     align-items: center;
     gap: var(--s-2);
-    background: rgba(253, 121, 168, 0.08);
+    background: rgba(184, 86, 74, 0.07);
     border: 1px solid rgba(253, 121, 168, 0.25);
     border-radius: var(--radius-full);
     padding: 8px 18px;
@@ -1221,7 +1152,7 @@ header.scrolled {
 
 /* ===== GITHUB ACTIVITY SECTION ===== */
 .github-activity {
-    background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+    background: var(--bg-secondary);
 }
 
 .github-activity-wrap {
@@ -1244,7 +1175,7 @@ header.scrolled {
     justify-content: space-between;
     padding: 16px 28px;
     border-bottom: 1px solid var(--border-color);
-    background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.05) 0%, transparent 100%);
+    background: transparent;
 }
 
 .github-activity-user {
@@ -1278,7 +1209,7 @@ header.scrolled {
     width: 100%;
     overflow: hidden;
     padding: 20px 28px 12px;
-    background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.04) 0%, transparent 60%);
+    background: transparent;
     border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 }
 
@@ -2037,14 +1968,7 @@ header.scrolled {
     bottom: 0;
     width: 2px;
     transform: translateX(-50%);
-    background: linear-gradient(
-        to bottom,
-        transparent 0%,
-        var(--accent-1) 8%,
-        var(--accent-2) 50%,
-        var(--accent-1) 92%,
-        transparent 100%
-    );
+    background: var(--border-color);
     opacity: 0.4;
 }
 
@@ -2103,18 +2027,18 @@ header.scrolled {
     top: 50%;
     width: 40px;
     height: 2px;
-    background: linear-gradient(90deg, var(--accent-1), transparent);
+    background: var(--accent-1);
     opacity: 0.4;
 }
 
 .tl-item.tl-left .tl-card::after {
     right: -40px;
-    background: linear-gradient(90deg, transparent, var(--accent-1));
+    background: var(--accent-1);
 }
 
 .tl-item.tl-right .tl-card::after {
     left: -40px;
-    background: linear-gradient(90deg, var(--accent-1), transparent);
+    background: var(--accent-1);
 }
 
 /* Card */
@@ -2204,7 +2128,7 @@ header.scrolled {
 
 /* Category color variants */
 .cat-programming { background: rgba(var(--accent-rgb), 0.12); color: #d4a24f; border: 1px solid rgba(var(--accent-rgb), 0.25); }
-.cat-database     { background: rgba(0, 206, 201, 0.12);  color: #6f8f84; border: 1px solid rgba(0, 206, 201, 0.25); }
+.cat-database     { background: rgba(125, 155, 118, 0.10);  color: #6f8f84; border: 1px solid rgba(0, 206, 201, 0.25); }
 .cat-data         { background: rgba(253, 121, 168, 0.12); color: #f472b6; border: 1px solid rgba(253, 121, 168, 0.25); }
 .cat-networking   { background: rgba(251, 191, 36, 0.12);  color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.25); }
 .cat-server       { background: rgba(52, 211, 153, 0.12);  color: #7d9b76; border: 1px solid rgba(52, 211, 153, 0.25); }
@@ -2812,7 +2736,7 @@ header.scrolled {
 /* ===== Health Tracker app preview ===== */
 .ht-preview {
     height: 160px;
-    background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+    background: var(--bg-sunken);
     padding: 12px 14px 18px;
     display: flex;
     flex-direction: column;
@@ -2914,12 +2838,12 @@ header.scrolled {
 
 .ht-bar-fill {
     height: 100%;
-    background: linear-gradient(90deg, #6f8f84, #7d9b76);
+    background: #7d9b76;
     border-radius: 2px;
 }
 
 .ht-bar-pink {
-    background: linear-gradient(90deg, #b8564a, #7d9b76);
+    background: #b8564a;
 }
 
 /* ===== Card footer becomes flex (backwards-compatible with single-child cards) ===== */
@@ -2940,7 +2864,7 @@ header.scrolled {
     border-radius: var(--radius-full);
     font-size: var(--t-xs);
     font-weight: 600;
-    background: linear-gradient(135deg, #7d9b76, #6f8f84);
+    background: #7d9b76;
     color: #0a0a0f !important;
     transition: all var(--transition-normal);
     box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.25);
@@ -2983,7 +2907,7 @@ header.scrolled {
 
 /* Android APK download button */
 .btn-apk {
-    background: linear-gradient(135deg, #7d9b76, #6f8f84);
+    background: #7d9b76;
     box-shadow: 0 4px 15px rgba(0, 214, 143, 0.25);
 }
 .btn-apk:hover {
@@ -2996,8 +2920,8 @@ header.scrolled {
     background: rgba(0, 214, 143, 0.1);
     border-color: rgba(0, 214, 143, 0.28);
 }
-.ht-bar-fill { background: linear-gradient(90deg, #6f8f84, #7d9b76); }
-.ht-bar-pink { background: linear-gradient(90deg, #b8564a, #7d9b76); }
+.ht-bar-fill { background: #7d9b76; }
+.ht-bar-pink { background: #b8564a; }
 
 /* SVG accents that need theme-switching (CSS overrides inline fill/stroke attrs) */
 .av-tie { fill: var(--accent-1); }
