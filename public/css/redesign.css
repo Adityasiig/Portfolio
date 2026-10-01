@@ -542,11 +542,12 @@ body {
     transform: none;
 }
 
-/* Form fields: flat, hairline, amber only on focus. */
+/* Form fields: flat wells, amber only on focus. The well must sit a
+   step lighter than the page or the input boundary disappears. */
 .form-group input,
 .form-group textarea {
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
+    background: rgba(245, 240, 232, 0.05);
+    border: 1px solid var(--border-strong);
     border-radius: var(--radius-sm);
     font-family: var(--font-main);
 }
@@ -558,12 +559,14 @@ body {
     outline: none;
 }
 
+/* Labels must outrank the placeholder text, not the other way round:
+   they are the only identifier left once the user starts typing. */
 .form-group label {
     font-family: var(--font-mono);
-    font-size: var(--t-2xs);
-    letter-spacing: 0.08em;
+    font-size: var(--t-xs);
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--text-secondary);
 }
 
 /* ---------- Certificates: grid, not an alternating timeline ---------- */
@@ -623,12 +626,13 @@ body {
 
 .tl-body { padding: 18px 20px 20px; }
 
+/* Sentence case: "Computer Science" is too long a run for all-caps. */
 .tl-category {
     display: inline-block;
     font-family: var(--font-mono);
-    font-size: var(--t-2xs);
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
+    font-size: var(--t-xs);
+    letter-spacing: 0.04em;
+    text-transform: none;
     color: var(--text-muted);
     background: none;
     border: 0;
@@ -647,12 +651,20 @@ body {
 
 /* ---------- Skills: stop the languages card stretching ---------- */
 
-/* .bento-large spans two rows but holds less content than the stack
-   beside it, leaving a tall empty well. Let it size to its content. */
-.skills-bento { align-items: start; }
+/* Four categories in a 3-column grid always orphan the fourth card.
+   A 2x2 grid gives every category the same cell — no spans, no gaps. */
+.skills-bento {
+    align-items: stretch;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+}
 
-.bento-large { grid-row: 1 / 2; }
-.bento-wide { grid-column: 1 / 4; }
+.bento-large { grid-row: auto; grid-column: auto; }
+.bento-wide { grid-column: auto; }
+
+@media (max-width: 640px) {
+    .skills-bento { grid-template-columns: 1fr; }
+}
 
 .bento-icon {
     background: var(--bg-glass);
@@ -817,7 +829,7 @@ body {
 .bento-title, .bento-header h3 { font-size: var(--t-lg); line-height: 1.3; }
 .project-title { font-size: clamp(var(--t-xl), 3vw, var(--t-2xl)); line-height: 1.2; }
 .tl-title { font-size: var(--t-lg); line-height: 1.3; margin-bottom: var(--s-1); }
-.tl-category { font-size: var(--t-2xs); margin-bottom: var(--s-2); }
+.tl-category { font-size: var(--t-xs); margin-bottom: var(--s-2); }
 .tl-desc { font-size: var(--t-sm); line-height: 1.6; }
 .card-desc, .project-desc { font-size: var(--t-base); line-height: 1.7; }
 .detail-card h4 { font-size: var(--t-sm); line-height: 1.4; }
@@ -833,7 +845,7 @@ body {
 .stat-label { font-size: var(--t-2xs); }
 .stat-number, .stat-value { font-size: var(--t-xl); line-height: 1.1; }
 
-.form-group label { font-size: var(--t-2xs); margin-bottom: var(--s-2); }
+.form-group label { font-size: var(--t-xs); margin-bottom: var(--s-2); }
 .form-group input, .form-group textarea {
     font-size: var(--t-sm);
     padding: var(--s-3) var(--s-4);
@@ -1044,19 +1056,33 @@ body {
     color: var(--text-secondary);
 }
 
-/* ---- 12: the placeholder must not outshine finished work ---- */
-
-.project-card--placeholder {
-    background: transparent;
-    border: 1px dashed var(--border-strong);
-}
-
-.project-card--placeholder:hover { border-color: var(--border-strong); }
+/* ---- the placeholder keeps the shared card anatomy (preview, title,
+   tags, footer) so the grid row stays aligned; only the preview content
+   is a dashed skeleton, which is where "not finished yet" belongs. ---- */
 
 .project-card--placeholder .card-icon {
     background: transparent;
     border: 1px solid var(--border-color);
     color: var(--text-muted);
+}
+
+.project-card--placeholder .card-preview {
+    border-style: dashed;
+    background: transparent;
+}
+
+.skeleton-preview {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    padding: var(--s-5);
+}
+
+.skeleton-line {
+    display: block;
+    height: 12px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-glass);
 }
 
 /* ---- 10: anchor the illustration to the text instead of floating ---- */
@@ -1078,3 +1104,94 @@ body {
 }
 
 .fundamental-item { text-align: left; }
+
+/* ============================================================
+   USABILITY PASS 2
+   ============================================================ */
+
+/* ---- 3+4: mockup URLs were ellipsised at --t-xs. The browser-bar is
+   miniature UI like the rest of the mockup, so it uses the mini step
+   and the full address fits. ---- */
+.card-preview-url {
+    font-size: var(--t-2xs);
+    text-align: left;
+    letter-spacing: 0;
+}
+
+/* ---- 1: the loader splash sat on --t-4xl, a step nothing else uses.
+   One step down keeps it on the shared scale. ---- */
+.loader-logo { font-size: var(--t-3xl); }
+
+/* ---- 12: the base stylesheet stacks pills in a column; the override
+   only set wrap, so the stack survived. Row direction makes all four
+   skill categories read as the same wrapping chip rows. ---- */
+.skill-pills { flex-direction: row; }
+
+/* ---- 13: two categories had icons in their chips, two could not
+   (plain text markup). Same information either way — drop the icons so
+   every chip row carries equal weight. ---- */
+.skill-tag i { display: none; }
+
+/* ---- 8: nine equal cards are a wall. JS collapses the grid to six
+   and reveals this control; without JS everything stays visible. ---- */
+.cert-timeline.collapsed .tl-item:nth-child(n + 7) { display: none; }
+
+.cert-toggle {
+    margin: var(--s-6) auto 0;
+    display: none;
+    border: 1px solid var(--border-strong);
+    background: transparent;
+    color: var(--text-secondary);
+}
+
+.cert-toggle:not([hidden]) { display: inline-flex; }
+
+.cert-toggle:hover {
+    border-color: var(--accent-1);
+    color: var(--accent-1);
+}
+
+.certificates .container { display: flex; flex-direction: column; }
+.certificates .cert-toggle { align-self: center; }
+
+/* ---- 18: cover-cropping cut the certificate margins; contain shows
+   the whole document (they are white pages, so the letterbox is too). */
+.tl-thumb { background: #ffffff; }
+.tl-thumb img { object-fit: contain; }
+
+/* ---- 19: the hover overlay is invisible until you already know the
+   card is clickable. A persistent caption row says so up front. ---- */
+.tl-body::after {
+    content: "View certificate";
+    display: block;
+    margin-top: var(--s-3);
+    font-family: var(--font-mono);
+    font-size: var(--t-xs);
+    color: var(--accent-1);
+}
+
+.tl-body { display: flex; flex-direction: column; }
+.tl-body::after { margin-top: auto; padding-top: var(--s-3); }
+
+/* ---- 9: the illustration column was half the grid, so the drawing
+   floated ~200px away from the bio. Size the column to the artwork and
+   give the text the rest. ---- */
+@media (min-width: 1025px) {
+    .about-grid {
+        grid-template-columns: 380px minmax(0, 1fr);
+        gap: var(--s-8);
+    }
+    .about-image-wrapper { margin: 0; }
+}
+
+/* ---- 11: placeholders may not outrank labels. ---- */
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: var(--text-muted); }
+
+/* ---- 21: optical alignment — the serif cap's side bearing makes the
+   big titles look indented next to flush-left body text. ---- */
+.section-title { margin-left: -0.02em; }
+
+/* ---- 22: the send button needs the same breathing room the labelled
+   rows get above each field. ---- */
+.contact-form button[type="submit"] { margin-top: var(--s-2); }
