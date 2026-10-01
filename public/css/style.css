@@ -582,13 +582,13 @@ header.scrolled {
     height: 8px;
     border-radius: 50%;
     background: #6f8f84;
-    box-shadow: 0 0 10px rgba(0, 184, 148, 0.5);
+    box-shadow: 0 0 10px rgba(125, 155, 118, 0.5);
     animation: pulse-dot 2s infinite;
 }
 
 @keyframes pulse-dot {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 184, 148, 0.5); }
-    50% { box-shadow: 0 0 0 8px rgba(0, 184, 148, 0); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(125, 155, 118, 0.5); }
+    50% { box-shadow: 0 0 0 8px rgba(125, 155, 118, 0); }
 }
 
 /* Currently building banner */
@@ -1122,7 +1122,8 @@ header.scrolled {
 
 .ring-fill {
     fill: none;
-    stroke: url(#gradient) !important;
+    /* Was stroke: url(#gradient) !important, which rendered a sage-to-amber
+       two-tone arc and made the solid declaration below unreachable. */
     stroke: var(--accent-1);
     stroke-width: 3;
     stroke-linecap: round;
@@ -1429,7 +1430,7 @@ header.scrolled {
 .tf-sidebar {
     width: 90px;
     flex-shrink: 0;
-    background: #110f26;
+    background: var(--bg-sunken);
     border-right: 1px solid rgba(var(--accent-rgb), 0.15);
     padding: 10px 8px;
     display: flex;
@@ -1521,9 +1522,9 @@ header.scrolled {
     flex-shrink: 0;
 }
 
-.tf-high { background: rgba(248,113,113,0.18); color: #f87171; }
-.tf-med  { background: rgba(251,191,36,0.18);  color: #fbbf24; }
-.tf-low  { background: rgba(52,211,153,0.18);  color: #7d9b76; }
+.tf-high { background: rgba(184, 86, 74, 0.18);  color: #c8695c; }
+.tf-med  { background: rgba(212, 162, 79, 0.18); color: #d4a24f; }
+.tf-low  { background: rgba(125, 155, 118,0.18);  color: #7d9b76; }
 
 .tf-progress-bar {
     margin-top: auto;
@@ -2128,12 +2129,12 @@ header.scrolled {
 
 /* Category color variants */
 .cat-programming { background: rgba(var(--accent-rgb), 0.12); color: #d4a24f; border: 1px solid rgba(var(--accent-rgb), 0.25); }
-.cat-database     { background: rgba(125, 155, 118, 0.10);  color: #6f8f84; border: 1px solid rgba(0, 206, 201, 0.25); }
+.cat-database     { background: rgba(125, 155, 118, 0.10);  color: #6f8f84; border: 1px solid rgba(125, 155, 118, 0.25); }
 .cat-data         { background: rgba(253, 121, 168, 0.12); color: #f472b6; border: 1px solid rgba(253, 121, 168, 0.25); }
-.cat-networking   { background: rgba(251, 191, 36, 0.12);  color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.25); }
-.cat-server       { background: rgba(52, 211, 153, 0.12);  color: #7d9b76; border: 1px solid rgba(52, 211, 153, 0.25); }
-.cat-security     { background: rgba(248, 113, 113, 0.12); color: #f87171; border: 1px solid rgba(248, 113, 113, 0.25); }
-.cat-cs           { background: rgba(129, 140, 248, 0.12); color: #d4a24f; border: 1px solid rgba(129, 140, 248, 0.25); }
+.cat-networking   { background: rgba(212, 162, 79, 0.12);  color: #d4a24f; border: 1px solid rgba(212, 162, 79, 0.25); }
+.cat-server       { background: rgba(125, 155, 118, 0.12);  color: #7d9b76; border: 1px solid rgba(125, 155, 118, 0.25); }
+.cat-security     { background: rgba(184, 86, 74, 0.12); color: #c8695c; border: 1px solid rgba(184, 86, 74, 0.25); }
+.cat-cs           { background: rgba(212, 162, 79, 0.12); color: #d4a24f; border: 1px solid rgba(212, 162, 79, 0.25); }
 
 .tl-title {
     font-family: var(--font-display);
@@ -2584,8 +2585,8 @@ header.scrolled {
 }
 
 .toast-error {
-    border-color: rgba(248, 113, 113, 0.4);
-    color: #f87171;
+    border-color: rgba(184, 86, 74, 0.4);
+    color: #c8695c;
 }
 
 /* ===== ANIMATIONS ===== */
@@ -2893,32 +2894,32 @@ header.scrolled {
 
 /* Status: live (online indicator) */
 .status-live {
-    background: rgba(0, 214, 143, 0.1);
+    background: rgba(125, 155, 118, 0.1);
     color: #7d9b76;
-    border: 1px solid rgba(0, 214, 143, 0.2);
+    border: 1px solid rgba(125, 155, 118, 0.2);
 }
 .status-live .status-dot { background: #7d9b76; }
 
 /* Toast: success */
 .toast-success {
-    border-color: rgba(0, 214, 143, 0.4);
+    border-color: rgba(125, 155, 118, 0.4);
     color: #7d9b76;
 }
 
 /* Android APK download button */
 .btn-apk {
     background: #7d9b76;
-    box-shadow: 0 4px 15px rgba(0, 214, 143, 0.25);
+    box-shadow: 0 4px 15px rgba(125, 155, 118, 0.25);
 }
 .btn-apk:hover {
-    box-shadow: 0 8px 25px rgba(0, 214, 143, 0.4);
+    box-shadow: 0 8px 25px rgba(125, 155, 118, 0.4);
 }
 
 /* Health Tracker preview brand colors */
 .ht-logo { color: #7d9b76; }
 .ht-stat-green {
-    background: rgba(0, 214, 143, 0.1);
-    border-color: rgba(0, 214, 143, 0.28);
+    background: rgba(125, 155, 118, 0.1);
+    border-color: rgba(125, 155, 118, 0.28);
 }
 .ht-bar-fill { background: #7d9b76; }
 .ht-bar-pink { background: #b8564a; }
