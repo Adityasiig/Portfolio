@@ -1,0 +1,684 @@
+/* ============================================================
+   EDITORIAL REDESIGN LAYER
+   Loaded after style.css. Overrides the template-y bits:
+   gradient text, glassmorphism, glow, pill-everything, centred
+   everything. Type and whitespace carry the hierarchy instead.
+   ============================================================ */
+
+/* ---------- Typography ---------- */
+
+body {
+    font-family: var(--font-main);
+    line-height: 1.65;
+    letter-spacing: -0.005em;
+}
+
+/* Serif display face with real optical sizing. */
+.hero-title,
+.section-title,
+.about-heading,
+.project-title,
+.tl-title,
+.contact-title {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    /* No gradient text anywhere. */
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: var(--text-primary);
+}
+
+/* ---------- Hero: left-aligned masthead, not a centred splash ---------- */
+
+.hero {
+    min-height: auto;
+    padding: clamp(120px, 18vh, 200px) 0 clamp(80px, 12vh, 140px);
+    align-items: flex-start;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+
+/* One hairline instead of aurora + five floating blobs. */
+.hero-rule {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(90%, var(--container-width));
+    height: 100%;
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    opacity: 0.55;
+}
+
+.hero-content {
+    text-align: left;
+    max-width: 46rem;
+}
+
+.hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: none;
+    border: 0;
+    padding: 0;
+    margin-bottom: 28px;
+}
+
+.badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-3);
+    box-shadow: none;
+    animation: none;
+}
+
+.hero-title {
+    font-size: clamp(3.2rem, 9vw, 6.5rem);
+    font-weight: 600;
+    line-height: 0.95;
+    margin-bottom: 24px;
+}
+
+.hero-subtitle {
+    font-size: clamp(1.15rem, 2.4vw, 1.6rem);
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+    min-height: 2.2em;
+    font-weight: 400;
+}
+
+.typed-prefix { color: var(--text-secondary); }
+
+.typed-text {
+    color: var(--text-primary);
+    font-weight: 500;
+    border-bottom: 2px solid var(--accent-1);
+    padding-bottom: 1px;
+}
+
+.typed-cursor { color: var(--accent-1) !important; font-weight: 300; }
+
+.hero-description {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    max-width: 38rem;
+    margin: 0 0 44px;
+    line-height: 1.75;
+}
+
+.hero-description strong {
+    color: var(--text-primary);
+    font-weight: 500;
+    box-shadow: inset 0 -0.4em 0 rgba(var(--accent-rgb), 0.18);
+}
+
+.hero-cta { justify-content: flex-start; margin-bottom: 40px; }
+.hero-socials { justify-content: flex-start; }
+
+/* ---------- Buttons: square-ish, flat, no glow ---------- */
+
+.btn {
+    border-radius: var(--radius-sm);
+    padding: 13px 26px;
+    font-weight: 500;
+    font-size: 0.92rem;
+    letter-spacing: 0.01em;
+    transition: background-color var(--transition-fast),
+                border-color var(--transition-fast),
+                color var(--transition-fast);
+}
+
+.btn-primary {
+    background: var(--accent-1);
+    color: var(--accent-ink);
+    box-shadow: none;
+}
+
+.btn-primary::before { display: none; }
+
+.btn-primary:hover {
+    background: var(--accent-2);
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-primary:hover i { transform: translateX(3px); }
+
+.btn-outline {
+    border: 1px solid var(--border-strong);
+    background: transparent;
+    color: var(--text-primary);
+}
+
+.btn-outline:hover {
+    border-color: var(--accent-1);
+    color: var(--accent-1);
+    background: transparent;
+    transform: none;
+}
+
+/* ---------- Section headers: left-aligned with a numeral ---------- */
+
+.section-header {
+    text-align: left;
+    margin-bottom: 64px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.section-tag {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: none;
+    border: 0;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.section-title {
+    font-size: clamp(2rem, 4.5vw, 2.9rem);
+    line-height: 1.1;
+    margin-bottom: 0;
+}
+
+/* The centred gradient underline reads as a template. Drop it. */
+.section-line { display: none; }
+
+/* ---------- Cards: hairline borders, no blur, no lift ---------- */
+
+.bento-card,
+.project-card,
+.tl-card,
+.detail-card,
+.contact-card,
+.github-graph-container,
+.code-window {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+}
+
+.bento-card:hover,
+.project-card:hover,
+.tl-card:hover,
+.detail-card:hover,
+.contact-card:hover {
+    border-color: var(--border-strong);
+    transform: none;
+    box-shadow: none;
+}
+
+/* Header stays legible without a frosted pane. */
+#header {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: background-color var(--transition-normal),
+                border-color var(--transition-normal);
+}
+
+#header.scrolled {
+    background: var(--bg-primary);
+    border-bottom-color: var(--border-color);
+    box-shadow: none;
+}
+
+/* ---------- Nav ---------- */
+
+.logo-text {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: var(--text-primary);
+}
+
+.logo-dot { background: var(--accent-1); box-shadow: none; }
+
+.nav-link {
+    font-size: 0.88rem;
+    font-weight: 450;
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+}
+
+.nav-link:hover { color: var(--text-primary); background: none; }
+
+.nav-link.active {
+    color: var(--text-primary);
+    background: none;
+    font-weight: 500;
+}
+
+/* Underline the active item rather than pill-highlighting it. */
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 2px;
+    height: 1.5px;
+    background: var(--accent-1);
+    border-radius: 0;
+}
+
+/* ---------- Tags / chips ---------- */
+
+.skill-tag,
+.tech-tag,
+.tl-category {
+    border-radius: var(--radius-sm);
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    font-weight: 450;
+    letter-spacing: 0.01em;
+}
+
+.skill-tag:hover,
+.tech-tag:hover {
+    border-color: var(--border-strong);
+    color: var(--text-primary);
+    background: var(--bg-glass);
+    transform: none;
+}
+
+/* ---------- Mono numerals for stats ---------- */
+
+.stat-number,
+.stat-value {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: var(--text-primary);
+}
+
+.stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-primary);
+}
+
+/* The decorative SVG wave is pure template garnish. */
+.footer-wave { display: none; }
+
+/* ---------- Loader: a rule that fills, not a bouncing logo ---------- */
+
+.loader-logo {
+    font-family: var(--font-display);
+    font-weight: 600;
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: var(--text-primary);
+}
+
+.loader-progress { background: var(--accent-1); }
+
+/* ---------- Scroll progress ---------- */
+
+.scroll-progress { background: var(--accent-1); height: 2px; }
+
+/* ---------- Motion: keep it subtle ---------- */
+
+[data-animate] {
+    transform: translateY(14px);
+    transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+}
+
+[data-animate="fade-right"] { transform: translateX(-14px); }
+[data-animate="fade-left"] { transform: translateX(14px); }
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 768px) {
+    .hero { padding-top: 110px; }
+    .hero-rule { display: none; }
+    .section-header { margin-bottom: 44px; }
+}
+
+/* ---------- About: stats become a static row, not floating cards ---------- */
+
+/* They were absolutely positioned with negative offsets and a float
+   animation, so they escaped the column and collided with the header. */
+.about-image-col { position: relative; }
+
+.floating-stat {
+    position: static;
+    display: inline-flex;
+    animation: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    border-radius: var(--radius-md);
+    padding: 12px 18px;
+}
+
+.about-image-wrapper + .floating-stat,
+.floating-stat + .floating-stat { margin-right: 10px; }
+
+.stat-1, .stat-2 { top: auto; right: auto; bottom: auto; left: auto; }
+
+.stat-icon {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    color: var(--accent-1);
+    box-shadow: none;
+}
+
+.about-greeting {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+    line-height: 1.25;
+}
+
+.about-bio { color: var(--text-secondary); }
+
+/* Decorative dot-grid and ring were part of the template look. */
+.about-image-decoration,
+.about-image-dots { display: none; }
+
+/* ---------- Kill remaining float/pulse ambience ---------- */
+
+@keyframes float-gentle { 0%, 100% { transform: none; } }
+
+.shape, .aurora, .grid-overlay { display: none; }
+
+/* ---------- Hero two-column: copy left, facts right ---------- */
+
+.hero .container {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr);
+    gap: clamp(40px, 6vw, 96px);
+    align-items: start;
+}
+
+.hero-aside { padding-top: 8px; }
+
+.hero-facts {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    border-left: 1px solid var(--border-color);
+    padding-left: 24px;
+}
+
+.hero-fact dt {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+}
+
+.hero-fact dd {
+    font-size: 0.93rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* The mouse-wheel scroll hint is a stock template flourish. */
+.scroll-indicator { display: none; }
+
+@media (max-width: 900px) {
+    .hero .container { grid-template-columns: 1fr; gap: 48px; }
+    .hero-content { max-width: none; }
+    .hero-facts {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: 20px 28px;
+        border-left: 0;
+        padding-left: 0;
+        border-top: 1px solid var(--border-color);
+        padding-top: 24px;
+    }
+}
+
+/* ---------- Restrain accent usage ---------- */
+
+/* Tech tags were all amber — the accent stops meaning anything if
+   everything wears it. Neutral by default, accent on hover only. */
+.tech-tag, .skill-tag {
+    color: var(--text-secondary);
+    border-color: var(--border-color);
+    background: transparent;
+}
+
+.tech-tag:hover, .skill-tag:hover {
+    color: var(--accent-1);
+    border-color: var(--border-hover);
+}
+
+/* Featured/star label: mono caps, not a coloured pill. */
+.featured-badge, .project-badge {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: none;
+    border: 0;
+    padding: 0;
+}
+
+.featured-badge i, .project-badge i { color: var(--accent-1); }
+
+/* Feature checklists: sage tick, neutral copy. */
+.feature-list i, .card-features i { color: var(--accent-3); }
+
+/* Contact cards: icon sits in a neutral well. */
+.contact-icon-box, .contact-card i {
+    color: var(--accent-1);
+    background: var(--bg-glass);
+}
+
+/* Back-to-top: outline, not a filled amber blob. */
+.back-to-top {
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
+    box-shadow: none;
+}
+
+.back-to-top:hover {
+    border-color: var(--accent-1);
+    color: var(--accent-1);
+    background: var(--bg-card);
+    transform: none;
+}
+
+/* Form fields: flat, hairline, amber only on focus. */
+.form-group input,
+.form-group textarea {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-main);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--accent-1);
+    box-shadow: none;
+    outline: none;
+}
+
+.form-group label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+/* ---------- Certificates: grid, not an alternating timeline ---------- */
+
+/* The zig-zag timeline left ~half the width empty per row and pushed
+   nine items over a very long scroll. A plain grid reads faster. */
+.cert-timeline::before,
+.tl-node { display: none; }
+
+.cert-timeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.tl-item,
+.tl-item.tl-left,
+.tl-item.tl-right {
+    display: block;
+    margin-bottom: 0;
+    width: auto;
+    padding: 0;
+    justify-content: stretch;
+    flex-direction: column;
+    text-align: left;
+}
+
+.tl-item.tl-left .tl-card::after,
+.tl-item.tl-right .tl-card::after { display: none; }
+
+.tl-card {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    max-width: none;
+    height: 100%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.tl-thumb {
+    width: 100%;
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+    background: var(--bg-sunken);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tl-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+
+.tl-card:hover .tl-thumb img { transform: none; }
+
+.tl-body { padding: 18px 20px 20px; }
+
+.tl-category {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: none;
+    border: 0;
+    padding: 0;
+    margin-bottom: 8px;
+}
+
+.tl-title { font-size: 1.12rem; margin-bottom: 6px; }
+
+.tl-desc { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
+
+.tl-thumb-overlay {
+    background: rgba(20, 17, 15, 0.55);
+    color: var(--text-primary);
+}
+
+/* ---------- Skills: stop the languages card stretching ---------- */
+
+/* .bento-large spans two rows but holds less content than the stack
+   beside it, leaving a tall empty well. Let it size to its content. */
+.skills-bento { align-items: start; }
+
+.bento-large { grid-row: 1 / 2; }
+.bento-wide { grid-column: 1 / 4; }
+
+.bento-icon {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    color: var(--accent-1);
+    border-radius: var(--radius-sm);
+    box-shadow: none;
+}
+
+.bento-card::before { display: none; }
+
+.bento-title, .bento-header h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--text-primary);
+}
+
+/* Proficiency bars: thin rules, no gradient. */
+.pill-track, .skill-bar {
+    background: var(--bg-glass);
+    border-radius: 0;
+    height: 3px;
+}
+
+.pill-fill, .skill-progress {
+    background: var(--accent-1);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.skill-pill .pill-name, .skill-name {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+}
+
+/* Progress rings keep the amber stroke but lose the glow. */
+.ring-bg { stroke: var(--border-color); }
+.ring-percent {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    color: var(--text-primary);
+}
+.ring-label { color: var(--text-secondary); font-size: 0.85rem; }
