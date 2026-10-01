@@ -318,6 +318,24 @@ function initPortfolio() {
         if (e.key === 'Escape') closeLightbox();
     });
 
+    // ===== CERTIFICATES: show 6, expand to all =====
+    // Collapsed state is applied here, not in the HTML, so every
+    // certificate stays visible when JavaScript is unavailable.
+    const certToggle = document.getElementById('certToggle');
+    const certTimeline = document.querySelector('.cert-timeline');
+    if (certToggle && certTimeline && certTimeline.children.length > 6) {
+        certTimeline.classList.add('collapsed');
+        certToggle.hidden = false;
+        certToggle.addEventListener('click', () => {
+            const collapsed = certTimeline.classList.toggle('collapsed');
+            certToggle.setAttribute('aria-expanded', String(!collapsed));
+            certToggle.querySelector('span').textContent = collapsed
+                ? 'Show all ' + certTimeline.children.length + ' certificates'
+                : 'Show fewer certificates';
+            if (collapsed) certTimeline.scrollIntoView({ block: 'start' });
+        });
+    }
+
     // ===== CONTACT FORM =====
     const contactForm = document.getElementById('contactForm');
     let emailjsReady = false;
