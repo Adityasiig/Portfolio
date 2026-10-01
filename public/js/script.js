@@ -31,16 +31,14 @@ function initPortfolio() {
     if (typedElement && typeof Typed !== 'undefined') {
         new Typed('#typed-text', {
             strings: [
-                'Web Developer',
-                'Security Researcher',
-                'Python Developer',
-                'Ethical Hacker',
-                'Full-Stack Builder',
-                'Open Source Contributor'
+                'vulnerability scanners.',
+                'web applications.',
+                'Python automation.',
+                'things that break on purpose.'
             ],
-            typeSpeed: 60,
-            backSpeed: 40,
-            backDelay: 2000,
+            typeSpeed: 55,
+            backSpeed: 30,
+            backDelay: 2200,
             loop: true,
             smartBackspace: true,
             cursorChar: '|'
@@ -689,8 +687,8 @@ function initPortfolio() {
     })();
 
     // ===== CONSOLE BRANDING =====
-    console.log('%c Aditya Singh - Portfolio', 'color: #00d68f; font-size: 20px; font-weight: bold; font-family: sans-serif;');
-    console.log('%c Built with passion and clean code', 'color: #00cec9; font-size: 12px; font-family: sans-serif;');
+    console.log('%c Aditya Singh - Portfolio', 'color: #d4813f; font-size: 20px; font-weight: bold; font-family: sans-serif;');
+    console.log('%c Built with passion and clean code', 'color: #b3a89c; font-size: 12px; font-family: sans-serif;');
 }
 
 if (document.readyState === 'loading') {
