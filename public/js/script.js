@@ -148,34 +148,9 @@ function initPortfolio() {
         }
     }, { passive: true });
 
-    // ===== THEME TOGGLE =====
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-
-    function setTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-        if (themeIcon) {
-            themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
-            themeIcon.setAttribute('aria-hidden', 'true');
-        }
-        if (themeToggle) {
-            // Announce what the button will do, not just that it exists.
-            themeToggle.setAttribute('aria-label',
-                theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
-        }
-    }
-
-    // Load saved theme or default to dark
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    setTheme(savedTheme);
-
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            const current = document.documentElement.getAttribute('data-theme') || 'dark';
-            setTheme(current === 'dark' ? 'light' : 'dark');
-        });
-    }
+    // Theme switching was removed — the site is dark-only. Clear the stale
+    // preference so returning visitors do not keep a dead key around.
+    try { localStorage.removeItem('theme'); } catch (e) { /* private mode */ }
 
     // ===== SCROLL ANIMATIONS =====
     function animateHeroElements() {
