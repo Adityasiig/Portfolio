@@ -42,16 +42,27 @@ body {
 .hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
 
 /* One hairline instead of aurora + five floating blobs. */
-.hero-rule {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(90%, var(--container-width));
-    height: 100%;
-    border-left: 1px solid var(--border-color);
-    border-right: 1px solid var(--border-color);
-    opacity: 0.55;
+/* The rules sat exactly on the container edge, so they ran flush against
+   the text. Push them a gutter outside the content column, and only draw
+   them when there is actually room to the side. */
+.hero-rule { display: none; }
+
+@media (min-width: 1240px) {
+    .hero-rule {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(90%, var(--container-width));
+        height: 100%;
+        /* Extend past the content so the lines never touch a glyph. */
+        padding: 0 var(--s-7);
+        box-sizing: content-box;
+        border-left: 1px solid var(--border-color);
+        border-right: 1px solid var(--border-color);
+        opacity: 0.4;
+    }
 }
 
 .hero-content {
