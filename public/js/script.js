@@ -235,11 +235,15 @@ function initPortfolio() {
                 statObserver.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.5 });
+        // Observe the stat row itself, not the whole About section. The
+        // section is taller than the viewport, so a 0.5 threshold on it
+        // could never be met and the counters stayed at 0.
+    }, { threshold: 0.3 });
 
-    const aboutSection = document.getElementById('about');
-    if (aboutSection) {
-        statObserver.observe(aboutSection);
+    const statTarget = document.querySelector('.about-stats-row')
+        || document.getElementById('about');
+    if (statTarget) {
+        statObserver.observe(statTarget);
     }
 
     // ===== CERTIFICATE LIGHTBOX =====
