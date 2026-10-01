@@ -324,7 +324,7 @@ header.scrolled {
     display: block;
     height: 2px;
     background: var(--text-primary);
-    border-radius: 2px;
+    border-radius: var(--radius-sm);
     transition: all var(--transition-fast);
 }
 
@@ -417,7 +417,7 @@ header.scrolled {
 
 .btn-primary {
     background: var(--gradient-primary);
-    color: #fff;
+    color: var(--text-primary);
     box-shadow: 0 8px 25px rgba(var(--accent-rgb), 0.25);
 }
 
@@ -1005,7 +1005,7 @@ header.scrolled {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: var(--text-primary);
     font-size: var(--t-md);
 }
 
@@ -1200,7 +1200,7 @@ header.scrolled {
     color: var(--text-muted);
     background: rgba(var(--accent-rgb), 0.1);
     border: 1px solid rgba(var(--accent-rgb), 0.18);
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     padding: 3px 12px;
     font-weight: 500;
     letter-spacing: 0.02em;
@@ -1390,10 +1390,10 @@ header.scrolled {
 .card-preview-url {
     width: auto !important;
     height: auto !important;
-    border-radius: 4px !important;
+    border-radius: var(--radius-sm) !important;
     background: rgba(255,255,255,0.06) !important;
     color: var(--text-muted);
-    font-size: 10px;
+    font-size: var(--t-xs);
     font-family: var(--font-mono);
     padding: 2px 10px !important;
     margin-left: 6px;
@@ -1480,7 +1480,7 @@ header.scrolled {
     align-items: center;
     gap: var(--s-1);
     padding: 6px 8px;
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     background: rgba(255,255,255,0.03);
     border: 1px solid rgba(var(--accent-rgb), 0.1);
 }
@@ -1494,14 +1494,14 @@ header.scrolled {
 
 .tf-check {
     font-size: 9px;
-    color: #554d45;
+    color: var(--text-muted);
     flex-shrink: 0;
 }
 
 .tf-check.tf-checked { color: #7d9b76; }
 
 .tf-text {
-    font-size: 10px;
+    font-size: var(--t-2xs);
     color: #e0d6c6;
     flex: 1;
     white-space: nowrap;
@@ -1511,14 +1511,14 @@ header.scrolled {
 
 .tf-task.tf-done .tf-text {
     text-decoration: line-through;
-    color: #554d45;
+    color: var(--text-muted);
 }
 
 .tf-badge {
-    font-size: 8px;
+    font-size: 9px;
     font-weight: 700;
     padding: 2px 6px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     flex-shrink: 0;
 }
 
@@ -1534,7 +1534,7 @@ header.scrolled {
 .tf-progress-label {
     display: flex;
     justify-content: space-between;
-    font-size: 8px;
+    font-size: 9px;
     color: #8a6a46;
     margin-bottom: var(--s-1);
 }
@@ -1542,7 +1542,7 @@ header.scrolled {
 .tf-bar {
     height: 3px;
     background: rgba(var(--accent-rgb), 0.15);
-    border-radius: 10px;
+    border-radius: var(--radius-lg);
     overflow: hidden;
 }
 
@@ -1550,7 +1550,7 @@ header.scrolled {
     width: 33%;
     height: 100%;
     background: var(--gradient-primary);
-    border-radius: 10px;
+    border-radius: var(--radius-lg);
 }
 
 /* ===== GitHub Calendar — full theme override ===== */
@@ -1603,7 +1603,7 @@ header.scrolled {
 .github-graph-container text,
 .github-graph-container .ContributionCalendar-label {
     fill: #8a6a46 !important;
-    font-size: 10px !important;
+    font-size: var(--t-2xs) !important;
     font-family: var(--font-mono) !important;
 }
 
@@ -1614,14 +1614,14 @@ header.scrolled {
     gap: var(--s-1);
     justify-content: flex-end;
     padding: 8px 0 0;
-    font-size: 11px;
+    font-size: var(--t-2xs);
     color: #8a6a46 !important;
 }
 
 .github-graph-container .contrib-legend li {
     width: 10px;
     height: 10px;
-    border-radius: 2px;
+    border-radius: var(--radius-sm);
     display: inline-block;
 }
 
@@ -1629,8 +1629,8 @@ header.scrolled {
 .github-graph-container .contrib-footer,
 .github-graph-container .float-right,
 .github-graph-container p.float-left {
-    color: #554d45 !important;
-    font-size: 11px !important;
+    color: var(--text-muted) !important;
+    font-size: var(--t-2xs) !important;
 }
 
 .github-graph-container a {
@@ -1780,7 +1780,7 @@ header.scrolled {
 .window-title {
     font-family: var(--font-mono);
     font-size: var(--t-xs);
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--text-muted);
 }
 
 .window-body {
@@ -1796,7 +1796,7 @@ header.scrolled {
     font-family: var(--font-mono);
     font-size: var(--t-xs);
     line-height: 1.7;
-    color: #e0e0e0;
+    color: var(--text-primary);
 }
 
 .code-keyword { color: #d4a24f; }
@@ -1945,9 +1945,9 @@ header.scrolled {
 }
 
 .card-tech span {
-    font-size: 11px;
+    font-size: var(--t-2xs);
     padding: 3px 10px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     background: rgba(var(--accent-rgb), 0.12);
     color: var(--accent-1);
     border: 1px solid rgba(var(--accent-rgb), 0.2);
@@ -2015,7 +2015,7 @@ header.scrolled {
 
 .tl-item:hover .tl-node {
     background: var(--accent-1);
-    color: #fff;
+    color: var(--text-primary);
     box-shadow: 0 0 28px rgba(var(--accent-rgb), 0.6);
     transform: translateX(-50%) scale(1.12);
 }
@@ -2095,7 +2095,7 @@ header.scrolled {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: var(--text-primary);
     font-size: var(--t-lg);
     opacity: 0;
     transition: opacity var(--transition-normal);
@@ -2130,7 +2130,7 @@ header.scrolled {
 /* Category color variants */
 .cat-programming { background: rgba(var(--accent-rgb), 0.12); color: #d4a24f; border: 1px solid rgba(var(--accent-rgb), 0.25); }
 .cat-database     { background: rgba(125, 155, 118, 0.10);  color: #6f8f84; border: 1px solid rgba(125, 155, 118, 0.25); }
-.cat-data         { background: rgba(253, 121, 168, 0.12); color: #f472b6; border: 1px solid rgba(253, 121, 168, 0.25); }
+.cat-data         { background: rgba(184, 86, 74, 0.12); color: #c8695c; border: 1px solid rgba(184, 86, 74, 0.25); }
 .cat-networking   { background: rgba(212, 162, 79, 0.12);  color: #d4a24f; border: 1px solid rgba(212, 162, 79, 0.25); }
 .cat-server       { background: rgba(125, 155, 118, 0.12);  color: #7d9b76; border: 1px solid rgba(125, 155, 118, 0.25); }
 .cat-security     { background: rgba(184, 86, 74, 0.12); color: #c8695c; border: 1px solid rgba(184, 86, 74, 0.25); }
@@ -2219,7 +2219,7 @@ header.scrolled {
     height: 48px;
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
+    color: var(--text-primary);
     font-size: var(--t-lg);
     display: flex;
     align-items: center;
@@ -2248,7 +2248,7 @@ header.scrolled {
 }
 
 .lightbox-caption {
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--text-secondary);
     margin-top: var(--s-4);
     font-size: var(--t-sm);
     text-align: center;
@@ -2521,7 +2521,7 @@ header.scrolled {
     height: 48px;
     border-radius: 50%;
     background: var(--gradient-primary);
-    color: #fff;
+    color: var(--text-primary);
     font-size: var(--t-base);
     display: flex;
     align-items: center;
@@ -2721,7 +2721,7 @@ header.scrolled {
 
 ::-webkit-scrollbar-thumb {
     background: var(--accent-1);
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -2750,13 +2750,13 @@ header.scrolled {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 10px;
+    font-size: var(--t-2xs);
 }
 
 .ht-logo {
     color: #7d9b76;
     font-weight: 700;
-    font-size: 10.5px;
+    font-size: var(--t-2xs);
     display: inline-flex;
     align-items: center;
     gap: var(--s-1);
@@ -2765,13 +2765,13 @@ header.scrolled {
 .ht-logo i { font-size: 9px; }
 
 .ht-date {
-    color: rgba(255,255,255,0.45);
+    color: var(--text-muted);
     font-family: var(--font-mono);
-    font-size: 8.5px;
+    font-size: 9px;
     letter-spacing: 1px;
     background: rgba(255,255,255,0.04);
     padding: 2px 7px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
 }
 
 .ht-stats {
@@ -2796,16 +2796,16 @@ header.scrolled {
 }
 
 .ht-stat-num {
-    color: #f0f0f5;
+    color: var(--text-primary);
     font-weight: 700;
-    font-size: 14px;
+    font-size: var(--t-sm);
     font-family: var(--font-mono);
     line-height: 1;
 }
 
 .ht-stat-label {
-    color: rgba(255,255,255,0.5);
-    font-size: 8.5px;
+    color: var(--text-secondary);
+    font-size: 9px;
     letter-spacing: 0.8px;
     font-weight: 500;
 }
@@ -2818,7 +2818,7 @@ header.scrolled {
 }
 
 .ht-bar-label {
-    color: rgba(255,255,255,0.55);
+    color: var(--text-secondary);
     font-size: 9px;
     display: flex;
     justify-content: space-between;
@@ -2827,20 +2827,20 @@ header.scrolled {
 }
 
 .ht-bar-label span:last-child {
-    color: rgba(255,255,255,0.35);
+    color: var(--text-muted);
 }
 
 .ht-bar-track {
     height: 3.5px;
     background: rgba(255,255,255,0.06);
-    border-radius: 2px;
+    border-radius: var(--radius-sm);
     overflow: hidden;
 }
 
 .ht-bar-fill {
     height: 100%;
     background: #7d9b76;
-    border-radius: 2px;
+    border-radius: var(--radius-sm);
 }
 
 .ht-bar-pink {
@@ -2866,7 +2866,7 @@ header.scrolled {
     font-size: var(--t-xs);
     font-weight: 600;
     background: #7d9b76;
-    color: #0a0a0f !important;
+    color: var(--accent-ink) !important;
     transition: all var(--transition-normal);
     box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.25);
     text-decoration: none;
@@ -2876,7 +2876,7 @@ header.scrolled {
 .btn-apk:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(var(--accent-rgb), 0.4);
-    color: #0a0a0f !important;
+    color: var(--accent-ink) !important;
 }
 
 .btn-apk i {
@@ -2941,9 +2941,9 @@ header.scrolled {
     z-index: 100000;
     padding: 12px 20px;
     background: var(--accent-1, #d4813f);
-    color: #fff;
+    color: var(--text-primary);
     font-weight: 600;
-    border-radius: 0 0 8px 0;
+    border-radius: 0 0 var(--radius-lg) 0;
     text-decoration: none;
 }
 
@@ -2964,7 +2964,7 @@ header.scrolled {
 :focus-visible {
     outline: 3px solid var(--accent-1, #d4813f);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
 }
 
 /* .btn clips its own outline via overflow:hidden. */
