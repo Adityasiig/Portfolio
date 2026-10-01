@@ -505,11 +505,15 @@ body {
 /* Feature checklists: sage tick, neutral copy. */
 .feature-list i, .card-features i { color: var(--accent-3); }
 
-/* Contact cards: icon sits in a neutral well. */
-.contact-icon-box, .contact-card i {
-    color: var(--accent-1);
+/* Contact cards: icon sits in a neutral well.
+   Icons are CSS masks, so background-color IS the glyph fill — setting a
+   surface colour here erases the glyph. Only the wrapper gets a background. */
+.contact-icon-box {
     background: var(--bg-glass);
+    color: var(--accent-1);
 }
+
+.contact-card i { background-color: var(--accent-1); }
 
 /* Back-to-top: outline, not a filled amber blob. */
 .back-to-top {
