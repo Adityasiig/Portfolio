@@ -1,0 +1,22 @@
+@font-face { font-family:'Space Grotesk'; font-weight:300 700; font-display:block;
+  src:url('../public/fonts/space-grotesk-var-latin.woff2') format('woff2'); }
+@font-face { font-family:'JetBrains Mono'; font-weight:100 800; font-display:block;
+  src:url('../public/fonts/jetbrains-mono-var-latin.woff2') format('woff2'); }
+:root{
+  --bg:#0b0e11; --panel:#12161c; --panel2:#171c23;
+  --border:rgba(232,237,242,.09); --border2:rgba(232,237,242,.17);
+  --text:#e8edf2; --t2:#9aa6b2; --t3:#6a7682;
+  --acc:#3ecf8e; --acc-soft:rgba(62,207,142,.14); --ink:#07130d;
+  --warn:#d9a55a; --hot:#e06c5f;
+  --sans:'Space Grotesk',sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+.app{width:1200px;height:750px;padding:40px 56px;display:flex;flex-direction:column;gap:26px}
+.topbar{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px;font-weight:600;font-size:21px;letter-spacing:-.02em}
+.mark{width:34px;height:34px;border-radius:8px;background:var(--acc-soft);border:1px solid rgba(62,207,142,.4);
+  display:flex;align-items:center;justify-content:center;color:var(--acc);font-family:var(--mono);font-size:15px;font-weight:700}
+.meta{font-family:var(--mono);font-size:13px;color:var(--t3)}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:10px}
+.chip{font-family:var(--mono);font-size:11px;padding:4px 9px;border-radius:5px}
