@@ -1,0 +1,42 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><style>
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{padding:18px 20px}
+.stat .n{font-size:26px;font-weight:600;letter-spacing:-.02em}
+.stat .l{font-family:var(--mono);font-size:11px;color:var(--t3);margin-top:2px}
+.stat .n em{font-style:normal;color:var(--acc)}
+.prog{padding:16px 20px;display:flex;align-items:center;gap:18px}
+.prog .l{font-family:var(--mono);font-size:12px;color:var(--t2);white-space:nowrap}
+.track{flex:1;height:6px;border-radius:3px;background:var(--panel2);overflow:hidden}
+.fill{width:58%;height:100%;background:var(--acc)}
+.list{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.row{display:flex;align-items:center;gap:16px;padding:17px 22px;border-bottom:1px solid var(--border)}
+.row:last-child{border-bottom:0}
+.box{width:20px;height:20px;border-radius:5px;border:1.5px solid var(--border2);flex:none}
+.box.on{background:var(--acc);border-color:var(--acc);position:relative}
+.box.on::after{content:'';position:absolute;left:6px;top:2.5px;width:5px;height:9px;border:solid var(--ink);border-width:0 2px 2px 0;transform:rotate(42deg)}
+.task{flex:1;font-size:16px}
+.done .task{color:var(--t3);text-decoration:line-through}
+.due{font-family:var(--mono);font-size:12px;color:var(--t3)}
+.p-high{background:rgba(224,108,95,.14);color:var(--hot)}
+.p-med{background:rgba(217,165,90,.14);color:var(--warn)}
+.p-low{background:var(--acc-soft);color:var(--acc)}
+</style></head><body><div class="app">
+  <div class="topbar">
+    <div class="brand"><span class="mark">tf</span>TaskFlow</div>
+    <div class="meta">7 of 12 done today</div>
+  </div>
+  <div class="stats">
+    <div class="panel stat"><div class="n">12</div><div class="l">Total</div></div>
+    <div class="panel stat"><div class="n"><em>7</em></div><div class="l">Done</div></div>
+    <div class="panel stat"><div class="n">4</div><div class="l">Active</div></div>
+    <div class="panel stat"><div class="n">1</div><div class="l">Overdue</div></div>
+  </div>
+  <div class="panel prog"><span class="l">58% complete</span><div class="track"><div class="fill"></div></div></div>
+  <div class="panel list">
+    <div class="row done"><span class="box on"></span><span class="task">Design the quick-add bar</span><span class="chip p-high">high</span><span class="due">Mon</span></div>
+    <div class="row"><span class="box"></span><span class="task">Drag and drop reordering</span><span class="chip p-high">high</span><span class="due">Tue</span></div>
+    <div class="row done"><span class="box on"></span><span class="task">Fuzzy search across tasks</span><span class="chip p-med">med</span><span class="due">Wed</span></div>
+    <div class="row"><span class="box"></span><span class="task">Keyboard shortcuts panel</span><span class="chip p-med">med</span><span class="due">Fri</span></div>
+    <div class="row"><span class="box"></span><span class="task">Sync state to localStorage</span><span class="chip p-low">low</span><span class="due">Sat</span></div>
+  </div>
+</div></body></html>

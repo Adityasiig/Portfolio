@@ -1,0 +1,38 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><style>
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.kpi{padding:22px 24px}
+.kpi .l{font-family:var(--mono);font-size:11px;color:var(--t3)}
+.kpi .n{font-size:34px;font-weight:600;letter-spacing:-.02em;margin-top:6px}
+.kpi .n small{font-size:15px;color:var(--t3);font-weight:400;margin-left:6px}
+.macros{padding:26px 28px;display:flex;flex-direction:column;gap:22px;flex:1}
+.m .head{display:flex;justify-content:space-between;margin-bottom:9px}
+.m .head b{font-size:15px;font-weight:500}
+.m .head span{font-family:var(--mono);font-size:12px;color:var(--t3)}
+.track{height:7px;border-radius:4px;background:var(--panel2);overflow:hidden}
+.fill{height:100%;background:var(--acc)}
+.f1{width:74%}.f2{width:91%;background:#8ab8e8}.f3{width:63%;background:var(--warn)}
+.meals{padding:4px 24px}
+.meal{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid var(--border);font-size:14px}
+.meal:last-child{border-bottom:0}
+.meal span{color:var(--t2)}
+.meal b{font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--t3)}
+</style></head><body><div class="app">
+  <div class="topbar">
+    <div class="brand"><span class="mark">ht</span>Health Tracker</div>
+    <div class="meta">Today, Thursday</div>
+  </div>
+  <div class="grid">
+    <div class="panel kpi"><div class="l">Calories</div><div class="n">1,847<small>/ 2,400 kcal</small></div></div>
+    <div class="panel kpi"><div class="l">Protein</div><div class="n">127<small>/ 140 g</small></div></div>
+  </div>
+  <div class="panel macros">
+    <div class="m"><div class="head"><b>Carbs</b><span>198 / 269 g</span></div><div class="track"><div class="fill f1"></div></div></div>
+    <div class="m"><div class="head"><b>Protein</b><span>127 / 140 g</span></div><div class="track"><div class="fill f2"></div></div></div>
+    <div class="m"><div class="head"><b>Fat</b><span>43 / 68 g</span></div><div class="track"><div class="fill f3"></div></div></div>
+  </div>
+  <div class="panel meals">
+    <div class="meal"><span>Masala oats, 1 katori</span><b>312 kcal</b></div>
+    <div class="meal"><span>Dal tadka with rice</span><b>540 kcal</b></div>
+    <div class="meal"><span>Paneer bhurji, 2 rotis</span><b>618 kcal</b></div>
+  </div>
+</div></body></html>
