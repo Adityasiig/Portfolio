@@ -22,7 +22,7 @@
 
 ## 🧑‍💻 About
 
-A modern, design-heavy personal portfolio built with **pure HTML, CSS & JavaScript** — no frameworks, no build tools. Features a glassmorphism aesthetic with aurora-animated backgrounds, live GitHub contribution calendar, EmailJS-powered contact form, and a fully responsive layout that looks great in both dark and light modes.
+A fast, dark, type-led personal portfolio built with **pure HTML, CSS & JavaScript**. No frameworks, no build tools. Self-hosted variable fonts (Space Grotesk + JetBrains Mono), a single emerald accent, real project screenshots, a live GitHub contribution calendar, an EmailJS contact form and a fully responsive layout.
 
 ---
 
@@ -33,27 +33,23 @@ A modern, design-heavy personal portfolio built with **pure HTML, CSS & JavaScri
 <td width="50%">
 
 **🎨 Design & UX**
-- Aurora animated background with floating shapes
-- Glassmorphism frosted-glass cards
-- Dark / Light theme toggle (saved to `localStorage`)
-- Scroll animations via `IntersectionObserver`
-- 3D tilt effect on project cards
-- Magnetic follow-cursor buttons
-- Scroll progress indicator bar
-- Custom branded loading screen
-- Flat-design developer avatar (inline SVG)
+- Dark, single-accent design system (emerald on near-black)
+- Space Grotesk + JetBrains Mono, self-hosted variable fonts
+- Real screenshots of the live apps on the project cards
+- Scroll reveals via `IntersectionObserver` (reduced-motion aware)
+- Certificate grid with keyboard-accessible lightbox
+- Show-more toggle keeps the certificate wall short
 
 </td>
 <td width="50%">
 
 **⚙️ Technical Highlights**
-- EmailJS — send mail without a backend
+- EmailJS contact form, no backend
 - Live GitHub contribution calendar (custom renderer)
-- Typed.js animated role subtitle
-- Animated stat counters on scroll
-- Dynamic time-based greeting
+- Zero scroll listeners: IntersectionObserver everywhere
+- Inline form validation with ARIA error wiring
 - Toast notification system
-- Lightbox certificate viewer (keyboard nav)
+- Self-hosted icon subset (CSS masks, no icon CDN)
 - Mobile-first, fully responsive
 
 </td>
@@ -64,12 +60,12 @@ A modern, design-heavy personal portfolio built with **pure HTML, CSS & JavaScri
 
 | Section | Description |
 |---------|-------------|
-| **Hero** | Typed subtitle, time-based greeting, "Currently Building" banner |
-| **About** | Bio, detail cards, SVG avatar, floating stat counters |
-| **Skills** | Bento-grid layout with progress bars and ring charts |
-| **GitHub Activity** | Live purple-themed contribution calendar — 12 months rolling |
-| **Projects** | Code-editor style feature card + secondary project cards |
-| **Certificates** | Vertical timeline with category badges and lightbox viewer |
+| **Hero** | Type-led headline, availability status, fact strip |
+| **About** | Bio and a facts rail (education, specialty, learning) |
+| **Skills** | Four grouped columns of plain, honest lists |
+| **GitHub Activity** | Live contribution calendar, 12 months rolling |
+| **Projects** | Featured scanner with real code + app cards with live screenshots |
+| **Certificates** | 3-column grid, show-more toggle, lightbox viewer |
 | **Contact** | EmailJS form with loading state and toast feedback |
 
 ---
@@ -93,9 +89,8 @@ A modern, design-heavy personal portfolio built with **pure HTML, CSS & JavaScri
 | **Styling** | CSS3 — Custom Properties, Grid, Flexbox, Keyframe Animations |
 | **Scripts** | Vanilla JavaScript ES6+ |
 | **Email** | EmailJS Browser SDK |
-| **Animation** | Typed.js |
-| **Fonts** | Inter · Space Grotesk · JetBrains Mono |
-| **Icons** | Font Awesome 6 |
+| **Fonts** | Space Grotesk · JetBrains Mono (self-hosted variable) |
+| **Icons** | Self-hosted CSS-mask subset |
 | **Data** | GitHub Contributions API (jogruber.de) |
 
 ---
@@ -121,7 +116,7 @@ A modern, design-heavy personal portfolio built with **pure HTML, CSS & JavaScri
 |---------|------|-------------|
 | **WebVulnScanner** | Python · Flask · Requests | Automated web vulnerability scanner — XSS, SQLi, header analysis, crawling |
 | **TaskFlow** | HTML · CSS · JS | Minimal task manager with progress tracking and local storage |
-| **Portfolio** | HTML · CSS · JS | This site — glassmorphism, aurora bg, live GitHub calendar |
+| **Portfolio** | HTML · CSS · JS | This site: dark type-led design, live GitHub calendar |
 
 ---
 
@@ -135,11 +130,14 @@ Portfolio/
 ├── README.md
 └── public/
     ├── css/
-    │   └── style.css        # All styles — dark/light theme, animations, layout
+    │   ├── main.css         # The whole design system
+    │   └── icons.css        # Self-hosted icon subset (CSS masks)
     ├── js/
-    │   └── script.js        # Interactions, EmailJS, GitHub calendar, animations
+    │   └── script.js        # Nav, reveals, lightbox, form, GitHub calendar
+    ├── fonts/               # Space Grotesk + JetBrains Mono (woff2)
     ├── images/
     │   ├── profile.jpg      # Social-card image (og:image / twitter:image)
+    │   ├── projects/        # Real screenshots of the live apps
     │   ├── favicon.ico
     │   ├── favicon.png
     │   └── favicon.svg
@@ -152,10 +150,6 @@ Portfolio/
         ├── thumbs/          # 560px WebP — what the grid actually loads
         └── full/            # 1600px WebP — opened in the lightbox
 ```
-
-> The developer avatar is an inline SVG in `index.html`, not a separate file.
-
----
 
 ## ⚡ Getting Started
 
