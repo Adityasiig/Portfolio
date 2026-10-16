@@ -486,7 +486,7 @@ ul { list-style: none; }
 .disc-hero {
     position: absolute;
     top: clamp(28px, 4vw, 52px); right: clamp(28px, 4vw, 52px);
-    width: clamp(108px, 13vw, 176px); height: auto;
+    width: clamp(140px, 17vw, 250px); height: auto;
     opacity: 0.9;
 }
 
@@ -578,7 +578,7 @@ ul { list-style: none; }
     flex-direction: row; align-items: stretch;
 }
 .card-side {
-    flex: 0 0 210px;
+    flex: 0 0 270px;
     border-left: 1px solid var(--line);
     padding: var(--pad) 26px;
     display: flex; flex-direction: column; align-items: center;
@@ -586,18 +586,29 @@ ul { list-style: none; }
 }
 
 /* Inside a card column: fills the width it is given. */
-.disc-side { width: 100%; max-width: 150px; height: auto; opacity: 0.85; }
+.disc-side { width: 100%; max-width: 210px; height: auto; opacity: 0.85; }
 
 /* Quote tile: the statement and a small dial sit side by side. */
 .bx-quote { gap: var(--pad); }
 .bx-quote .statement { flex: 1; }
-.disc-quote { flex: none; width: 84px; height: auto; opacity: 0.8; }
+
+/* Grid rows stretch, so a taller sibling would inflate its neighbour.
+   Each panel sizes to its own content instead. */
+.bento > .bx { align-self: start; }
+
+/* Fills the slack the chip rows leave at the foot of the panel. */
+.bx-tools { display: flex; flex-direction: column; align-self: stretch; }
+.disc-tools {
+    width: clamp(150px, 19vw, 210px); height: auto;
+    margin: auto auto 0;
+    opacity: 0.8;
+}
 
 /* Contact: a dial under the headline, filling the dead column. */
 .disc-reach {
-    width: 100%; max-width: 180px; height: auto;
+    width: 100%; max-width: 240px; height: auto;
     opacity: 0.75;
-    margin: 4px 0 26px;
+    margin: 4px 0 30px;
 }
 
 .tile-top { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
@@ -641,7 +652,7 @@ ul { list-style: none; }
 .meter span { flex: 1; height: 8px; border-radius: var(--r-xs); background: var(--white); }
 /* Vertical LED stack on the lead card. */
 /* Horizontal under the matrix, so the column reads as one instrument. */
-.meter-col { flex-direction: row; flex: none; width: 100%; max-width: 150px; gap: 5px; height: 10px; }
+.meter-col { flex-direction: row; flex: none; width: 100%; max-width: 210px; gap: 5px; height: 10px; }
 .meter-col span { flex: 1; width: auto; height: 10px; border-radius: var(--r-xs); }
 .meter-label {
     font-size: var(--fs-micro); letter-spacing: 0.16em; color: var(--grey-2);
@@ -949,8 +960,9 @@ ul { list-style: none; }
     .dot-title { font-size: var(--fs-hero-sm); margin: 32px 0; }
     /* The hero and quote panels crowd their text at this width; the
        contact one still has room and carries the section. */
-    .disc-hero, .disc-quote { display: none; }
-    .disc-reach { max-width: 150px; }
+    .disc-hero { display: none; }
+    .disc-reach { max-width: 170px; }
+    .disc-tools { width: 150px; margin: 20px auto 0; }
     .stage-meta { grid-template-rows: none; grid-template-columns: repeat(2, 1fr); }
     .cell-tall { grid-column: 1 / -1; }
 
