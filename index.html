@@ -28,12 +28,21 @@
     <link rel="preload" href="public/fonts/doto-var.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="public/fonts/space-mono.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="public/css/icons.css">
-    <link rel="stylesheet" href="public/css/main.css?v=rail-2">
+    <link rel="stylesheet" href="public/css/main.css?v=rail-3">
     <!-- EmailJS is only needed on contact-form submit, so it must not block paint. -->
     <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js" integrity="sha384-SALc35EccAf6RzGw4iNsyj7kTPr33K7RoGzYu+7heZhT8s0GZouafRiCg1qy44AS" crossorigin="anonymous"></script>
     <script>document.documentElement.classList.remove('no-js');
-            window.EMAILJS_PUBLIC_KEY = '42_vwBZ0ZtAHGQkag';</script>
-    <script defer src="public/js/script.js?v=rail-2"></script>
+            window.EMAILJS_PUBLIC_KEY = '42_vwBZ0ZtAHGQkag';
+            // Resolve the theme before first paint so there is no flash.
+            // Dark is the brand default; light is opt-in and remembered.
+            (function () {
+                try {
+                    if (localStorage.getItem('theme') === 'light') {
+                        document.documentElement.setAttribute('data-theme', 'light');
+                    }
+                } catch (e) { /* storage blocked: stay on the dark default */ }
+            })();</script>
+    <script defer src="public/js/script.js?v=rail-3"></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -67,6 +76,11 @@
         </nav>
 
         <div class="rail-foot">
+            <button type="button" class="theme-btn" id="themeBtn" role="switch" aria-checked="true" aria-label="Dark mode">
+                <span class="theme-knob" aria-hidden="true"></span>
+                <i class="ti-moon" aria-hidden="true"></i>
+                <i class="ti-sun" aria-hidden="true"></i>
+            </button>
             <span class="rail-clock" id="clock" aria-label="Local time in India">--:--</span>
             <span class="sb-sig" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
             <span class="rail-region">IN</span>

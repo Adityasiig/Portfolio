@@ -41,6 +41,32 @@ function initPortfolio() {
         });
     }
 
+    // ===== THEME TOGGLE =====
+    // The head script already resolved the theme; this only flips it.
+    const themeBtn = document.getElementById('themeBtn');
+    if (themeBtn) {
+        const root = document.documentElement;
+        const meta = document.querySelector('meta[name="theme-color"]');
+
+        const sync = (dark) => {
+            themeBtn.setAttribute('aria-checked', String(dark));
+            themeBtn.setAttribute('aria-label', dark ? 'Dark mode' : 'Light mode');
+            if (meta) meta.setAttribute('content', dark ? '#000000' : '#f4f3f1');
+        };
+        sync(root.getAttribute('data-theme') !== 'light');
+
+        themeBtn.addEventListener('click', () => {
+            const goingLight = root.getAttribute('data-theme') !== 'light';
+            // Crossfade only for the duration of the swap.
+            root.classList.add('theming');
+            if (goingLight) root.setAttribute('data-theme', 'light');
+            else root.removeAttribute('data-theme');
+            sync(!goingLight);
+            try { localStorage.setItem('theme', goingLight ? 'light' : 'dark'); } catch (e) { /* ignore */ }
+            setTimeout(() => root.classList.remove('theming'), 500);
+        });
+    }
+
     // ===== SCROLL REVEALS =====
     // Everything marked [data-rise] fades up once, when it first enters.
     // Children of a [data-stagger] group inherit an increasing delay so a
@@ -388,10 +414,14 @@ function initPortfolio() {
             html += '</div>';
 
             html += '<div class="gh-cal-weeks" style="gap:' + GAP + 'px">';
-            weeks.forEach(week => {
+            weeks.forEach((week, wi) => {
                 html += '<div class="gh-cal-week" style="gap:' + GAP + 'px">';
+                // Each column starts slightly later so the graph fills
+                // left to right instead of appearing all at once.
+                const delay = Math.min(wi * 9, 500);
                 week.forEach(({ date, count, level, future }) => {
-                    const style = 'width:' + CELL + 'px;height:' + CELL + 'px';
+                    const style = 'width:' + CELL + 'px;height:' + CELL
+                        + 'px;animation-delay:' + delay + 'ms';
                     if (future) {
                         html += '<span class="gh-cal-cell" data-level="0" style="' + style + ';visibility:hidden"></span>';
                     } else {

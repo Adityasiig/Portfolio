@@ -33,6 +33,9 @@
 
 /* ---------- Tokens ---------- */
 
+/* Token names are roles, not colours: --black is "the page behind
+   everything" and --white is "ink". The light theme swaps what those
+   roles resolve to, so no rule below needs to know which mode is on. */
 :root {
     --black: #000000;
     --panel: #0c0c0c;
@@ -46,6 +49,12 @@
 
     --red: #d71921;
 
+    /* Screenshots are knocked back to grey, then restored on hover. */
+    --shot-filter: grayscale(1) contrast(1.05);
+    --dots: rgba(255, 255, 255, 0.07);
+    --veil: rgba(0, 0, 0, 0.96);
+    --cal-1: #3d3d3d; --cal-2: #6e6e6e; --cal-3: #b4b4b4;
+
     --dot: 'Doto', 'Space Mono', monospace;
     --mono: 'Space Mono', ui-monospace, monospace;
 
@@ -54,11 +63,40 @@
     --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+/* Light mode: paper and ink, same single red. */
+:root[data-theme="light"] {
+    --black: #f4f3f1;
+    --panel: #ffffff;
+    --panel-2: #eceae7;
+    --line: #dddad5;
+    --line-2: #bdb9b2;
+
+    --white: #0a0a0a;
+    --grey: #5e5a55;
+    --grey-2: #8a857e;
+
+    --shot-filter: grayscale(1) contrast(0.95) brightness(1.03);
+    --dots: rgba(0, 0, 0, 0.10);
+    --veil: rgba(244, 243, 241, 0.97);
+    --cal-1: #c9c5be; --cal-2: #928d85; --cal-3: #4f4b46;
+}
+
 /* ---------- Base ---------- */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
+
+/* Theme swap crossfades instead of snapping. The class is added only
+   for the length of the swap so it never slows ordinary hovers. */
+.theming, .theming *, .theming *::before, .theming *::after {
+    transition: background-color 0.45s var(--ease),
+                border-color 0.45s var(--ease),
+                color 0.45s var(--ease) !important;
+}
+@media (prefers-reduced-motion: reduce) {
+    .theming, .theming *, .theming *::before, .theming *::after { transition: none !important; }
+}
 
 body {
     background: var(--black);
@@ -141,6 +179,78 @@ ul { list-style: none; }
 }
 .rail-region { font-size: 0.5625rem; letter-spacing: 0.2em; color: var(--grey-2); }
 
+/* ---------- Theme toggle ---------- */
+
+/* A pill that slides a knob between sun and moon. */
+.theme-btn {
+    position: relative;
+    width: 30px; height: 52px;
+    padding: 3px;
+    background: var(--panel-2);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    cursor: pointer;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: space-between;
+    transition: border-color 0.2s var(--ease), background-color 0.3s var(--ease);
+}
+.theme-btn:hover { border-color: var(--white); }
+
+/* The knob travels; the icons stay put and change contrast under it. */
+.theme-knob {
+    position: absolute; left: 3px; right: 3px; top: 3px;
+    height: 22px;
+    background: var(--white);
+    border-radius: 999px;
+    transition: transform 0.38s var(--ease), background-color 0.3s var(--ease);
+}
+:root[data-theme="light"] .theme-knob { transform: translateY(24px); }
+
+/* Sun and moon are drawn in CSS: the icon subset has neither, and a
+   filled vs crescent disc matches the LED language anyway. */
+.theme-btn i {
+    position: relative; z-index: 1;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+}
+.theme-btn i::before {
+    content: '';
+    border-radius: 50%;
+    transition: background-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+/* Sun: a solid disc, ringed. Moon: a crescent cut by an inset shadow.
+   --mark is whichever ink reads against the surface behind the glyph. */
+.ti-sun::before {
+    width: 10px; height: 10px;
+    background: var(--mark);
+}
+.ti-moon::before {
+    width: 11px; height: 11px;
+    background: var(--mark);
+}
+/* The bite: a second disc in the surface colour, offset up and right. */
+.ti-moon::after {
+    content: ''; position: absolute;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--mark-bg);
+    transform: translate(3.5px, -2.5px);
+    transition: background-color 0.3s var(--ease);
+}
+
+/* Dark mode: the knob is parked over the moon, so the moon draws in the
+   page colour against the knob, and the sun stays muted on the pill. */
+:root:not([data-theme="light"]) .ti-moon { --mark: var(--black); --mark-bg: var(--white); }
+:root:not([data-theme="light"]) .ti-sun  { --mark: var(--grey-2); --mark-bg: var(--panel-2); }
+
+/* Light mode: the knob slides down over the sun. */
+:root[data-theme="light"] .ti-moon { --mark: var(--grey-2); --mark-bg: var(--panel-2); }
+:root[data-theme="light"] .ti-sun  { --mark: var(--black); --mark-bg: var(--white); }
+
+@media (prefers-reduced-motion: reduce) {
+    .theme-knob { transition: none; }
+}
+
 /* Signal bars, drawn as four rising ticks. */
 .sb-sig { display: inline-flex; align-items: flex-end; gap: 2px; height: 10px; }
 .sb-sig i { width: 2px; background: var(--grey-2); }
@@ -210,6 +320,60 @@ ul { list-style: none; }
         transition: width 0.7s var(--ease) 0.15s;
     }
     .band-head.is-in::after { width: 56px; }
+
+    /* Headings drop in letter-shaped: a clip reveal, not just a fade. */
+    .band-head.is-in .dot-head { animation: wipe 0.7s var(--ease) both; }
+    @keyframes wipe {
+        from { clip-path: inset(0 100% 0 0); transform: translateX(-10px); }
+        to   { clip-path: inset(0 0 0 0); transform: none; }
+    }
+
+    /* The status cell breathes so OPEN reads as live. */
+    .cell .live { animation: breathe 2.6s var(--ease) 1.2s infinite; }
+    @keyframes breathe {
+        0%, 100% { opacity: 1; }
+        50%      { opacity: 0.45; }
+    }
+
+    /* Signal bars climb on load. */
+    .sb-sig i { transform-origin: bottom; animation: climb 0.5s var(--ease) both; }
+    .sb-sig i:nth-child(1) { animation-delay: 0.6s; }
+    .sb-sig i:nth-child(2) { animation-delay: 0.7s; }
+    .sb-sig i:nth-child(3) { animation-delay: 0.8s; }
+    .sb-sig i:nth-child(4) { animation-delay: 0.9s; }
+    @keyframes climb { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+    /* Rail dots ripple outward when their section is active. */
+    .rn.on > span { box-shadow: 0 0 0 0 var(--red); animation: ripple 2s var(--ease) infinite; }
+    @keyframes ripple {
+        0%   { box-shadow: 0 0 0 0 rgba(215, 25, 33, 0.55); }
+        70%  { box-shadow: 0 0 0 9px rgba(215, 25, 33, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(215, 25, 33, 0); }
+    }
+
+    /* Keys sweep a light band across on hover. */
+    .key { position: relative; overflow: hidden; }
+    .key::after {
+        content: ''; position: absolute; inset: 0;
+        background: linear-gradient(100deg, transparent 20%, rgba(255, 255, 255, 0.28) 50%, transparent 80%);
+        transform: translateX(-120%);
+        transition: transform 0.6s var(--ease);
+    }
+    .key:hover::after { transform: translateX(120%); }
+
+    /* Cert rows shift their index digit as the marker wipes in. */
+    .file .f-idx { transition: color 0.18s var(--ease), transform 0.25s var(--ease); }
+    .file:hover .f-idx, .file:focus-visible .f-idx { transform: translateX(2px) scale(1.12); }
+
+    /* Calendar cells fade in as a wave once the graph is built. */
+    .gh-cal-cell { animation: cellin 0.5s var(--ease) both; }
+    @keyframes cellin { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: none; } }
+
+    /* Form fields lift their border as you focus them. */
+    .form-group input, .form-group textarea {
+        transition: border-color 0.18s var(--ease), transform 0.18s var(--ease);
+    }
+    .form-group input:focus, .form-group textarea:focus { transform: translateY(-2px); }
 }
 
 /* ---------- Dot matrix type ---------- */
@@ -243,7 +407,7 @@ ul { list-style: none; }
 /* Faint dot grid, the Nothing surface texture. */
 .stage-type::before {
     content: ''; position: absolute; inset: 0;
-    background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+    background-image: radial-gradient(circle at center, var(--dots) 1px, transparent 1px);
     background-size: 22px 22px;
     pointer-events: none;
 }
@@ -394,7 +558,7 @@ ul { list-style: none; }
 .card-shot { display: block; background: var(--panel-2); }
 .card-shot img {
     width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top;
-    filter: grayscale(1) contrast(1.05);
+    filter: var(--shot-filter);
     transition: filter 0.4s var(--ease), transform 0.6s var(--ease);
 }
 .card-shot:hover img { filter: none; transform: scale(1.02); }
@@ -527,9 +691,9 @@ ul { list-style: none; }
 .gh-cal-weeks { display: flex; }
 .gh-cal-week { display: flex; flex-direction: column; }
 .gh-cal-cell { border-radius: 2px; background: var(--line); }
-.gh-cal-cell[data-level="1"] { background: #3d3d3d; }
-.gh-cal-cell[data-level="2"] { background: #6e6e6e; }
-.gh-cal-cell[data-level="3"] { background: #b4b4b4; }
+.gh-cal-cell[data-level="1"] { background: var(--cal-1); }
+.gh-cal-cell[data-level="2"] { background: var(--cal-2); }
+.gh-cal-cell[data-level="3"] { background: var(--cal-3); }
 .gh-cal-cell[data-level="4"] { background: var(--white); }
 .gh-cal-error { font-size: 0.75rem; color: var(--grey-2); }
 .gh-cal-error i { background-color: var(--grey-2); }
@@ -576,7 +740,7 @@ ul { list-style: none; }
     position: fixed; inset: 0; z-index: 90;
     display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px;
     padding: 32px;
-    background: rgba(0, 0, 0, 0.96);
+    background: var(--veil);
     opacity: 0; visibility: hidden;
     transition: opacity 0.25s var(--ease), visibility 0.25s;
 }
