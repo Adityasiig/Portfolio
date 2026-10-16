@@ -80,49 +80,53 @@ function initPortfolio() {
     }
 
     // ===== GLYPH MATRIX =====
-    // A 25x25 LED panel that cycles through patterns. Each frame scores
-    // every dot 0..1 and the renderer maps that to a brightness, so the
-    // patterns stay declarative and the draw loop stays one function.
-    const matrix = document.getElementById('matrix');
-    if (matrix && !reduceMotion) {
-        const ctx = matrix.getContext('2d');
-        const N = 25;                 // dots per side
-        const DPR = Math.min(window.devicePixelRatio || 1, 2);
-        const SIZE = 300;
-        matrix.width = SIZE * DPR;
-        matrix.height = SIZE * DPR;
-        ctx.scale(DPR, DPR);
-        const STEP = SIZE / N;
-        const R = STEP * 0.3;
-        const mid = (N - 1) / 2;
+    // Dot-matrix LED panels. Each canvas declares its grid size and which
+    // patterns it plays via data attributes, so one renderer drives every
+    // instance on the page. Patterns are pure functions scoring a dot 0..1.
+    const matrices = document.querySelectorAll('.matrix');
+    if (matrices.length && !reduceMotion) {
 
-        // Each pattern returns a 0..1 intensity for the dot at (x, y).
-        const patterns = [
+        const PATTERNS = {
             // Expanding rings from the centre.
-            (x, y, t) => {
-                const d = Math.hypot(x - mid, y - mid);
+            rings: (x, y, t, m) => {
+                const d = Math.hypot(x - m, y - m);
                 return Math.max(0, Math.cos((d - t * 7) * 0.9));
             },
             // Scan line sweeping top to bottom.
-            (x, y, t) => {
-                const head = (t * 1.6 % 1.4) * N - 2;
+            scan: (x, y, t, m, n) => {
+                const head = (t * 1.6 % 1.4) * n - 2;
                 return Math.max(0, 1 - Math.abs(y - head) / 2.5);
             },
             // Diagonal wave.
-            (x, y, t) => (Math.sin((x + y) * 0.55 - t * 4) + 1) / 2,
+            wave: (x, y, t) => (Math.sin((x + y) * 0.55 - t * 4) + 1) / 2,
             // Rotating bar, the Nothing loading mark.
-            (x, y, t) => {
-                const a = Math.atan2(y - mid, x - mid);
+            spin: (x, y, t, m) => {
+                const a = Math.atan2(y - m, x - m);
                 const delta = Math.abs(((a - t * 2) % Math.PI + Math.PI) % Math.PI - Math.PI / 2);
-                const d = Math.hypot(x - mid, y - mid);
-                return d > mid ? 0 : Math.max(0, 1 - delta * 2.2);
+                return Math.hypot(x - m, y - m) > m ? 0 : Math.max(0, 1 - delta * 2.2);
+            },
+            // Vertical bars rising and falling, like a level meter.
+            bars: (x, y, t, m, n) => {
+                const h = (Math.sin(t * 2.2 + x * 0.9) + 1) / 2 * n;
+                return y > n - h - 1 ? 1 : 0;
+            },
+            // A slow pulse breathing out from the centre.
+            pulse: (x, y, t, m) => {
+                const d = Math.hypot(x - m, y - m);
+                const r = (Math.sin(t * 1.5) + 1) / 2 * m;
+                return Math.max(0, 1 - Math.abs(d - r) / 1.8);
+            },
+            // Rain: columns of light falling at staggered speeds.
+            rain: (x, y, t, m, n) => {
+                const speed = 3 + (x % 5);
+                const head = (t * speed + x * 2.7) % (n + 6) - 3;
+                const dist = y - head;
+                return dist > 0 ? 0 : Math.max(0, 1 + dist / 4);
             }
-        ];
+        };
 
         const HOLD = 4200;            // ms per pattern
         const FADE = 700;             // crossfade between patterns
-        let start = null;
-        let raf = 0;
 
         // The ink colour only changes on a theme swap, so read it once
         // and expose a refresh hook rather than querying every frame.
@@ -134,47 +138,69 @@ function initPortfolio() {
         readInk();
         window.refreshMatrixInk = readInk;
 
-        const draw = (now) => {
-            if (start === null) start = now;
-            const elapsed = now - start;
-            const slot = Math.floor(elapsed / HOLD);
-            const into = elapsed % HOLD;
-            const t = elapsed / 1000;
+        matrices.forEach(canvas => {
+            const ctx = canvas.getContext('2d');
+            const N = Number(canvas.dataset.grid) || 25;
+            const SIZE = 300;
+            const DPR = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width = SIZE * DPR;
+            canvas.height = SIZE * DPR;
+            ctx.scale(DPR, DPR);
 
-            const a = patterns[slot % patterns.length];
-            const b = patterns[(slot + 1) % patterns.length];
-            // Crossfade in the last FADE ms of each slot.
-            const blend = into > HOLD - FADE ? (into - (HOLD - FADE)) / FADE : 0;
+            const STEP = SIZE / N;
+            const R = STEP * 0.3;
+            const mid = (N - 1) / 2;
 
-            ctx.clearRect(0, 0, SIZE, SIZE);
+            const names = (canvas.dataset.play || 'rings,scan,wave,spin')
+                .split(',').map(v => v.trim()).filter(v => PATTERNS[v]);
+            const seq = names.length ? names.map(v => PATTERNS[v]) : [PATTERNS.rings];
+            // Stagger instances so they are not all in lockstep.
+            const offset = Number(canvas.dataset.offset || 0);
 
-            for (let y = 0; y < N; y++) {
-                for (let x = 0; x < N; x++) {
-                    let v = a(x, y, t);
-                    if (blend) v = v * (1 - blend) + b(x, y, t) * blend;
-                    v = Math.max(0, Math.min(1, v));
-                    // Floor keeps the unlit grid faintly visible.
-                    const alpha = 0.06 + v * 0.85;
-                    ctx.globalAlpha = alpha;
-                    ctx.fillStyle = ink;
-                    ctx.beginPath();
-                    ctx.arc(x * STEP + STEP / 2, y * STEP + STEP / 2, R, 0, Math.PI * 2);
-                    ctx.fill();
+            let start = null;
+            let raf = 0;
+
+            const draw = (now) => {
+                if (start === null) start = now - offset;
+                const elapsed = now - start;
+                const slot = Math.floor(elapsed / HOLD);
+                const into = elapsed % HOLD;
+                const t = elapsed / 1000;
+
+                const a = seq[slot % seq.length];
+                const b = seq[(slot + 1) % seq.length];
+                // Crossfade in the last FADE ms of each slot.
+                const blend = into > HOLD - FADE ? (into - (HOLD - FADE)) / FADE : 0;
+
+                ctx.clearRect(0, 0, SIZE, SIZE);
+                ctx.fillStyle = ink;
+
+                for (let y = 0; y < N; y++) {
+                    for (let x = 0; x < N; x++) {
+                        let v = a(x, y, t, mid, N);
+                        if (blend) v = v * (1 - blend) + b(x, y, t, mid, N) * blend;
+                        v = Math.max(0, Math.min(1, v));
+                        // Floor keeps the unlit grid faintly visible.
+                        ctx.globalAlpha = 0.06 + v * 0.85;
+                        ctx.beginPath();
+                        ctx.arc(x * STEP + STEP / 2, y * STEP + STEP / 2, R, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
                 }
-            }
-            ctx.globalAlpha = 1;
-            raf = requestAnimationFrame(draw);
-        };
+                ctx.globalAlpha = 1;
+                raf = requestAnimationFrame(draw);
+            };
 
-        // The observer is the only gate: a display:none canvas (mobile)
-        // never intersects, so the loop never starts there.
-        const heroIO = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !raf) raf = requestAnimationFrame(draw);
-                else if (!entry.isIntersecting && raf) { cancelAnimationFrame(raf); raf = 0; }
-            });
-        }, { threshold: 0 });
-        heroIO.observe(matrix);
+            // The observer is the only gate: a display:none canvas (mobile)
+            // never intersects, so the loop never starts there.
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !raf) raf = requestAnimationFrame(draw);
+                    else if (!entry.isIntersecting && raf) { cancelAnimationFrame(raf); raf = 0; }
+                });
+            }, { threshold: 0 });
+            io.observe(canvas);
+        });
     }
 
     // ===== SCROLL REVEALS =====

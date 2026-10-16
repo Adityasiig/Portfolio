@@ -301,7 +301,7 @@ ul { list-style: none; }
 
     /* Meter segments light in sequence once the card is in view. */
     .card-lead.is-in .meter-col span {
-        transform: scaleY(0); transform-origin: top;
+        transform: scaleX(0); transform-origin: left;
         animation: seg 0.4s var(--ease) forwards;
     }
     .meter-col span:nth-child(1) { animation-delay: 0.10s; }
@@ -311,7 +311,7 @@ ul { list-style: none; }
     .meter-col span:nth-child(5) { animation-delay: 0.38s; }
     .meter-col span:nth-child(6) { animation-delay: 0.45s; }
     .meter-col span:nth-child(7) { animation-delay: 0.52s; }
-    @keyframes seg { to { transform: scaleY(1); } }
+    @keyframes seg { to { transform: scaleX(1); } }
 
     /* Section headings sweep a red underline as they arrive. */
     .band-head { position: relative; overflow: hidden; }
@@ -449,13 +449,17 @@ ul { list-style: none; }
     }
 }
 
-/* Glyph Matrix sits in the hero's empty top-right quadrant. */
-.matrix {
+/* Matrices are inert decoration; each placement sets its own box.
+   display:block because a canvas is inline by default, which would
+   leave a baseline gap and break percentage widths. */
+.matrix { display: block; pointer-events: none; }
+
+/* The hero panel floats in its empty top-right quadrant. */
+.matrix-hero {
     position: absolute;
     top: clamp(28px, 4vw, 52px); right: clamp(28px, 4vw, 52px);
     width: clamp(108px, 13vw, 176px); height: auto;
     opacity: 0.9;
-    pointer-events: none;
 }
 
 /* Headline is pushed to the optical centre, stepped line by line. */
@@ -543,11 +547,25 @@ ul { list-style: none; }
     flex-direction: row; align-items: stretch;
 }
 .card-side {
-    flex: 0 0 112px;
+    flex: 0 0 210px;
     border-left: 1px solid var(--line);
-    padding: var(--pad) 24px;
+    padding: var(--pad) 26px;
     display: flex; flex-direction: column; align-items: center;
-    justify-content: center; gap: 18px;
+    justify-content: center; gap: 26px;
+}
+
+/* Matrix inside a card column: fills the width it is given. */
+.matrix-side { width: 100%; max-width: 150px; height: auto; opacity: 0.85; }
+
+/* Quote tile: the statement and a small panel sit side by side. */
+.bx-quote { gap: var(--pad); }
+.matrix-quote { flex: none; width: 92px; height: auto; opacity: 0.75; }
+
+/* Contact: a wide panel under the headline, filling the dead column. */
+.matrix-reach {
+    width: 100%; max-width: 190px; height: auto;
+    opacity: 0.7;
+    margin: 4px 0 26px;
 }
 
 .tile-top { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
@@ -588,9 +606,9 @@ ul { list-style: none; }
 .meter { display: flex; gap: 5px; }
 .meter span { flex: 1; height: 8px; border-radius: 2px; background: var(--white); }
 /* Vertical LED stack on the lead card. */
-/* Capped so the column reads as a meter, not a full-height rule. */
-.meter-col { flex-direction: column; flex: 0 1 auto; width: 12px; gap: 7px; height: clamp(150px, 26vh, 230px); }
-.meter-col span { width: 12px; height: auto; border-radius: 6px; }
+/* Horizontal under the matrix, so the column reads as one instrument. */
+.meter-col { flex-direction: row; flex: none; width: 100%; max-width: 150px; gap: 5px; height: 10px; }
+.meter-col span { flex: 1; width: auto; height: 10px; border-radius: 5px; }
 .meter-label {
     font-size: 0.5625rem; letter-spacing: 0.16em; color: var(--grey-2);
     text-align: center; line-height: 1.6;
@@ -876,8 +894,10 @@ ul { list-style: none; }
     .stage { grid-template-columns: 1fr; min-height: 0; padding-top: var(--gap); }
     .stage-type { border-radius: 20px; padding: 28px 20px; }
     .dot-title { font-size: clamp(2.8rem, 17vw, 5rem); margin: 32px 0; }
-    /* The matrix would crowd the headline at this width. */
-    .matrix { display: none; }
+    /* The hero and quote panels crowd their text at this width; the
+       contact one still has room and carries the section. */
+    .matrix-hero, .matrix-quote { display: none; }
+    .matrix-reach { max-width: 150px; }
     .stage-meta { grid-template-rows: none; grid-template-columns: repeat(2, 1fr); }
     .cell-tall { grid-column: 1 / -1; }
 
@@ -886,8 +906,6 @@ ul { list-style: none; }
         flex: none; border-left: 0; border-top: 1px solid var(--line);
         flex-direction: row; align-items: center; padding: 18px 26px;
     }
-    .meter-col { flex-direction: row; width: auto; }
-    .meter-col span { width: auto; height: 8px; }
     .meter-label { text-align: left; }
 
     /* Single column: clear every span so nothing creates an implicit track. */
