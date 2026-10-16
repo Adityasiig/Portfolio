@@ -73,16 +73,27 @@ function initPortfolio() {
         });
     });
 
-    // ===== REVEAL ON SCROLL =====
-    const revealer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('in');
-                revealer.unobserve(entry.target);
+    // ===== HERO TERMINAL =====
+    // Types the scan transcript once on load. The full text ships in the
+    // HTML, so no-JS and reduced-motion users just read it as-is.
+    const termCode = document.querySelector('#termBody code');
+    if (termCode && !reduceMotion) {
+        const full = termCode.textContent;
+        const term = termCode.closest('.term');
+        termCode.textContent = '';
+        term.classList.add('typing');
+        let i = 0;
+        (function tick() {
+            // A few characters per frame reads as machine output, not typing.
+            i = Math.min(full.length, i + 3);
+            termCode.textContent = full.slice(0, i);
+            if (i < full.length) {
+                setTimeout(tick, full[i] === '\n' ? 90 : 12);
+            } else {
+                setTimeout(() => term.classList.remove('typing'), 1600);
             }
-        });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.reveal').forEach(el => revealer.observe(el));
+        })();
+    }
 
     // ===== CERTIFICATE LIGHTBOX =====
     const lightbox = document.getElementById('lightbox');
