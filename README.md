@@ -22,7 +22,7 @@
 
 ## 🧑‍💻 About
 
-A personal portfolio styled like the pentest reports its owner's scanner writes: cool paper, ink, a single severity-red accent and one dark terminal artifact in the hero. Pure HTML, CSS & JavaScript, no frameworks, no build tools. Self-hosted variable fonts (Archivo + JetBrains Mono), a live GitHub contribution calendar and an EmailJS contact form.
+A cinematic, scroll-choreographed portfolio: black on black, one acid-volt accent, giant Geist display type, a GSAP project stack and a horizontal certificate rail. Pure HTML, CSS & vanilla JavaScript on GitHub Pages (GSAP self-hosted, no build step). Self-hosted variable fonts (Geist + Geist Mono), a live GitHub contribution calendar and an EmailJS contact form.
 
 ---
 
@@ -33,8 +33,9 @@ A personal portfolio styled like the pentest reports its owner's scanner writes:
 <td width="50%">
 
 **🎨 Design & UX**
-- "Assessment dossier" design system: paper, ink, severity red
-- Archivo (variable width axis) + JetBrains Mono, self-hosted
+- Cinematic dark system: near-black, one acid-volt accent
+- Geist + Geist Mono, self-hosted variable fonts
+- GSAP scroll stack, masked hero reveal, manifesto word scrub
 - On-brand preview renders on the project cards (tools/previews)
 - Scroll reveals via `IntersectionObserver` (reduced-motion aware)
 - Certificate grid with keyboard-accessible lightbox
@@ -87,9 +88,9 @@ A personal portfolio styled like the pentest reports its owner's scanner writes:
 |----------|---------|
 | **Markup** | HTML5 (semantic) |
 | **Styling** | CSS3 — Custom Properties, Grid, Flexbox, Keyframe Animations |
-| **Scripts** | Vanilla JavaScript ES6+ |
+| **Scripts** | Vanilla JavaScript ES6+ · GSAP ScrollTrigger (self-hosted) |
 | **Email** | EmailJS Browser SDK |
-| **Fonts** | Archivo · JetBrains Mono (self-hosted variable) |
+| **Fonts** | Geist · Geist Mono (self-hosted variable) |
 | **Icons** | Self-hosted CSS-mask subset |
 | **Data** | GitHub Contributions API (jogruber.de) |
 

@@ -73,26 +73,60 @@ function initPortfolio() {
         });
     });
 
-    // ===== HERO TERMINAL =====
-    // Types the scan transcript once on load. The full text ships in the
-    // HTML, so no-JS and reduced-motion users just read it as-is.
-    const termCode = document.querySelector('#termBody code');
-    if (termCode && !reduceMotion) {
-        const full = termCode.textContent;
-        const term = termCode.closest('.term');
-        termCode.textContent = '';
-        term.classList.add('typing');
-        let i = 0;
-        (function tick() {
-            // A few characters per frame reads as machine output, not typing.
-            i = Math.min(full.length, i + 3);
-            termCode.textContent = full.slice(0, i);
-            if (i < full.length) {
-                setTimeout(tick, full[i] === '\n' ? 90 : 12);
-            } else {
-                setTimeout(() => term.classList.remove('typing'), 1600);
-            }
-        })();
+    // ===== SCROLL CHOREOGRAPHY (GSAP) =====
+    // Everything here is an enhancement: without GSAP, or with reduced
+    // motion, the page is a plain static document and loses nothing.
+    if (!reduceMotion && window.gsap && window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero: three masked lines rise in, then the sub and buttons.
+        gsap.from('.hero-title .line-inner', {
+            yPercent: 112, duration: 0.9, stagger: 0.09, ease: 'power4.out', delay: 0.15
+        });
+        gsap.from('.hero-sub, .hero-actions, .hero-foot', {
+            opacity: 0, y: 18, duration: 0.7, stagger: 0.1, ease: 'power3.out', delay: 0.75
+        });
+
+        // Manifesto: words scrub from dim to full as the reader scrolls.
+        const manifesto = document.getElementById('manifesto');
+        if (manifesto) {
+            manifesto.innerHTML = manifesto.textContent.trim().split(/\s+/)
+                .map(w => '<span class="w">' + w + '</span>').join(' ');
+            manifesto.classList.add('scrub');
+            gsap.to(manifesto.querySelectorAll('.w'), {
+                opacity: 1, stagger: 0.6, ease: 'none',
+                scrollTrigger: {
+                    trigger: manifesto,
+                    start: 'top 78%',
+                    end: 'bottom 45%',
+                    scrub: true
+                }
+            });
+        }
+
+        // Project stack: CSS sticky pins each card; as the next card
+        // arrives, the pinned one scales back and dims.
+        const cards = gsap.utils.toArray('.stack-card');
+        cards.forEach((card, i) => {
+            if (i === cards.length - 1) return;
+            gsap.to(card.querySelector('.stack-inner'), {
+                scale: 0.94, opacity: 0.4, ease: 'none',
+                scrollTrigger: {
+                    trigger: cards[i + 1],
+                    start: 'top bottom',
+                    end: 'top top',
+                    scrub: true
+                }
+            });
+        });
+
+        // Visuals grow slightly as they enter.
+        gsap.utils.toArray('.stack-visual').forEach(v => {
+            gsap.from(v, {
+                scale: 0.92, opacity: 0.6, ease: 'none',
+                scrollTrigger: { trigger: v, start: 'top 95%', end: 'top 45%', scrub: true }
+            });
+        });
     }
 
     // ===== CERTIFICATE LIGHTBOX =====

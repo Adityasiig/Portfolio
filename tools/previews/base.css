@@ -1,14 +1,14 @@
-@font-face { font-family:'Space Grotesk'; font-weight:300 700; font-display:block;
-  src:url('../public/fonts/space-grotesk-var-latin.woff2') format('woff2'); }
-@font-face { font-family:'JetBrains Mono'; font-weight:100 800; font-display:block;
-  src:url('../public/fonts/jetbrains-mono-var-latin.woff2') format('woff2'); }
+@font-face { font-family:'Geist'; font-weight:100 900; font-display:block;
+  src:url('../public/fonts/geist-var-latin.woff2') format('woff2'); }
+@font-face { font-family:'Geist Mono'; font-weight:100 900; font-display:block;
+  src:url('../public/fonts/geist-mono-var-latin.woff2') format('woff2'); }
 :root{
-  --bg:#15171b; --panel:#1b1e23; --panel2:#22262c;
+  --bg:#101210; --panel:#161815; --panel2:#1d201b;
   --border:rgba(232,237,242,.09); --border2:rgba(232,237,242,.17);
   --text:#e8edf2; --t2:#9aa6b2; --t3:#6a7682;
-  --acc:#d7604f; --acc-soft:rgba(215,96,79,.16); --ink:#1a0d0a;
-  --warn:#d9a55a; --hot:#d7604f;
-  --sans:'Space Grotesk',sans-serif; --mono:'JetBrains Mono',monospace;
+  --acc:#c6f432; --acc-soft:rgba(198,244,50,.14); --ink:#0b0c0a;
+  --warn:#d9a55a; --hot:#e0685c;
+  --sans:'Geist',sans-serif; --mono:'Geist Mono',monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
