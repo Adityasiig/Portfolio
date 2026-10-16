@@ -22,7 +22,7 @@
 
 ## 🧑‍💻 About
 
-A portfolio built around one idea: the page itself behaves like the thing he builds. A live attack-graph canvas drifts behind a high-contrast Bodoni hero, hosts pulsing ember as the crawler reaches them. Pure HTML, CSS & vanilla JavaScript on GitHub Pages, no framework, no build step, no animation library. Self-hosted variable fonts (Bodoni Moda + Archivo + Chivo Mono), a live GitHub contribution calendar and an EmailJS contact form.
+A portfolio built in the Nothing OS design language: pure black, dot matrix display type, an LED glyph strip, monochrome tiles and exactly one red. Pure HTML, CSS & vanilla JavaScript on GitHub Pages, no framework, no build step, no animation library. Self-hosted fonts (Doto + Space Mono), a live GitHub contribution calendar and an EmailJS contact form.
 
 ---
 
@@ -33,11 +33,11 @@ A portfolio built around one idea: the page itself behaves like the thing he bui
 <td width="50%">
 
 **🎨 Design & UX**
-- Live attack-graph canvas in the hero, drawn on a 2D context
-- High-contrast Bodoni Moda display with an ember italic accent
-- Editorial dark palette with one inverted light band for the method
-- Certificates as an index whose preview tracks the cursor
-- On-brand preview renders for the apps (tools/previews)
+- Dot matrix display type (Doto) for every heading and readout
+- LED glyph strip that cycles like a device light signature
+- Device chrome: status bar with live India time and signal
+- Segment meters, pill keys, monochrome project tiles
+- Certificates as a file list, full image fetched only on open
 - Scroll reveals via `IntersectionObserver` (reduced-motion aware)
 - Certificate grid with keyboard-accessible lightbox
 - Show-more toggle keeps the certificate wall short
@@ -91,7 +91,7 @@ A portfolio built around one idea: the page itself behaves like the thing he bui
 | **Styling** | CSS3 — Custom Properties, Grid, Flexbox, Keyframe Animations |
 | **Scripts** | Vanilla JavaScript ES6+ |
 | **Email** | EmailJS Browser SDK |
-| **Fonts** | Bodoni Moda · Archivo · Chivo Mono (self-hosted) |
+| **Fonts** | Doto · Space Mono (self-hosted) |
 | **Icons** | Self-hosted CSS-mask subset |
 | **Data** | GitHub Contributions API (jogruber.de) |
 

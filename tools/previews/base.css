@@ -1,14 +1,14 @@
-@font-face { font-family:'Instrument Sans'; font-weight:400 700; font-display:block;
-  src:url('../public/fonts/instrument-sans-var-latin.woff2') format('woff2'); }
-@font-face { font-family:'IBM Plex Mono'; font-weight:400; font-display:block;
-  src:url('../public/fonts/plex-mono-400-latin.woff2') format('woff2'); }
+@font-face { font-family:'Space Mono'; font-weight:400; font-display:block;
+  src:url('../public/fonts/space-mono.woff2') format('woff2'); }
+@font-face { font-family:'Doto'; font-weight:100 900; font-display:block;
+  src:url('../public/fonts/doto-var.woff2') format('woff2'); }
 :root{
-  --bg:#ffffff; --panel:#fdfcf9; --panel2:#f0ece3;
-  --border:#e2ddd2; --border2:#cdc7b9;
-  --text:#14130f; --t2:#4a4740; --t3:#85817a;
-  --acc:#1f3bd6; --acc-soft:rgba(31,59,214,.10); --ink:#ffffff;
-  --warn:#b07d1a; --hot:#c0392b;
-  --sans:'Instrument Sans',sans-serif; --mono:'IBM Plex Mono',monospace;
+  --bg:#000000; --panel:#0c0c0c; --panel2:#141414;
+  --border:#242424; --border2:#3a3a3a;
+  --text:#ffffff; --t2:#8f8f8f; --t3:#5c5c5c;
+  --acc:#ffffff; --acc-soft:rgba(255,255,255,.12); --ink:#000000;
+  --warn:#8f8f8f; --hot:#d71921;
+  --sans:'Space Mono',monospace; --mono:'Space Mono',monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
