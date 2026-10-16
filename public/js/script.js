@@ -14,7 +14,6 @@ function initPortfolio() {
     }[ch]));
 
     // ===== IN-PAGE LINKS =====
-    // The masthead is static, so anchors only need a small breathing offset.
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const target = document.querySelector(this.getAttribute('href'));
@@ -25,24 +24,135 @@ function initPortfolio() {
         });
     });
 
+    // ===== SECTION DOTS =====
+    const dots = document.querySelectorAll('.dots a');
+    if (dots.length) {
+        const spy = new IntersectionObserver((entries) => {
+            const visible = entries.filter(e => e.isIntersecting)
+                .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+            if (!visible.length) return;
+            const id = visible[0].target.id;
+            dots.forEach(d => d.classList.toggle('active', d.dataset.section === id));
+        }, { rootMargin: '-45% 0px -45% 0px' });
+        document.querySelectorAll('section[id]').forEach(s => spy.observe(s));
+    }
+
+    // ===== REVEALS =====
+    const revealer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('in');
+            revealer.unobserve(entry.target);
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealer.observe(el));
+
     // ===== CERTIFICATE HOVER PREVIEW =====
-    // The thumbnail follows the pointer vertically within its own row.
-    // Purely decorative: it is hidden on touch and under reduced motion
-    // it simply fades without tracking.
+    // The thumbnail tracks the pointer within its own row. Decorative:
+    // hidden under 1100px and inert under reduced motion.
     if (!reduceMotion && window.matchMedia('(pointer: fine)').matches) {
         document.querySelectorAll('.cert').forEach(row => {
             const thumb = row.querySelector('img');
             if (!thumb) return;
             row.addEventListener('pointermove', (e) => {
                 const rect = row.getBoundingClientRect();
-                // Keep the preview inside the row, nudged toward the cursor.
-                const offset = (e.clientY - rect.top - rect.height / 2) * 0.35;
-                thumb.style.transform = 'translateY(calc(-50% + ' + offset.toFixed(1) + 'px)) scale(1)';
+                const offset = (e.clientY - rect.top - rect.height / 2) * 0.4;
+                thumb.style.transform =
+                    'translateY(calc(-50% + ' + offset.toFixed(1) + 'px)) scale(1) rotate(-1.5deg)';
             });
-            row.addEventListener('pointerleave', () => {
-                thumb.style.transform = '';
-            });
+            row.addEventListener('pointerleave', () => { thumb.style.transform = ''; });
         });
+    }
+
+    // ===== HERO: LIVE ATTACK GRAPH =====
+    // A slowly drifting node graph: hosts discovered, edges drawn as the
+    // crawler reaches them. Decorative only, so it is skipped entirely
+    // under reduced motion and never blocks interaction.
+    const canvas = document.getElementById('graph');
+    if (canvas && !reduceMotion) {
+        const ctx = canvas.getContext('2d');
+        let w = 0, h = 0, dpr = 1, nodes = [], raf = 0, t = 0;
+
+        function build() {
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            w = canvas.clientWidth;
+            h = canvas.clientHeight;
+            canvas.width = Math.round(w * dpr);
+            canvas.height = Math.round(h * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            // Node count scales with area so phones stay cheap to paint.
+            const count = Math.round(Math.min(64, Math.max(22, (w * h) / 26000)));
+            nodes = Array.from({ length: count }, (_, i) => ({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                vx: (Math.random() - 0.5) * 0.17,
+                vy: (Math.random() - 0.5) * 0.17,
+                r: Math.random() < 0.14 ? 2.6 : 1.4,
+                // A few nodes are "compromised" and pulse in ember.
+                hot: Math.random() < 0.16,
+                phase: Math.random() * Math.PI * 2
+            }));
+        }
+
+        function frame() {
+            t += 0.006;
+            ctx.clearRect(0, 0, w, h);
+
+            for (const n of nodes) {
+                n.x += n.vx; n.y += n.vy;
+                if (n.x < -40) n.x = w + 40; else if (n.x > w + 40) n.x = -40;
+                if (n.y < -40) n.y = h + 40; else if (n.y > h + 40) n.y = -40;
+            }
+
+            // Edges: only near pairs, opacity falling off with distance.
+            const reach = Math.min(190, Math.max(120, w / 9));
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const a = nodes[i], b = nodes[j];
+                    const dx = a.x - b.x, dy = a.y - b.y;
+                    const d = Math.hypot(dx, dy);
+                    if (d > reach) continue;
+                    const fade = (1 - d / reach) * 0.42;
+                    const live = a.hot || b.hot;
+                    ctx.strokeStyle = live
+                        ? 'rgba(228, 87, 46, ' + (fade * 0.85).toFixed(3) + ')'
+                        : 'rgba(241, 237, 230, ' + (fade * 0.5).toFixed(3) + ')';
+                    ctx.lineWidth = live ? 0.9 : 0.6;
+                    ctx.beginPath();
+                    ctx.moveTo(a.x, a.y);
+                    ctx.lineTo(b.x, b.y);
+                    ctx.stroke();
+                }
+            }
+
+            for (const n of nodes) {
+                const pulse = n.hot ? 0.55 + 0.45 * Math.sin(t * 2.4 + n.phase) : 0.42;
+                ctx.fillStyle = n.hot
+                    ? 'rgba(228, 87, 46, ' + pulse.toFixed(3) + ')'
+                    : 'rgba(241, 237, 230, ' + (pulse * 0.6).toFixed(3) + ')';
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, n.r * (n.hot ? 1 + 0.25 * Math.sin(t * 2.4 + n.phase) : 1), 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            raf = requestAnimationFrame(frame);
+        }
+
+        build();
+        frame();
+
+        let resizeTimer = 0;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(build, 180);
+        });
+
+        // Stop painting when the hero is off screen; it is pure decoration.
+        new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting && !raf) { raf = requestAnimationFrame(frame); }
+            else if (!entry.isIntersecting && raf) { cancelAnimationFrame(raf); raf = 0; }
+        }, { threshold: 0 }).observe(canvas);
     }
 
     // ===== CERTIFICATE LIGHTBOX =====

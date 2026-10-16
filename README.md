@@ -22,7 +22,7 @@
 
 ## 🧑‍💻 About
 
-A portfolio set like a printed magazine: warm paper, ink, one ultramarine, numbered chapters and a real table of contents. Pure HTML, CSS & vanilla JavaScript on GitHub Pages, no frameworks, no build step, no animation library. Self-hosted variable fonts (Instrument Sans + IBM Plex Mono), a live GitHub contribution calendar and an EmailJS contact form.
+A portfolio built around one idea: the page itself behaves like the thing he builds. A live attack-graph canvas drifts behind a high-contrast Bodoni hero, hosts pulsing ember as the crawler reaches them. Pure HTML, CSS & vanilla JavaScript on GitHub Pages, no framework, no build step, no animation library. Self-hosted variable fonts (Bodoni Moda + Archivo + Chivo Mono), a live GitHub contribution calendar and an EmailJS contact form.
 
 ---
 
@@ -33,10 +33,10 @@ A portfolio set like a printed magazine: warm paper, ink, one ultramarine, numbe
 <td width="50%">
 
 **🎨 Design & UX**
-- Editorial light system: warm paper, ink, one ultramarine
-- Instrument Sans + IBM Plex Mono, self-hosted
-- Numbered chapters and a contents index (it is a real sequence)
-- Certificates as an index that previews on cursor hover
+- Live attack-graph canvas in the hero, drawn on a 2D context
+- High-contrast Bodoni Moda display with an ember italic accent
+- Editorial dark palette with one inverted light band for the method
+- Certificates as an index whose preview tracks the cursor
 - On-brand preview renders for the apps (tools/previews)
 - Scroll reveals via `IntersectionObserver` (reduced-motion aware)
 - Certificate grid with keyboard-accessible lightbox
@@ -91,7 +91,7 @@ A portfolio set like a printed magazine: warm paper, ink, one ultramarine, numbe
 | **Styling** | CSS3 — Custom Properties, Grid, Flexbox, Keyframe Animations |
 | **Scripts** | Vanilla JavaScript ES6+ |
 | **Email** | EmailJS Browser SDK |
-| **Fonts** | Instrument Sans · IBM Plex Mono (self-hosted) |
+| **Fonts** | Bodoni Moda · Archivo · Chivo Mono (self-hosted) |
 | **Icons** | Self-hosted CSS-mask subset |
 | **Data** | GitHub Contributions API (jogruber.de) |
 
