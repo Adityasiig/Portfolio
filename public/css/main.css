@@ -1,8 +1,8 @@
 /* ============================================================
    ADITYA SINGH / PORTFOLIO
-   "Glyph" build, in the Nothing OS language: pure black, dot
-   matrix display type, LED glyph strip, monochrome panels and
-   exactly one red. Doto + Space Mono.
+   "Rail" build. Nothing OS palette and interactions kept intact;
+   the structure is rebuilt: fixed left spine, asymmetric hero,
+   horizontal work filmstrip, bento system grid.
    ============================================================ */
 
 /* ---------- Fonts ---------- */
@@ -50,6 +50,7 @@
     --mono: 'Space Mono', ui-monospace, monospace;
 
     --gap: 14px;
+    --rail: 76px;
     --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
@@ -67,8 +68,10 @@ body {
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
-    padding: 0 var(--gap) var(--gap);
 }
+
+/* Everything sits right of the fixed rail. */
+.shell { padding: var(--gap) var(--gap) var(--gap) calc(var(--rail) + var(--gap)); }
 
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-decoration: none; }
@@ -85,20 +88,58 @@ ul { list-style: none; }
 }
 .skip-link:focus { left: 0; }
 
-/* ---------- Status bar ---------- */
+/* ---------- Left rail ---------- */
 
-.statusbar {
-    position: sticky; top: 0; z-index: 50;
-    display: grid; grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    padding: 14px 6px;
+.rail {
+    position: fixed; left: 0; top: 0; bottom: 0; z-index: 50;
+    width: var(--rail);
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: space-between;
+    padding: 22px 0;
     background: var(--black);
-    font-family: var(--mono); font-size: 0.6875rem;
-    letter-spacing: 0.14em;
+    border-right: 1px solid var(--line);
+}
+
+/* Name runs up the spine. */
+.rail-name {
+    writing-mode: vertical-rl; transform: rotate(180deg);
+    font-size: 0.6875rem; letter-spacing: 0.3em;
     color: var(--grey);
 }
-.sb-mid { justify-self: center; color: var(--white); }
-.sb-right { justify-self: end; display: inline-flex; align-items: center; gap: 8px; }
+
+.rail-nav { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+
+/* Nav is a column of LED dots; the label slides out on hover. */
+.rn { position: relative; display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; }
+.rn > span {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--line-2);
+    transition: background-color 0.18s var(--ease), transform 0.18s var(--ease);
+}
+.rn:hover > span { background: var(--white); transform: scale(1.4); }
+.rn.on > span { background: var(--red); transform: scale(1.4); }
+
+.rn::before {
+    content: attr(data-label);
+    position: absolute; left: 30px;
+    padding: 5px 11px;
+    background: var(--white); color: var(--black);
+    border-radius: 999px;
+    font-size: 0.5625rem; font-weight: 700; letter-spacing: 0.14em;
+    white-space: nowrap;
+    opacity: 0; transform: translateX(-4px);
+    pointer-events: none;
+    transition: opacity 0.18s var(--ease), transform 0.18s var(--ease);
+}
+.rn:hover::before, .rn:focus-visible::before { opacity: 1; transform: translateX(0); }
+
+.rail-foot { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.rail-clock {
+    font-family: var(--dot); font-size: 0.875rem; font-weight: 700;
+    letter-spacing: 0.04em;
+    writing-mode: vertical-rl;
+}
+.rail-region { font-size: 0.5625rem; letter-spacing: 0.2em; color: var(--grey-2); }
 
 /* Signal bars, drawn as four rising ticks. */
 .sb-sig { display: inline-flex; align-items: flex-end; gap: 2px; height: 10px; }
@@ -118,26 +159,26 @@ ul { list-style: none; }
     text-transform: uppercase;
 }
 
-/* ---------- Hero screen ---------- */
+/* ---------- Hero stage: type left, instruments right ---------- */
 
-.screen {
+.stage {
     display: grid;
-    grid-template-rows: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) 210px;
     gap: var(--gap);
-    min-height: calc(100dvh - 60px);
+    min-height: calc(100dvh - var(--gap) * 2);
 }
 
-.glyph-wrap {
+.stage-type {
     position: relative;
     background: var(--panel);
     border-radius: 26px;
-    padding: clamp(40px, 7vw, 86px) clamp(24px, 5vw, 72px);
-    display: flex; flex-direction: column; justify-content: center;
+    padding: clamp(32px, 4.5vw, 64px);
+    display: flex; flex-direction: column;
     overflow: hidden;
 }
 
 /* Faint dot grid, the Nothing surface texture. */
-.glyph-wrap::before {
+.stage-type::before {
     content: ''; position: absolute; inset: 0;
     background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
     background-size: 22px 22px;
@@ -148,7 +189,6 @@ ul { list-style: none; }
 .glyph {
     position: relative;
     display: flex; align-items: center; gap: 10px;
-    margin-bottom: clamp(28px, 4vw, 48px);
 }
 .g-bar, .g-ring, .g-dot { background: var(--line-2); border-radius: 999px; }
 .g-bar { height: 4px; }
@@ -181,22 +221,140 @@ ul { list-style: none; }
     }
 }
 
+/* Headline is pushed to the optical centre, stepped line by line. */
 .dot-title {
-    font-size: clamp(3.4rem, 15vw, 11rem);
     position: relative;
+    margin: auto 0;
+    font-size: clamp(3rem, 11vw, 9rem);
 }
 .dt-line { display: block; }
+.dt-indent { padding-left: 0.42em; color: var(--grey); }
 
-.hero-sub {
+/* Sub copy and keys sit on one baseline at the bottom of the panel. */
+.stage-base {
     position: relative;
-    margin-top: clamp(26px, 3.5vw, 40px);
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 28px; flex-wrap: wrap;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+}
+.hero-sub {
     color: var(--grey);
-    max-width: 40ch;
+    max-width: 36ch;
     font-size: 0.8125rem;
     letter-spacing: 0.02em;
 }
+.hero-keys { display: flex; gap: 10px; flex-wrap: wrap; }
 
-.hero-keys { position: relative; display: flex; gap: 10px; flex-wrap: wrap; margin-top: clamp(26px, 3.5vw, 38px); }
+/* ---------- Instrument column ---------- */
+
+.stage-meta { display: grid; grid-template-rows: 1.6fr repeat(4, 1fr); gap: var(--gap); }
+
+.cell {
+    background: var(--panel);
+    border-radius: 18px;
+    padding: 16px 18px;
+    display: flex; flex-direction: column; justify-content: center;
+    transition: background-color 0.2s var(--ease);
+}
+.cell:hover { background: var(--panel-2); }
+.cell-k {
+    font-size: 0.5625rem; letter-spacing: 0.18em; color: var(--grey-2);
+    margin-bottom: 4px;
+}
+.cell-v { font-family: var(--dot); font-size: 2.1rem; font-weight: 700; line-height: 1; }
+.cell-v-sm { font-size: 1.5rem; }
+.cell .live { color: var(--red); }
+.cell-tall { justify-content: space-between; padding: 20px 18px; }
+.cell-note { font-size: 0.625rem; color: var(--grey-2); line-height: 1.4; }
+
+/* ---------- Bands (sections) ---------- */
+
+.band { margin-top: clamp(56px, 8vw, 110px); }
+
+.band-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 16px;
+    padding: 0 4px 18px;
+}
+.dot-head { font-size: clamp(1.6rem, 4vw, 2.6rem); }
+.idx { font-size: 0.625rem; letter-spacing: 0.16em; color: var(--grey-2); }
+
+/* ---------- Work filmstrip ---------- */
+
+.strip {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: var(--gap);
+}
+
+.card {
+    background: var(--panel);
+    border-radius: 22px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: background-color 0.2s var(--ease);
+}
+.card:hover { background: var(--panel-2); }
+.card-body { padding: 26px; display: flex; flex-direction: column; flex: 1; }
+
+/* Lead card is wider and splits into copy + vertical meter. */
+.card-lead {
+    grid-column: span 2;
+    flex-direction: row; align-items: stretch;
+}
+.card-side {
+    flex: 0 0 112px;
+    border-left: 1px solid var(--line);
+    padding: 26px 22px;
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+
+.tile-top { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
+
+.tag {
+    font-family: var(--dot); font-size: 0.875rem; font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--white); color: var(--black);
+}
+.tag-ghost {
+    background: transparent; color: var(--grey);
+    border: 1px solid var(--line-2);
+    font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.14em;
+}
+
+/* Screenshot caps the card instead of floating inside it. */
+.card-shot { display: block; background: var(--panel-2); }
+.card-shot img {
+    width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top;
+    filter: grayscale(1) contrast(1.05);
+    transition: filter 0.4s var(--ease), transform 0.6s var(--ease);
+}
+.card-shot:hover img { filter: none; transform: scale(1.02); }
+@media (prefers-reduced-motion: reduce) { .card-shot:hover img { transform: none; } }
+
+.card-name {
+    font-family: var(--mono); font-size: 1.375rem; font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+}
+.tile-copy { color: var(--grey); font-size: 0.8125rem; margin-bottom: 20px; }
+
+/* Segment meter, now a vertical column of LEDs. */
+.meter { display: flex; gap: 5px; }
+.meter span { flex: 1; height: 8px; border-radius: 2px; background: var(--white); }
+/* Vertical LED stack on the lead card. */
+.meter-col { flex-direction: column; flex: 1; width: 12px; gap: 7px; min-height: 150px; }
+.meter-col span { width: 12px; height: auto; border-radius: 6px; }
+.meter-label {
+    font-size: 0.5625rem; letter-spacing: 0.16em; color: var(--grey-2);
+    text-align: center; line-height: 1.6;
+}
+
+.tile-foot { margin-top: auto; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
 /* ---------- Keys (buttons) ---------- */
 
@@ -222,119 +380,54 @@ ul { list-style: none; }
 .key-quiet { color: var(--grey); border-color: var(--line); }
 .key-block { width: 100%; min-height: 50px; margin-top: 6px; }
 
-/* ---------- Readout strip ---------- */
+/* ---------- Bento system grid ---------- */
 
-.readout {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap);
+.bento {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--gap);
 }
-.readout div {
-    background: var(--panel);
-    border-radius: 18px;
-    padding: 18px 20px;
-}
-.readout span {
-    display: block;
-    font-size: 0.625rem; letter-spacing: 0.16em; color: var(--grey-2);
-    margin-bottom: 6px;
-}
-.readout b {
-    font-family: var(--dot); font-size: 2rem; font-weight: 700; line-height: 1;
-}
-.readout .live { color: var(--red); }
 
-/* ---------- Panels ---------- */
-
-.panel { margin-top: clamp(48px, 7vw, 92px); }
-
-.panel-head {
-    display: flex; align-items: baseline; justify-content: space-between;
-    gap: 16px;
-    padding: 0 6px 16px;
-}
-.dot-head { font-size: clamp(1.6rem, 4vw, 2.6rem); }
-.idx { font-size: 0.625rem; letter-spacing: 0.16em; color: var(--grey-2); }
-
-/* Work grid: lead tile spans the row, two below. */
-#work { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
-#work .panel-head { grid-column: 1 / -1; }
-
-.tile {
+.bx {
     background: var(--panel);
     border-radius: 22px;
     padding: 26px;
-    display: flex; flex-direction: column;
     transition: background-color 0.2s var(--ease);
 }
-.tile:hover { background: var(--panel-2); }
-.tile-wide { grid-column: 1 / -1; }
-.tile-flat:hover { background: var(--panel); }
+.bx-quote { grid-column: span 2; display: flex; align-items: center; }
+.bx-spec { grid-column: span 2; }
+.bx-chips { grid-column: span 2; }
+.bx-tools { grid-column: span 2; }
+.bx-cal { grid-column: 1 / -1; }
 
-.tile-top { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
-
-.tag {
-    font-family: var(--dot); font-size: 0.875rem; font-weight: 700;
-    letter-spacing: 0.06em;
-    padding: 3px 10px;
-    border-radius: 999px;
-    background: var(--white); color: var(--black);
+.bx-k {
+    display: block;
+    font-size: 0.5625rem; letter-spacing: 0.2em; color: var(--grey-2);
+    margin-bottom: 14px;
 }
-.tag-ghost {
-    background: transparent; color: var(--grey);
-    border: 1px solid var(--line-2);
-    font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.14em;
-}
-
-.tile-shot {
-    display: block; border-radius: 14px; overflow: hidden;
-    background: var(--panel-2);
-    margin-bottom: 20px;
-}
-.tile-shot img {
-    width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top;
-    filter: grayscale(1) contrast(1.05);
-    transition: filter 0.4s var(--ease), transform 0.6s var(--ease);
-}
-.tile-shot:hover img { filter: none; transform: scale(1.02); }
-@media (prefers-reduced-motion: reduce) { .tile-shot:hover img { transform: none; } }
-
-.tile-name {
-    font-family: var(--mono); font-size: 1.375rem; font-weight: 700;
-    letter-spacing: -0.01em;
-    margin-bottom: 10px;
-}
-.tile-copy { color: var(--grey); font-size: 0.8125rem; margin-bottom: 20px; }
-
-/* Segment meter, like a device progress readout */
-.meter { display: flex; gap: 5px; margin-bottom: 8px; }
-.meter span {
-    flex: 1; height: 8px; border-radius: 2px;
-    background: var(--white);
-}
-.meter-label { font-size: 0.625rem; letter-spacing: 0.16em; color: var(--grey-2); margin-bottom: 20px; }
-
-.tile-foot { margin-top: auto; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-
-/* ---------- System rows ---------- */
+.bx-k-gap { margin-top: 20px; }
 
 .statement {
     font-family: var(--dot);
-    font-size: clamp(1.5rem, 3.6vw, 2.6rem);
+    font-size: clamp(1.4rem, 2.6vw, 2.1rem);
     font-weight: 600;
-    line-height: 1.12;
+    line-height: 1.14;
     text-transform: uppercase;
     letter-spacing: 0.01em;
 }
 
-.rows { margin-top: var(--gap); }
+/* ---------- Spec rows ---------- */
+
 .rows-tight { margin-top: 20px; }
 
 .row {
-    display: grid; grid-template-columns: 130px minmax(0, 1fr);
-    gap: 18px; align-items: baseline;
-    padding: 15px 6px;
+    display: grid; grid-template-columns: 110px minmax(0, 1fr);
+    gap: 16px; align-items: baseline;
+    padding: 13px 0;
     border-bottom: 1px solid var(--line);
 }
-.row:last-child { border-bottom: 0; }
+.row:first-child { padding-top: 0; }
+.row:last-child { border-bottom: 0; padding-bottom: 0; }
 .row-k { font-size: 0.625rem; letter-spacing: 0.16em; color: var(--grey-2); }
 .row-v { font-size: 0.8125rem; color: var(--white); overflow-wrap: anywhere; }
 .row-link { transition: color 0.18s var(--ease); }
@@ -342,7 +435,7 @@ ul { list-style: none; }
 
 /* ---------- Chips ---------- */
 
-.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: var(--gap); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip {
     padding: 9px 16px;
     border: 1px solid var(--line-2); border-radius: 999px;
@@ -372,29 +465,31 @@ ul { list-style: none; }
 .gh-cal-error { font-size: 0.75rem; color: var(--grey-2); }
 .gh-cal-error i { background-color: var(--grey-2); }
 
-/* ---------- Files (certs) ---------- */
+/* ---------- Files (certs), two columns ---------- */
 
 .files {
-    background: var(--panel);
-    border-radius: 22px;
-    padding: 8px 26px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: var(--gap);
 }
 .file {
-    display: grid; grid-template-columns: 44px minmax(0, 1fr) 110px;
-    gap: 18px; align-items: center;
-    padding: 17px 0;
-    border-bottom: 1px solid var(--line);
+    display: grid; grid-template-columns: 44px minmax(0, 1fr) auto;
+    gap: 16px; align-items: center;
+    background: var(--panel);
+    border-radius: 16px;
+    padding: 20px 22px;
     cursor: pointer;
-    transition: padding-left 0.22s var(--ease);
+    transition: background-color 0.2s var(--ease), padding-left 0.22s var(--ease);
 }
-.file:last-child { border-bottom: 0; }
-.file:hover, .file:focus-visible { padding-left: 10px; }
+.file:hover, .file:focus-visible { background: var(--panel-2); padding-left: 30px; }
 .file:hover .f-name, .file:focus-visible .f-name { color: var(--white); }
 .file:hover .f-idx, .file:focus-visible .f-idx { color: var(--red); }
 
-.f-idx { font-family: var(--dot); font-size: 1rem; font-weight: 700; color: var(--grey-2); transition: color 0.18s var(--ease); }
+/* Odd count: the last file takes the full row so no gap is left. */
+.file:last-child { grid-column: 1 / -1; }
+
+.f-idx { font-family: var(--dot); font-size: 1.25rem; font-weight: 700; color: var(--grey-2); transition: color 0.18s var(--ease); }
 .f-name { font-size: 0.875rem; color: var(--grey); transition: color 0.18s var(--ease); }
-.f-tag { font-size: 0.625rem; letter-spacing: 0.16em; color: var(--grey-2); justify-self: end; }
+.f-tag { font-size: 0.5625rem; letter-spacing: 0.16em; color: var(--grey-2); justify-self: end; }
 
 /* ---------- Lightbox ---------- */
 
@@ -422,7 +517,19 @@ ul { list-style: none; }
 
 /* ---------- Contact ---------- */
 
-.contact-split { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+.reach { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); align-items: start; }
+
+.reach-pitch, .reach-form {
+    background: var(--panel);
+    border-radius: 22px;
+    padding: 26px;
+}
+.reach-big {
+    font-family: var(--dot); font-weight: 700;
+    font-size: clamp(2.4rem, 6vw, 4.4rem);
+    line-height: 0.95; text-transform: uppercase;
+    margin-bottom: 22px;
+}
 
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .form-group { margin-bottom: 16px; }
@@ -474,7 +581,7 @@ ul { list-style: none; }
 
 .foot {
     display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    padding: 28px 6px 10px;
+    padding: 28px 4px 10px;
     margin-top: clamp(48px, 6vw, 80px);
     border-top: 1px solid var(--line);
     font-size: 0.625rem; letter-spacing: 0.16em; color: var(--grey-2);
@@ -482,20 +589,57 @@ ul { list-style: none; }
 
 /* ---------- Responsive ---------- */
 
-@media (max-width: 900px) {
-    #work { grid-template-columns: 1fr; }
-    .contact-split { grid-template-columns: 1fr; }
-    .readout { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 1100px) {
+    .stage { grid-template-columns: minmax(0, 1fr) 170px; }
+    .strip { grid-auto-flow: row; grid-auto-columns: auto; }
+    .card-lead { grid-column: auto; }
+    .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .bx-quote, .bx-spec, .bx-chips, .bx-tools { grid-column: 1 / -1; }
+    .files { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 600px) {
-    body { padding: 0 10px 10px; }
-    :root { --gap: 10px; }
-    .glyph-wrap { border-radius: 20px; padding: 32px 20px; }
+@media (max-width: 760px) {
+    :root { --gap: 10px; --rail: 0px; }
+    .shell { padding: 0 10px 10px; }
+
+    /* Rail collapses to a top bar on small screens. */
+    .rail {
+        position: sticky; inset: 0 0 auto 0; bottom: auto;
+        width: 100%; height: auto;
+        flex-direction: row;
+        padding: 12px 14px;
+        border-right: 0; border-bottom: 1px solid var(--line);
+    }
+    .rail-name { writing-mode: horizontal-tb; transform: none; letter-spacing: 0.16em; }
+    .rail-nav { flex-direction: row; gap: 10px; }
+    .rn::before { display: none; }
+    .rail-foot { flex-direction: row; gap: 10px; }
+    .rail-clock { writing-mode: horizontal-tb; }
+
+    .stage { grid-template-columns: 1fr; min-height: 0; padding-top: var(--gap); }
+    .stage-type { border-radius: 20px; padding: 28px 20px; }
+    .dot-title { font-size: clamp(2.8rem, 17vw, 5rem); margin: 32px 0; }
+    .stage-meta { grid-template-rows: none; grid-template-columns: repeat(2, 1fr); }
+    .cell-tall { grid-column: 1 / -1; }
+
+    .card-lead { flex-direction: column; }
+    .card-side {
+        flex: none; border-left: 0; border-top: 1px solid var(--line);
+        flex-direction: row; align-items: center; padding: 18px 26px;
+    }
+    .meter-col { flex-direction: row; width: auto; }
+    .meter-col span { width: auto; height: 8px; }
+    .meter-label { text-align: left; }
+
+    /* Single column: clear every span so nothing creates an implicit track. */
+    .bento { grid-template-columns: minmax(0, 1fr); }
+    .bx, .bx-quote, .bx-spec, .bx-chips, .bx-tools, .bx-cal { grid-column: auto; }
+    .bx { padding: 20px; }
     .row { grid-template-columns: 1fr; gap: 4px; }
-    .file { grid-template-columns: 34px minmax(0, 1fr); row-gap: 2px; }
+    .file { grid-template-columns: 34px minmax(0, 1fr); row-gap: 2px; padding: 16px 18px; }
     .f-tag { grid-column: 2; justify-self: start; }
+    .reach { grid-template-columns: 1fr; }
+    .reach-pitch, .reach-form { padding: 20px; }
     .form-row { grid-template-columns: 1fr; gap: 0; }
-    .tile { padding: 20px; }
     .foot { flex-direction: column; gap: 6px; }
 }

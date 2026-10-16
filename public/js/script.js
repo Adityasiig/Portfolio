@@ -24,8 +24,25 @@ function initPortfolio() {
         });
     });
 
-    // ===== STATUS BAR CLOCK =====
-    // India time, rendered in the status bar like device chrome.
+    // ===== RAIL SCROLL SPY =====
+    // The rail dots light for whichever section owns the viewport.
+    const railLinks = Array.from(document.querySelectorAll('.rn'));
+    if (railLinks.length) {
+        const byId = new Map(railLinks.map(a => [a.getAttribute('href').slice(1), a]));
+        const spy = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const link = byId.get(entry.target.id);
+                if (link) link.classList.toggle('on', entry.isIntersecting);
+            });
+        }, { rootMargin: '-45% 0px -45% 0px' });
+        byId.forEach((_, id) => {
+            const section = document.getElementById(id);
+            if (section) spy.observe(section);
+        });
+    }
+
+    // ===== RAIL CLOCK =====
+    // India time, rendered in the rail like device chrome.
     const clock = document.getElementById('clock');
     if (clock) {
         const paint = () => {

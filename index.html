@@ -28,12 +28,12 @@
     <link rel="preload" href="public/fonts/doto-var.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="public/fonts/space-mono.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="public/css/icons.css">
-    <link rel="stylesheet" href="public/css/main.css?v=glyph-1">
+    <link rel="stylesheet" href="public/css/main.css?v=rail-1">
     <!-- EmailJS is only needed on contact-form submit, so it must not block paint. -->
     <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js" integrity="sha384-SALc35EccAf6RzGw4iNsyj7kTPr33K7RoGzYu+7heZhT8s0GZouafRiCg1qy44AS" crossorigin="anonymous"></script>
     <script>document.documentElement.classList.remove('no-js');
             window.EMAILJS_PUBLIC_KEY = '42_vwBZ0ZtAHGQkag';</script>
-    <script defer src="public/js/script.js?v=glyph-1"></script>
+    <script defer src="public/js/script.js?v=rail-1"></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -54,21 +54,31 @@
 <body>
     <a href="#main" class="skip-link">Skip to content</a>
 
-    <!-- Status bar: device chrome, always on -->
-    <header class="statusbar">
-        <span class="sb-left">ADITYA SINGH</span>
-        <span class="sb-mid" id="clock" aria-label="Local time in India">--:--</span>
-        <span class="sb-right">
-            <span class="sb-sig" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-            IN
-        </span>
-    </header>
+    <!-- ====== LEFT RAIL: fixed device spine, replaces the top bar ====== -->
+    <div class="rail">
+        <span class="rail-name">ADITYA SINGH</span>
 
+        <nav class="rail-nav" aria-label="Sections">
+            <a href="#home" class="rn" data-label="HOME"><span></span></a>
+            <a href="#work" class="rn" data-label="WORK"><span></span></a>
+            <a href="#system" class="rn" data-label="SYSTEM"><span></span></a>
+            <a href="#certs" class="rn" data-label="CERTS"><span></span></a>
+            <a href="#contact" class="rn" data-label="CONTACT"><span></span></a>
+        </nav>
+
+        <div class="rail-foot">
+            <span class="rail-clock" id="clock" aria-label="Local time in India">--:--</span>
+            <span class="sb-sig" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            <span class="rail-region">IN</span>
+        </div>
+    </div>
+
+    <div class="shell">
     <main id="main">
 
-    <!-- ====== HERO: the Glyph panel ====== -->
-    <section id="home" class="screen">
-        <div class="glyph-wrap">
+    <!-- ====== HERO: asymmetric split, type left / instruments right ====== -->
+    <section id="home" class="stage">
+        <div class="stage-type">
             <!-- Glyph strip: the Nothing light signature, drawn as LEDs -->
             <div class="glyph" aria-hidden="true">
                 <span class="g-bar g1"></span>
@@ -80,168 +90,206 @@
 
             <h1 class="dot-title">
                 <span class="dt-line">BREAK</span>
-                <span class="dt-line">IT</span>
+                <span class="dt-line dt-indent">IT</span>
                 <span class="dt-line">FIRST</span>
             </h1>
 
-            <p class="hero-sub">
-                Aditya Singh. Security tooling and web engineering.
-                Third-year BSc IT student.
-            </p>
-
-            <div class="hero-keys">
-                <a href="#work" class="key key-fill">VIEW WORK</a>
-                <a href="public/files/cv.pdf" class="key" download>GET CV</a>
+            <div class="stage-base">
+                <p class="hero-sub">
+                    Aditya Singh. Security tooling and web engineering.
+                    Third-year BSc IT student.
+                </p>
+                <div class="hero-keys">
+                    <a href="#work" class="key key-fill">VIEW WORK</a>
+                    <a href="public/files/cv.pdf" class="key" download>GET CV</a>
+                </div>
             </div>
         </div>
 
-        <div class="readout">
-            <div><span>MODULES</span><b>07</b></div>
-            <div><span>PROJECTS</span><b>10</b></div>
-            <div><span>CERTS</span><b>09</b></div>
-            <div><span>STATUS</span><b class="live">OPEN</b></div>
-        </div>
+        <!-- Instrument column: stacked readout cells, not a full-width strip -->
+        <aside class="stage-meta" aria-label="At a glance">
+            <div class="cell cell-tall">
+                <span class="cell-k">STATUS</span>
+                <b class="cell-v live">OPEN</b>
+                <span class="cell-note">Internships and junior roles</span>
+            </div>
+            <div class="cell">
+                <span class="cell-k">MODULES</span>
+                <b class="cell-v">07</b>
+            </div>
+            <div class="cell">
+                <span class="cell-k">PROJECTS</span>
+                <b class="cell-v">10</b>
+            </div>
+            <div class="cell">
+                <span class="cell-k">CERTS</span>
+                <b class="cell-v">09</b>
+            </div>
+            <div class="cell">
+                <span class="cell-k">BASE</span>
+                <b class="cell-v cell-v-sm">IND</b>
+            </div>
+        </aside>
     </section>
 
-    <!-- ====== WORK ====== -->
-    <section id="work" class="panel">
-        <div class="panel-head">
+    <!-- ====== WORK: horizontal filmstrip, one card per page ====== -->
+    <section id="work" class="band">
+        <div class="band-head">
             <h2 class="dot-head">WORK</h2>
-            <span class="idx">03 ITEMS</span>
+            <span class="idx">03 ITEMS / SCROLL SIDEWAYS</span>
         </div>
 
-        <article class="tile tile-wide">
-            <div class="tile-top">
-                <span class="tag">01</span>
-                <span class="tag tag-ghost">PYTHON</span>
-            </div>
-            <h3 class="tile-name">WebVulnScanner</h3>
-            <p class="tile-copy">
-                Modular scanner. Crawls a target and tests for SQL injection,
-                XSS, open redirects, directory traversal, exposed files, weak
-                headers and TLS misconfiguration. Writes exploitation steps
-                and a report.
-            </p>
-            <div class="meter" role="img" aria-label="Seven of seven scanner modules complete">
-                <span></span><span></span><span></span><span></span>
-                <span></span><span></span><span></span>
-            </div>
-            <p class="meter-label">7 MODULES ACTIVE</p>
-            <div class="tile-foot">
-                <a class="key" href="https://github.com/Adityasiig/WebVulnScanner" target="_blank" rel="noopener noreferrer">SOURCE</a>
-                <span class="tag tag-ghost">V2 BUILDING</span>
-            </div>
-        </article>
+        <div class="strip">
+            <article class="card card-lead">
+                <div class="card-body">
+                    <div class="tile-top">
+                        <span class="tag">01</span>
+                        <span class="tag tag-ghost">PYTHON</span>
+                    </div>
+                    <h3 class="card-name">WebVulnScanner</h3>
+                    <p class="tile-copy">
+                        Modular scanner. Crawls a target and tests for SQL injection,
+                        XSS, open redirects, directory traversal, exposed files, weak
+                        headers and TLS misconfiguration. Writes exploitation steps
+                        and a report.
+                    </p>
+                    <div class="tile-foot">
+                        <a class="key" href="https://github.com/Adityasiig/WebVulnScanner" target="_blank" rel="noopener noreferrer">SOURCE</a>
+                        <span class="tag tag-ghost">V2 BUILDING</span>
+                    </div>
+                </div>
+                <div class="card-side">
+                    <div class="meter meter-col" role="img" aria-label="Seven of seven scanner modules complete">
+                        <span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                    </div>
+                    <p class="meter-label">7 MODULES<br>ACTIVE</p>
+                </div>
+            </article>
 
-        <article class="tile">
-            <div class="tile-top">
-                <span class="tag">02</span>
-                <span class="tag tag-ghost">JS</span>
-            </div>
-            <a class="tile-shot" href="https://adityasiig.github.io/TODO-list/" target="_blank" rel="noopener noreferrer">
-                <img src="public/images/projects/taskflow.webp" alt="TaskFlow preview: task list with priorities and completion progress" width="1920" height="1200" loading="lazy" decoding="async">
-            </a>
-            <h3 class="tile-name">TaskFlow</h3>
-            <p class="tile-copy">
-                Priority tiers, due dates, drag and drop, fuzzy search,
-                keyboard shortcuts. No framework, no build step.
-            </p>
-            <div class="tile-foot">
-                <a class="key" href="https://adityasiig.github.io/TODO-list/" target="_blank" rel="noopener noreferrer">OPEN</a>
-                <a class="key key-quiet" href="https://github.com/Adityasiig/TODO-list" target="_blank" rel="noopener noreferrer">CODE</a>
-                <a class="key key-quiet" href="public/apk/taskflow.apk" download="TaskFlow.apk">APK</a>
-            </div>
-        </article>
+            <article class="card">
+                <a class="card-shot" href="https://adityasiig.github.io/TODO-list/" target="_blank" rel="noopener noreferrer">
+                    <img src="public/images/projects/taskflow.webp" alt="TaskFlow preview: task list with priorities and completion progress" width="1920" height="1200" loading="lazy" decoding="async">
+                </a>
+                <div class="card-body">
+                    <div class="tile-top">
+                        <span class="tag">02</span>
+                        <span class="tag tag-ghost">JS</span>
+                    </div>
+                    <h3 class="card-name">TaskFlow</h3>
+                    <p class="tile-copy">
+                        Priority tiers, due dates, drag and drop, fuzzy search,
+                        keyboard shortcuts. No framework, no build step.
+                    </p>
+                    <div class="tile-foot">
+                        <a class="key" href="https://adityasiig.github.io/TODO-list/" target="_blank" rel="noopener noreferrer">OPEN</a>
+                        <a class="key key-quiet" href="https://github.com/Adityasiig/TODO-list" target="_blank" rel="noopener noreferrer">CODE</a>
+                        <a class="key key-quiet" href="public/apk/taskflow.apk" download="TaskFlow.apk">APK</a>
+                    </div>
+                </div>
+            </article>
 
-        <article class="tile">
-            <div class="tile-top">
-                <span class="tag">03</span>
-                <span class="tag tag-ghost">NEXT.JS</span>
-            </div>
-            <a class="tile-shot" href="https://health-tracker-five-xi.vercel.app/" target="_blank" rel="noopener noreferrer">
-                <img src="public/images/projects/healthtracker.webp" alt="Health Tracker preview: calorie and macro dashboard" width="1920" height="1200" loading="lazy" decoding="async">
-            </a>
-            <h3 class="tile-name">Health Tracker</h3>
-            <p class="tile-copy">
-                BMI and TDEE, macro logging with Indian serving sizes, AI
-                coach, 650-entry IFCT database. Web and native Android.
-            </p>
-            <div class="tile-foot">
-                <a class="key" href="https://health-tracker-five-xi.vercel.app/" target="_blank" rel="noopener noreferrer">OPEN</a>
-                <a class="key key-quiet" href="https://github.com/Adityasiig/health-tracker" target="_blank" rel="noopener noreferrer">CODE</a>
-                <a class="key key-quiet" href="public/apk/health-tracker.apk" download="HealthTracker.apk">APK</a>
-            </div>
-        </article>
+            <article class="card">
+                <a class="card-shot" href="https://health-tracker-five-xi.vercel.app/" target="_blank" rel="noopener noreferrer">
+                    <img src="public/images/projects/healthtracker.webp" alt="Health Tracker preview: calorie and macro dashboard" width="1920" height="1200" loading="lazy" decoding="async">
+                </a>
+                <div class="card-body">
+                    <div class="tile-top">
+                        <span class="tag">03</span>
+                        <span class="tag tag-ghost">NEXT.JS</span>
+                    </div>
+                    <h3 class="card-name">Health Tracker</h3>
+                    <p class="tile-copy">
+                        BMI and TDEE, macro logging with Indian serving sizes, AI
+                        coach, 650-entry IFCT database. Web and native Android.
+                    </p>
+                    <div class="tile-foot">
+                        <a class="key" href="https://health-tracker-five-xi.vercel.app/" target="_blank" rel="noopener noreferrer">OPEN</a>
+                        <a class="key key-quiet" href="https://github.com/Adityasiig/health-tracker" target="_blank" rel="noopener noreferrer">CODE</a>
+                        <a class="key key-quiet" href="public/apk/health-tracker.apk" download="HealthTracker.apk">APK</a>
+                    </div>
+                </div>
+            </article>
+        </div>
     </section>
 
-    <!-- ====== SYSTEM: about, as device settings ====== -->
-    <section id="system" class="panel">
-        <div class="panel-head">
+    <!-- ====== SYSTEM: one bento grid, about + stack interleaved ====== -->
+    <section id="system" class="band">
+        <div class="band-head">
             <h2 class="dot-head">SYSTEM</h2>
-            <span class="idx">ABOUT</span>
+            <span class="idx">ABOUT / INSTALLED</span>
         </div>
 
-        <div class="tile tile-wide tile-flat">
-            <p class="statement">
-                I learn a system by attacking it, then build the thing
-                that catches it next time.
-            </p>
-        </div>
+        <div class="bento">
+            <div class="bx bx-quote">
+                <p class="statement">
+                    I learn a system by attacking it, then build the thing
+                    that catches it next time.
+                </p>
+            </div>
 
-        <div class="rows">
-            <div class="row">
-                <span class="row-k">EDUCATION</span>
-                <span class="row-v">BSc Information Technology, third year</span>
+            <div class="bx bx-spec">
+                <div class="rows">
+                    <div class="row">
+                        <span class="row-k">EDUCATION</span>
+                        <span class="row-v">BSc Information Technology, third year</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-k">FOCUS</span>
+                        <span class="row-v">Application security, Python tooling, front-end performance</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-k">PRINCIPLE</span>
+                        <span class="row-v">Validate at the boundary, never trust the client</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-k">LOCATION</span>
+                        <span class="row-v">India, open to remote</span>
+                    </div>
+                </div>
             </div>
-            <div class="row">
-                <span class="row-k">FOCUS</span>
-                <span class="row-v">Application security, Python tooling, front-end performance</span>
+
+            <div class="bx bx-chips">
+                <span class="bx-k">LANGUAGES</span>
+                <div class="chips">
+                    <span class="chip">Python</span><span class="chip">C++</span>
+                    <span class="chip">JavaScript</span><span class="chip">Core Java</span>
+                    <span class="chip">SQL</span><span class="chip">PL/SQL</span>
+                    <span class="chip">R</span>
+                </div>
+                <span class="bx-k bx-k-gap">FRAMEWORKS</span>
+                <div class="chips">
+                    <span class="chip">React</span><span class="chip">Next.js</span>
+                    <span class="chip">Node.js</span><span class="chip">Flask</span>
+                    <span class="chip">MongoDB</span><span class="chip">Supabase</span>
+                </div>
             </div>
-            <div class="row">
-                <span class="row-k">PRINCIPLE</span>
-                <span class="row-v">Validate at the boundary, never trust the client</span>
+
+            <div class="bx bx-tools">
+                <span class="bx-k">SECURITY / OPS</span>
+                <div class="chips">
+                    <span class="chip">Kali Linux</span><span class="chip">Burp Suite</span>
+                    <span class="chip">sqlmap</span><span class="chip">nmap</span>
+                    <span class="chip">Ubuntu Server</span><span class="chip">Git</span>
+                    <span class="chip">Linux admin</span>
+                </div>
             </div>
-            <div class="row">
-                <span class="row-k">LOCATION</span>
-                <span class="row-v">India, open to remote</span>
+
+            <div class="bx bx-cal">
+                <div class="tile-top">
+                    <span class="tag tag-ghost">COMMIT ACTIVITY</span>
+                    <span class="idx" id="gh-contrib-count" aria-live="polite">LAST 12 MONTHS</span>
+                </div>
+                <div class="github-graph-container">
+                    <div id="gh-calendar" aria-label="GitHub contribution calendar"></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ====== STACK ====== -->
-    <section id="stack" class="panel">
-        <div class="panel-head">
-            <h2 class="dot-head">STACK</h2>
-            <span class="idx">INSTALLED</span>
-        </div>
-
-        <div class="chips">
-            <span class="chip">Python</span><span class="chip">C++</span>
-            <span class="chip">JavaScript</span><span class="chip">Core Java</span>
-            <span class="chip">SQL</span><span class="chip">PL/SQL</span>
-            <span class="chip">R</span><span class="chip">React</span>
-            <span class="chip">Next.js</span><span class="chip">Node.js</span>
-            <span class="chip">Flask</span><span class="chip">MongoDB</span>
-            <span class="chip">Supabase</span><span class="chip">Kali Linux</span>
-            <span class="chip">Burp Suite</span><span class="chip">sqlmap</span>
-            <span class="chip">nmap</span><span class="chip">Ubuntu Server</span>
-            <span class="chip">Git</span><span class="chip">Linux admin</span>
-        </div>
-
-        <div class="tile tile-wide tile-flat">
-            <div class="tile-top">
-                <span class="tag tag-ghost">COMMIT ACTIVITY</span>
-                <span class="idx" id="gh-contrib-count" aria-live="polite">LAST 12 MONTHS</span>
-            </div>
-            <div class="github-graph-container">
-                <div id="gh-calendar" aria-label="GitHub contribution calendar"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ====== CERTS ====== -->
-    <section id="certs" class="panel">
-        <div class="panel-head">
+    <!-- ====== CERTS: two-column file grid ====== -->
+    <section id="certs" class="band">
+        <div class="band-head">
             <h2 class="dot-head">CERTS</h2>
             <span class="idx">09 FILES</span>
         </div>
@@ -302,15 +350,16 @@
         <div class="lightbox-caption" id="lightbox-caption"></div>
     </div>
 
-    <!-- ====== CONTACT ====== -->
-    <section id="contact" class="panel">
-        <div class="panel-head">
+    <!-- ====== CONTACT: oversized dot headline over the form ====== -->
+    <section id="contact" class="band">
+        <div class="band-head">
             <h2 class="dot-head">CONTACT</h2>
             <span class="idx">INBOUND</span>
         </div>
 
-        <div class="contact-split">
-            <div class="tile tile-flat">
+        <div class="reach">
+            <div class="reach-pitch">
+                <p class="reach-big">LET US<br>BUILD</p>
                 <p class="tile-copy">
                     Looking for internships and junior roles in security
                     engineering or full-stack development. Happy to review
@@ -323,7 +372,7 @@
                 </div>
             </div>
 
-            <form id="contactForm" class="tile tile-flat" novalidate>
+            <form id="contactForm" class="reach-form" novalidate>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="name">NAME</label>
@@ -357,6 +406,7 @@
         <span>ADITYA SINGH / 2026</span>
         <span>HTML. CSS. JS. NO FRAMEWORK.</span>
     </footer>
+    </div>
 
     <div id="toast-container" aria-live="polite"></div>
 </body>
