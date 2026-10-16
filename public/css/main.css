@@ -908,16 +908,14 @@ ul { list-style: none; }
 @media (max-width: 1340px) {
     .strip { grid-auto-flow: row; grid-auto-columns: auto; }
     .card-lead { grid-column: auto; }
-    /* Full-width now, so the 16:10 shot would be enormous. Capping the
-       height alone would crop it, so letterbox it instead and let the
-       panel colour fill the sides. */
-    .card-shot { padding: 18px 18px 0; }
+    /* Stacked cards are wide, so the shot spans the full card. A 16:10
+       preview at that width is tall but it is the actual product shot,
+       and letterboxing it left dead bars down both sides. */
     .card-shot img {
         aspect-ratio: 16 / 10;
-        max-height: clamp(220px, 28vw, 340px);
-        width: auto; margin: 0 auto;
-        object-fit: contain;
-        border-radius: var(--r-sm);
+        width: 100%; height: auto;
+        max-height: none;
+        object-fit: cover; object-position: top;
     }
 }
 
