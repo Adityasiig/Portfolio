@@ -22,7 +22,7 @@
 
 ## 🧑‍💻 About
 
-A portfolio built in the Nothing OS design language: pure black, dot matrix display type, an LED glyph strip, monochrome tiles and exactly one red. Pure HTML, CSS & vanilla JavaScript on GitHub Pages, no framework, no build step, no animation library. Self-hosted fonts (Doto + Space Mono), a live GitHub contribution calendar and an EmailJS contact form.
+A portfolio built in the Nothing OS design language: pure black, dot matrix display type, an LED glyph strip, monochrome panels and exactly one red. Laid out around a fixed left rail, an asymmetric hero, a work filmstrip and a bento system grid. Pure HTML, CSS & vanilla JavaScript on GitHub Pages, no framework, no build step, no animation library. Self-hosted fonts (Doto + Space Mono), a live GitHub contribution calendar and an EmailJS contact form.
 
 ---
 
@@ -35,12 +35,13 @@ A portfolio built in the Nothing OS design language: pure black, dot matrix disp
 **🎨 Design & UX**
 - Dot matrix display type (Doto) for every heading and readout
 - LED glyph strip that cycles like a device light signature
-- Device chrome: status bar with live India time and signal
-- Segment meters, pill keys, monochrome project tiles
-- Certificates as a file list, full image fetched only on open
-- Scroll reveals via `IntersectionObserver` (reduced-motion aware)
-- Certificate grid with keyboard-accessible lightbox
-- Show-more toggle keeps the certificate wall short
+- Fixed left rail: name on the spine, nav dots, live India time
+- Scroll-spy via `IntersectionObserver` lights the active rail dot
+- Asymmetric hero: display type beside a stacked instrument column
+- Work filmstrip with a wide lead card and vertical segment meter
+- Bento grid merges the about spec, stack and commit calendar
+- Certificates as a two-column file grid, full image fetched on open
+- Keyboard-accessible lightbox with focus trap and Escape to close
 
 </td>
 <td width="50%">
