@@ -28,12 +28,12 @@
     <link rel="preload" href="public/fonts/doto-var.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="public/fonts/space-mono.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="public/css/icons.css">
-    <link rel="stylesheet" href="public/css/main.css?v=rail-1">
+    <link rel="stylesheet" href="public/css/main.css?v=rail-2">
     <!-- EmailJS is only needed on contact-form submit, so it must not block paint. -->
     <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js" integrity="sha384-SALc35EccAf6RzGw4iNsyj7kTPr33K7RoGzYu+7heZhT8s0GZouafRiCg1qy44AS" crossorigin="anonymous"></script>
     <script>document.documentElement.classList.remove('no-js');
             window.EMAILJS_PUBLIC_KEY = '42_vwBZ0ZtAHGQkag';</script>
-    <script defer src="public/js/script.js?v=rail-1"></script>
+    <script defer src="public/js/script.js?v=rail-2"></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -115,15 +115,15 @@
             </div>
             <div class="cell">
                 <span class="cell-k">MODULES</span>
-                <b class="cell-v">07</b>
+                <b class="cell-v" data-count="07">07</b>
             </div>
             <div class="cell">
                 <span class="cell-k">PROJECTS</span>
-                <b class="cell-v">10</b>
+                <b class="cell-v" data-count="10">10</b>
             </div>
             <div class="cell">
                 <span class="cell-k">CERTS</span>
-                <b class="cell-v">09</b>
+                <b class="cell-v" data-count="09">09</b>
             </div>
             <div class="cell">
                 <span class="cell-k">BASE</span>
@@ -134,13 +134,13 @@
 
     <!-- ====== WORK: horizontal filmstrip, one card per page ====== -->
     <section id="work" class="band">
-        <div class="band-head">
+        <div class="band-head" data-rise>
             <h2 class="dot-head">WORK</h2>
             <span class="idx">03 ITEMS / SCROLL SIDEWAYS</span>
         </div>
 
-        <div class="strip">
-            <article class="card card-lead">
+        <div class="strip" data-stagger>
+            <article class="card card-lead" data-rise>
                 <div class="card-body">
                     <div class="tile-top">
                         <span class="tag">01</span>
@@ -167,7 +167,7 @@
                 </div>
             </article>
 
-            <article class="card">
+            <article class="card" data-rise>
                 <a class="card-shot" href="https://adityasiig.github.io/TODO-list/" target="_blank" rel="noopener noreferrer">
                     <img src="public/images/projects/taskflow.webp" alt="TaskFlow preview: task list with priorities and completion progress" width="1920" height="1200" loading="lazy" decoding="async">
                 </a>
@@ -189,7 +189,7 @@
                 </div>
             </article>
 
-            <article class="card">
+            <article class="card" data-rise>
                 <a class="card-shot" href="https://health-tracker-five-xi.vercel.app/" target="_blank" rel="noopener noreferrer">
                     <img src="public/images/projects/healthtracker.webp" alt="Health Tracker preview: calorie and macro dashboard" width="1920" height="1200" loading="lazy" decoding="async">
                 </a>
@@ -215,20 +215,20 @@
 
     <!-- ====== SYSTEM: one bento grid, about + stack interleaved ====== -->
     <section id="system" class="band">
-        <div class="band-head">
+        <div class="band-head" data-rise>
             <h2 class="dot-head">SYSTEM</h2>
             <span class="idx">ABOUT / INSTALLED</span>
         </div>
 
-        <div class="bento">
-            <div class="bx bx-quote">
+        <div class="bento" data-stagger>
+            <div class="bx bx-quote" data-rise>
                 <p class="statement">
                     I learn a system by attacking it, then build the thing
                     that catches it next time.
                 </p>
             </div>
 
-            <div class="bx bx-spec">
+            <div class="bx bx-spec" data-rise>
                 <div class="rows">
                     <div class="row">
                         <span class="row-k">EDUCATION</span>
@@ -249,7 +249,7 @@
                 </div>
             </div>
 
-            <div class="bx bx-chips">
+            <div class="bx bx-chips" data-rise>
                 <span class="bx-k">LANGUAGES</span>
                 <div class="chips">
                     <span class="chip">Python</span><span class="chip">C++</span>
@@ -265,7 +265,7 @@
                 </div>
             </div>
 
-            <div class="bx bx-tools">
+            <div class="bx bx-tools" data-rise>
                 <span class="bx-k">SECURITY / OPS</span>
                 <div class="chips">
                     <span class="chip">Kali Linux</span><span class="chip">Burp Suite</span>
@@ -275,7 +275,7 @@
                 </div>
             </div>
 
-            <div class="bx bx-cal">
+            <div class="bx bx-cal" data-rise>
                 <div class="tile-top">
                     <span class="tag tag-ghost">COMMIT ACTIVITY</span>
                     <span class="idx" id="gh-contrib-count" aria-live="polite">LAST 12 MONTHS</span>
@@ -289,53 +289,53 @@
 
     <!-- ====== CERTS: two-column file grid ====== -->
     <section id="certs" class="band">
-        <div class="band-head">
+        <div class="band-head" data-rise>
             <h2 class="dot-head">CERTS</h2>
             <span class="idx">09 FILES</span>
         </div>
 
-        <ul class="files">
-            <li class="file" role="button" tabindex="0" data-img="public/Certificates/full/Ethical Hacking_- Exploit Linux Server_.webp">
+        <ul class="files" data-stagger>
+            <li class="file" data-rise role="button" tabindex="0" data-img="public/Certificates/full/Ethical Hacking_- Exploit Linux Server_.webp">
                 <span class="f-idx">01</span>
                 <span class="f-name">Ethical Hacking: Exploit Linux Server</span>
                 <span class="f-tag">SECURITY</span>
             </li>
-            <li class="file" role="button" tabindex="0" data-img="public/Certificates/full/Everything About Kali Linux OS_page-0001.webp">
+            <li class="file" data-rise role="button" tabindex="0" data-img="public/Certificates/full/Everything About Kali Linux OS_page-0001.webp">
                 <span class="f-idx">02</span>
                 <span class="f-name">Everything About Kali Linux OS</span>
                 <span class="f-tag">SECURITY</span>
             </li>
-            <li class="file" role="button" tabindex="0" data-img="public/Certificates/full/1747098730146_page-0001.webp">
+            <li class="file" data-rise role="button" tabindex="0" data-img="public/Certificates/full/1747098730146_page-0001.webp">
                 <span class="f-idx">03</span>
                 <span class="f-name">Introduction to Cybersecurity</span>
                 <span class="f-tag">SECURITY</span>
             </li>
-            <li class="file" role="button" tabindex="0" data-img="public/Certificates/full/Computer Networking.webp">
+            <li class="file" data-rise role="button" tabindex="0" data-img="public/Certificates/full/Computer Networking.webp">
                 <span class="f-idx">04</span>
                 <span class="f-name">Computer Networking</span>
                 <span class="f-tag">NETWORK</span>
             </li>
-            <li class="file" role="button" tabindex="0" data-img="public/Certificates/full/Ubuntu Network Server_page-0001.webp">
+            <li class="file" data-rise role="button" tabindex="0" data-img="public/Certificates/full/Ubuntu Network Server_page-0001.webp">
                 <span class="f-idx">05</span>
                 <span class="f-name">Ubuntu Network Server</span>
                 <span class="f-tag">SERVER</span>
             </li>
-            <li class="file" role="button" tabindex="0" data-img="public/Certificates/full/c++.webp">
+            <li class="file" data-rise role="button" tabindex="0" data-img="public/Certificates/full/c++.webp">
                 <span class="f-idx">06</span>
                 <span class="f-name">C++ Programming</span>
                 <span class="f-tag">CODE</span>
             </li>
-            <li class="file" role="button" tabindex="0" data-img="public/Certificates/full/PL SQL.webp">
+            <li class="file" data-rise role="button" tabindex="0" data-img="public/Certificates/full/PL SQL.webp">
                 <span class="f-idx">07</span>
                 <span class="f-name">PL/SQL Database</span>
                 <span class="f-tag">DATA</span>
             </li>
-            <li class="file" role="button" tabindex="0" data-img="public/Certificates/full/R programming.webp">
+            <li class="file" data-rise role="button" tabindex="0" data-img="public/Certificates/full/R programming.webp">
                 <span class="f-idx">08</span>
                 <span class="f-name">R Programming</span>
                 <span class="f-tag">DATA</span>
             </li>
-            <li class="file" role="button" tabindex="0" data-img="public/Certificates/full/basic-structure-of-computer.webp">
+            <li class="file" data-rise role="button" tabindex="0" data-img="public/Certificates/full/basic-structure-of-computer.webp">
                 <span class="f-idx">09</span>
                 <span class="f-name">Basic Structure of Computer</span>
                 <span class="f-tag">CS</span>
@@ -352,13 +352,13 @@
 
     <!-- ====== CONTACT: oversized dot headline over the form ====== -->
     <section id="contact" class="band">
-        <div class="band-head">
+        <div class="band-head" data-rise>
             <h2 class="dot-head">CONTACT</h2>
             <span class="idx">INBOUND</span>
         </div>
 
-        <div class="reach">
-            <div class="reach-pitch">
+        <div class="reach" data-stagger>
+            <div class="reach-pitch" data-rise>
                 <p class="reach-big">LET US<br>BUILD</p>
                 <p class="tile-copy">
                     Looking for internships and junior roles in security
@@ -372,7 +372,7 @@
                 </div>
             </div>
 
-            <form id="contactForm" class="reach-form" novalidate>
+            <form id="contactForm" class="reach-form" data-rise novalidate>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="name">NAME</label>

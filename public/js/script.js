@@ -41,6 +41,68 @@ function initPortfolio() {
         });
     }
 
+    // ===== SCROLL REVEALS =====
+    // Everything marked [data-rise] fades up once, when it first enters.
+    // Children of a [data-stagger] group inherit an increasing delay so a
+    // grid resolves cell by cell instead of all at once.
+    const risers = document.querySelectorAll('[data-rise]');
+    if (risers.length) {
+        if (reduceMotion) {
+            risers.forEach(el => el.classList.add('is-in'));
+        } else {
+            document.querySelectorAll('[data-stagger]').forEach(group => {
+                Array.from(group.children).forEach((child, i) => {
+                    child.style.setProperty('--d', (i * 60) + 'ms');
+                });
+            });
+            const io = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('is-in');
+                    obs.unobserve(entry.target);
+                });
+            }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+            risers.forEach(el => io.observe(el));
+        }
+    }
+
+    // ===== COUNTER ROLL =====
+    // Readout numbers count up to their final value on first view.
+    const counters = document.querySelectorAll('[data-count]');
+    if (counters.length && reduceMotion) {
+        // No roll: show the real figure straight away.
+        counters.forEach(el => el.textContent = el.dataset.count);
+    } else if (counters.length) {
+        const roll = (el) => {
+            const target = parseInt(el.dataset.count, 10);
+            if (!Number.isFinite(target)) return;
+            const pad = el.dataset.count.length;
+            const start = performance.now();
+            const dur = 900;
+            const step = (now) => {
+                const t = Math.min((now - start) / dur, 1);
+                // Ease out so it settles rather than stopping dead.
+                const v = Math.round(target * (1 - Math.pow(1 - t, 3)));
+                el.textContent = String(v).padStart(pad, '0');
+                if (t < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+        };
+        const cio = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                roll(entry.target);
+                obs.unobserve(entry.target);
+            });
+        }, { threshold: 0.5 });
+        // The markup carries the real figure so it survives a JS failure;
+        // zero it here, where the roll is guaranteed to run.
+        counters.forEach(el => {
+            el.textContent = '0'.repeat(el.dataset.count.length);
+            cio.observe(el);
+        });
+    }
+
     // ===== RAIL CLOCK =====
     // India time, rendered in the rail like device chrome.
     const clock = document.getElementById('clock');

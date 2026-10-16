@@ -149,6 +149,69 @@ ul { list-style: none; }
 .sb-sig i:nth-child(3) { height: 7px; background: var(--white); }
 .sb-sig i:nth-child(4) { height: 10px; background: var(--white); }
 
+/* ---------- Motion ---------- */
+
+/* Reveal: everything observed by the riser IO starts low and faded. */
+[data-rise] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+    transition-delay: var(--d, 0ms);
+}
+[data-rise].is-in { opacity: 1; transform: none; }
+
+/* No JS means no observer, so nothing may stay hidden. */
+.no-js [data-rise] { opacity: 1; transform: none; }
+
+/* Hero boots in on load, no observer needed. */
+@media (prefers-reduced-motion: no-preference) {
+    .stage-type .glyph,
+    .dt-line,
+    .stage-base,
+    .stage-meta .cell {
+        opacity: 0;
+        animation: rise 0.75s var(--ease) forwards;
+    }
+    .stage-type .glyph { animation-delay: 0.05s; }
+    .dt-line:nth-child(1) { animation-delay: 0.18s; }
+    .dt-line:nth-child(2) { animation-delay: 0.28s; }
+    .dt-line:nth-child(3) { animation-delay: 0.38s; }
+    .stage-base { animation-delay: 0.52s; }
+    .stage-meta .cell:nth-child(1) { animation-delay: 0.46s; }
+    .stage-meta .cell:nth-child(2) { animation-delay: 0.54s; }
+    .stage-meta .cell:nth-child(3) { animation-delay: 0.62s; }
+    .stage-meta .cell:nth-child(4) { animation-delay: 0.70s; }
+    .stage-meta .cell:nth-child(5) { animation-delay: 0.78s; }
+
+    @keyframes rise {
+        from { opacity: 0; transform: translateY(22px); }
+        to   { opacity: 1; transform: none; }
+    }
+
+    /* Meter segments light in sequence once the card is in view. */
+    .card-lead.is-in .meter-col span {
+        transform: scaleY(0); transform-origin: top;
+        animation: seg 0.4s var(--ease) forwards;
+    }
+    .meter-col span:nth-child(1) { animation-delay: 0.10s; }
+    .meter-col span:nth-child(2) { animation-delay: 0.17s; }
+    .meter-col span:nth-child(3) { animation-delay: 0.24s; }
+    .meter-col span:nth-child(4) { animation-delay: 0.31s; }
+    .meter-col span:nth-child(5) { animation-delay: 0.38s; }
+    .meter-col span:nth-child(6) { animation-delay: 0.45s; }
+    .meter-col span:nth-child(7) { animation-delay: 0.52s; }
+    @keyframes seg { to { transform: scaleY(1); } }
+
+    /* Section headings sweep a red underline as they arrive. */
+    .band-head { position: relative; overflow: hidden; }
+    .band-head::after {
+        content: ''; position: absolute; left: 4px; bottom: 8px;
+        height: 2px; width: 0; background: var(--red);
+        transition: width 0.7s var(--ease) 0.15s;
+    }
+    .band-head.is-in::after { width: 56px; }
+}
+
 /* ---------- Dot matrix type ---------- */
 
 .dot-title, .dot-head {
@@ -294,9 +357,10 @@ ul { list-style: none; }
     border-radius: 22px;
     overflow: hidden;
     display: flex; flex-direction: column;
-    transition: background-color 0.2s var(--ease);
+    transition: background-color 0.25s var(--ease), transform 0.35s var(--ease);
 }
-.card:hover { background: var(--panel-2); }
+.card:hover { background: var(--panel-2); transform: translateY(-4px); }
+@media (prefers-reduced-motion: reduce) { .card:hover { transform: none; } }
 .card-body { padding: 26px; display: flex; flex-direction: column; flex: 1; }
 
 /* Lead card is wider and splits into copy + vertical meter. */
@@ -440,9 +504,14 @@ ul { list-style: none; }
     padding: 9px 16px;
     border: 1px solid var(--line-2); border-radius: 999px;
     font-size: 0.6875rem; letter-spacing: 0.08em; color: var(--grey);
-    transition: color 0.18s var(--ease), border-color 0.18s var(--ease);
+    transition: color 0.18s var(--ease), border-color 0.18s var(--ease),
+                transform 0.18s var(--ease), background-color 0.18s var(--ease);
 }
-.chip:hover { color: var(--white); border-color: var(--white); }
+.chip:hover {
+    color: var(--black); background: var(--white);
+    border-color: var(--white); transform: translateY(-2px);
+}
+@media (prefers-reduced-motion: reduce) { .chip:hover { transform: none; } }
 
 /* ---------- Contribution graph ---------- */
 
@@ -472,6 +541,7 @@ ul { list-style: none; }
     gap: var(--gap);
 }
 .file {
+    position: relative; overflow: hidden;
     display: grid; grid-template-columns: 44px minmax(0, 1fr) auto;
     gap: 16px; align-items: center;
     background: var(--panel);
@@ -480,6 +550,15 @@ ul { list-style: none; }
     cursor: pointer;
     transition: background-color 0.2s var(--ease), padding-left 0.22s var(--ease);
 }
+/* A red marker wipes in from the left edge on hover. */
+.file::before {
+    content: ''; position: absolute; left: 0; top: 14px; bottom: 14px;
+    width: 3px; border-radius: 0 3px 3px 0;
+    background: var(--red);
+    transform: scaleY(0); transform-origin: center;
+    transition: transform 0.25s var(--ease);
+}
+.file:hover::before, .file:focus-visible::before { transform: scaleY(1); }
 .file:hover, .file:focus-visible { background: var(--panel-2); padding-left: 30px; }
 .file:hover .f-name, .file:focus-visible .f-name { color: var(--white); }
 .file:hover .f-idx, .file:focus-visible .f-idx { color: var(--red); }
