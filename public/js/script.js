@@ -48,10 +48,20 @@ function initPortfolio() {
         const root = document.documentElement;
         const meta = document.querySelector('meta[name="theme-color"]');
 
+        // The project previews are baked images, so each theme gets its
+        // own render rather than a filter that would muddy the UI inside.
+        const shots = document.querySelectorAll('img[data-shot]');
+        const paintShots = (dark) => {
+            shots.forEach(img => {
+                img.src = img.dataset.shot + (dark ? '' : '-light') + '.webp';
+            });
+        };
+
         const sync = (dark) => {
             themeBtn.setAttribute('aria-checked', String(dark));
             themeBtn.setAttribute('aria-label', dark ? 'Dark mode' : 'Light mode');
             if (meta) meta.setAttribute('content', dark ? '#000000' : '#f4f3f1');
+            paintShots(dark);
         };
         sync(root.getAttribute('data-theme') !== 'light');
 

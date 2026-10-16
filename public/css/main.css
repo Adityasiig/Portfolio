@@ -555,7 +555,9 @@ ul { list-style: none; }
 }
 
 /* Screenshot caps the card instead of floating inside it. */
-.card-shot { display: block; background: var(--panel-2); }
+/* In light mode the shot is near-white on a white card, so it needs a
+   hairline to read as a separate surface. */
+.card-shot { display: block; background: var(--panel-2); border-bottom: 1px solid var(--line); }
 .card-shot img {
     width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top;
     filter: var(--shot-filter);
