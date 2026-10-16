@@ -79,54 +79,154 @@ function initPortfolio() {
         });
     }
 
-    // ===== GLYPH MATRIX =====
-    // Dot-matrix LED panels. Each canvas declares its grid size and which
-    // patterns it plays via data attributes, so one renderer drives every
-    // instance on the page. Patterns are pure functions scoring a dot 0..1.
-    const matrices = document.querySelectorAll('.matrix');
-    if (matrices.length && !reduceMotion) {
+    // ===== CIRCULAR DISPLAYS =====
+    // Four different instruments, not one grid reused. Each canvas names
+    // its renderer with data-display; they share only the frame loop,
+    // the ink colour and the on-screen gate.
+    const displays = document.querySelectorAll('.disc');
+    if (displays.length && !reduceMotion) {
 
-        const PATTERNS = {
-            // Expanding rings from the centre.
-            rings: (x, y, t, m) => {
-                const d = Math.hypot(x - m, y - m);
-                return Math.max(0, Math.cos((d - t * 7) * 0.9));
+        const TAU = Math.PI * 2;
+
+        // --- Renderers. Each gets (ctx, t, S) where S is the box size. ---
+        const RENDERERS = {
+
+            // RADAR: a sweeping arm over polar rings, with blips that
+            // light as the arm passes and fade behind it.
+            radar(ctx, t, S) {
+                const c = S / 2, R = c * 0.86;
+                const sweep = (t * 0.9) % TAU;
+
+                ctx.strokeStyle = ink;
+                ctx.globalAlpha = 0.16;
+                ctx.lineWidth = 1;
+                for (let i = 1; i <= 3; i++) {
+                    ctx.beginPath();
+                    ctx.arc(c, c, R * i / 3, 0, TAU);
+                    ctx.stroke();
+                }
+                // Cross hairs.
+                ctx.beginPath();
+                ctx.moveTo(c - R, c); ctx.lineTo(c + R, c);
+                ctx.moveTo(c, c - R); ctx.lineTo(c, c + R);
+                ctx.stroke();
+
+                // The trailing wedge, drawn as fading spokes behind the arm.
+                for (let i = 1; i <= 14; i++) {
+                    const ang = sweep - i * 0.045;
+                    ctx.globalAlpha = 0.3 * (1 - i / 14);
+                    ctx.strokeStyle = ink;
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(c, c);
+                    ctx.lineTo(c + Math.cos(ang) * R, c + Math.sin(ang) * R);
+                    ctx.stroke();
+                }
+                // The arm itself.
+                ctx.globalAlpha = 0.9;
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(c, c);
+                ctx.lineTo(c + Math.cos(sweep) * R, c + Math.sin(sweep) * R);
+                ctx.stroke();
+
+                // Blips at fixed bearings; brightness follows the arm.
+                const blips = [[0.7, 1.1], [0.45, 3.0], [0.85, 4.4], [0.3, 5.6]];
+                blips.forEach(([rad, ang]) => {
+                    let d = (sweep - ang + TAU) % TAU;
+                    const v = Math.max(0, 1 - d / 1.5);
+                    ctx.globalAlpha = 0.12 + v * 0.88;
+                    ctx.fillStyle = ink;
+                    ctx.beginPath();
+                    ctx.arc(c + Math.cos(ang) * R * rad, c + Math.sin(ang) * R * rad,
+                            2.6 + v * 1.6, 0, TAU);
+                    ctx.fill();
+                });
             },
-            // Scan line sweeping top to bottom.
-            scan: (x, y, t, m, n) => {
-                const head = (t * 1.6 % 1.4) * n - 2;
-                return Math.max(0, 1 - Math.abs(y - head) / 2.5);
+
+            // EQUALISER: bars radiating from the centre, each its own
+            // oscillator, like a circular level meter.
+            equaliser(ctx, t, S) {
+                const c = S / 2, inner = c * 0.3, max = c * 0.82;
+                const N = 48;
+                ctx.lineCap = 'round';
+                for (let i = 0; i < N; i++) {
+                    const ang = i / N * TAU;
+                    const osc = Math.sin(t * 2.4 + i * 0.5)
+                              * Math.sin(t * 0.7 + i * 0.13);
+                    const len = inner + (max - inner) * (0.25 + Math.abs(osc) * 0.75);
+                    ctx.globalAlpha = 0.25 + Math.abs(osc) * 0.7;
+                    ctx.strokeStyle = ink;
+                    ctx.lineWidth = 2.4;
+                    ctx.beginPath();
+                    ctx.moveTo(c + Math.cos(ang) * inner, c + Math.sin(ang) * inner);
+                    ctx.lineTo(c + Math.cos(ang) * len, c + Math.sin(ang) * len);
+                    ctx.stroke();
+                }
+                ctx.globalAlpha = 0.5;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(c, c, inner - 5, 0, TAU);
+                ctx.stroke();
             },
-            // Diagonal wave.
-            wave: (x, y, t) => (Math.sin((x + y) * 0.55 - t * 4) + 1) / 2,
-            // Rotating bar, the Nothing loading mark.
-            spin: (x, y, t, m) => {
-                const a = Math.atan2(y - m, x - m);
-                const delta = Math.abs(((a - t * 2) % Math.PI + Math.PI) % Math.PI - Math.PI / 2);
-                return Math.hypot(x - m, y - m) > m ? 0 : Math.max(0, 1 - delta * 2.2);
+
+            // ORBIT: concentric rings of beads turning at different
+            // speeds and directions, a planetary readout.
+            orbit(ctx, t, S) {
+                const c = S / 2;
+                const rings = [
+                    { r: 0.30, n: 6,  sp:  0.55, d: 3.2 },
+                    { r: 0.52, n: 10, sp: -0.38, d: 2.8 },
+                    { r: 0.74, n: 16, sp:  0.24, d: 2.4 }
+                ];
+                rings.forEach(({ r, n, sp, d }) => {
+                    const R = c * 0.88 * r;
+                    ctx.globalAlpha = 0.14;
+                    ctx.strokeStyle = ink;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.arc(c, c, R, 0, TAU);
+                    ctx.stroke();
+
+                    for (let i = 0; i < n; i++) {
+                        const ang = i / n * TAU + t * sp;
+                        // Beads brighten as they cross the top of the dial.
+                        const lift = (Math.cos(ang + Math.PI / 2) + 1) / 2;
+                        ctx.globalAlpha = 0.25 + lift * 0.75;
+                        ctx.fillStyle = ink;
+                        ctx.beginPath();
+                        ctx.arc(c + Math.cos(ang) * R, c + Math.sin(ang) * R, d, 0, TAU);
+                        ctx.fill();
+                    }
+                });
             },
-            // Vertical bars rising and falling, like a level meter.
-            bars: (x, y, t, m, n) => {
-                const h = (Math.sin(t * 2.2 + x * 0.9) + 1) / 2 * n;
-                return y > n - h - 1 ? 1 : 0;
-            },
-            // A slow pulse breathing out from the centre.
-            pulse: (x, y, t, m) => {
-                const d = Math.hypot(x - m, y - m);
-                const r = (Math.sin(t * 1.5) + 1) / 2 * m;
-                return Math.max(0, 1 - Math.abs(d - r) / 1.8);
-            },
-            // Rain: columns of light falling at staggered speeds.
-            rain: (x, y, t, m, n) => {
-                const speed = 3 + (x % 5);
-                const head = (t * speed + x * 2.7) % (n + 6) - 3;
-                const dist = y - head;
-                return dist > 0 ? 0 : Math.max(0, 1 + dist / 4);
+
+            // WAVEFORM: a closed loop deformed by layered sine waves,
+            // breathing like an audio ring.
+            waveform(ctx, t, S) {
+                const c = S / 2, base = c * 0.50;
+                const draw = (amp, speed, lobes, alpha, width) => {
+                    ctx.globalAlpha = alpha;
+                    ctx.strokeStyle = ink;
+                    ctx.lineWidth = width;
+                    ctx.beginPath();
+                    for (let i = 0; i <= 180; i++) {
+                        const ang = i / 180 * TAU;
+                        const r = base
+                            + Math.sin(ang * lobes + t * speed) * amp
+                            + Math.sin(ang * (lobes * 2) - t * speed * 0.6) * amp * 0.4;
+                        const x = c + Math.cos(ang) * r;
+                        const y = c + Math.sin(ang) * r;
+                        i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+                    }
+                    ctx.closePath();
+                    ctx.stroke();
+                };
+                draw(c * 0.13, 1.8, 3, 0.85, 2);
+                draw(c * 0.09, -1.2, 5, 0.4, 1.5);
+                draw(c * 0.06, 2.6, 7, 0.22, 1);
             }
         };
-
-        const HOLD = 4200;            // ms per pattern
-        const FADE = 700;             // crossfade between patterns
 
         // The ink colour only changes on a theme swap, so read it once
         // and expose a refresh hook rather than querying every frame.
@@ -138,55 +238,25 @@ function initPortfolio() {
         readInk();
         window.refreshMatrixInk = readInk;
 
-        matrices.forEach(canvas => {
+        displays.forEach(canvas => {
+            const render = RENDERERS[canvas.dataset.display];
+            if (!render) return;
+
             const ctx = canvas.getContext('2d');
-            const N = Number(canvas.dataset.grid) || 25;
             const SIZE = 300;
             const DPR = Math.min(window.devicePixelRatio || 1, 2);
             canvas.width = SIZE * DPR;
             canvas.height = SIZE * DPR;
             ctx.scale(DPR, DPR);
 
-            const STEP = SIZE / N;
-            const R = STEP * 0.3;
-            const mid = (N - 1) / 2;
-
-            const names = (canvas.dataset.play || 'rings,scan,wave,spin')
-                .split(',').map(v => v.trim()).filter(v => PATTERNS[v]);
-            const seq = names.length ? names.map(v => PATTERNS[v]) : [PATTERNS.rings];
             // Stagger instances so they are not all in lockstep.
-            const offset = Number(canvas.dataset.offset || 0);
-
-            let start = null;
+            const offset = Number(canvas.dataset.offset || 0) / 1000;
             let raf = 0;
 
             const draw = (now) => {
-                if (start === null) start = now - offset;
-                const elapsed = now - start;
-                const slot = Math.floor(elapsed / HOLD);
-                const into = elapsed % HOLD;
-                const t = elapsed / 1000;
-
-                const a = seq[slot % seq.length];
-                const b = seq[(slot + 1) % seq.length];
-                // Crossfade in the last FADE ms of each slot.
-                const blend = into > HOLD - FADE ? (into - (HOLD - FADE)) / FADE : 0;
-
+                const t = now / 1000 + offset;
                 ctx.clearRect(0, 0, SIZE, SIZE);
-                ctx.fillStyle = ink;
-
-                for (let y = 0; y < N; y++) {
-                    for (let x = 0; x < N; x++) {
-                        let v = a(x, y, t, mid, N);
-                        if (blend) v = v * (1 - blend) + b(x, y, t, mid, N) * blend;
-                        v = Math.max(0, Math.min(1, v));
-                        // Floor keeps the unlit grid faintly visible.
-                        ctx.globalAlpha = 0.06 + v * 0.85;
-                        ctx.beginPath();
-                        ctx.arc(x * STEP + STEP / 2, y * STEP + STEP / 2, R, 0, Math.PI * 2);
-                        ctx.fill();
-                    }
-                }
+                render(ctx, t, SIZE);
                 ctx.globalAlpha = 1;
                 raf = requestAnimationFrame(draw);
             };
