@@ -28,12 +28,12 @@
     <link rel="preload" href="public/fonts/space-grotesk-var-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="public/fonts/jetbrains-mono-var-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="public/css/icons.css">
-    <link rel="stylesheet" href="public/css/main.css?v=rebuild-1">
+    <link rel="stylesheet" href="public/css/main.css?v=premium-1">
     <!-- EmailJS is only needed on contact-form submit, so it must not block paint. -->
     <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js" integrity="sha384-SALc35EccAf6RzGw4iNsyj7kTPr33K7RoGzYu+7heZhT8s0GZouafRiCg1qy44AS" crossorigin="anonymous"></script>
     <script>document.documentElement.classList.remove('no-js');
             window.EMAILJS_PUBLIC_KEY = '42_vwBZ0ZtAHGQkag';</script>
-    <script defer src="public/js/script.js?v=rebuild-1"></script>
+    <script defer src="public/js/script.js?v=premium-1"></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -87,20 +87,39 @@
 
     <!-- ====== HERO ====== -->
     <section id="home" class="hero">
-        <div class="container">
-            <p class="hero-status reveal"><span class="status-dot" aria-hidden="true"></span>Open to internships and junior roles</p>
-            <h1 class="hero-title reveal">I build the tools<br>that break things<br><em>on purpose.</em></h1>
-            <div class="hero-row reveal">
-                <p class="hero-description">
+        <div class="container hero-grid">
+            <div class="hero-copy">
+                <p class="hero-status intro"><span class="status-dot" aria-hidden="true"></span>Open to internships and junior roles</p>
+                <h1 class="hero-title intro">I break things on purpose, then build the tools that catch them.</h1>
+                <p class="hero-description intro">
                     Aditya Singh. Third-year BSc IT student writing Python security
                     tooling and fast, framework-free web apps.
                 </p>
-                <div class="hero-actions">
-                    <a href="#projects" class="btn btn-primary">View projects<i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                <div class="hero-actions intro">
+                    <a href="#projects" class="btn btn-primary">View projects</a>
                     <a href="public/files/cv.pdf" class="btn btn-outline" download>Download CV<i class="fas fa-download" aria-hidden="true"></i></a>
                 </div>
             </div>
-            <dl class="hero-facts reveal">
+
+            <!-- The one indulgence on the page: my own scanner pointed at this
+                 site. Types out once on load; plain text under reduced motion. -->
+            <figure class="term intro" aria-label="WebVulnScanner run against this website">
+                <figcaption class="term-bar">
+                    <span class="term-dot" aria-hidden="true"></span>
+                    <span>aditya@kali: ~/webvulnscan</span>
+                </figcaption>
+                <pre id="termBody"><code>$ webvulnscan https://adityasiig.github.io --depth 2
+
+[*] crawling    24 pages, 3.1s
+[+] headers     content-security-policy present
+[+] tls         certificate valid, HSTS on
+[+] xss         0 findings across 18 inputs
+[+] sqli        0 findings
+
+scan clean. report: scan-2026-10-16.html</code></pre>
+            </figure>
+
+            <dl class="hero-facts intro">
                 <div><dt>Now building</dt><dd>WebVulnScanner v2, authenticated scanning plus AI-assisted exploit suggestions</dd></div>
                 <div><dt>Focus</dt><dd>Application security, Python tooling, front-end performance</dd></div>
                 <div><dt>Based in</dt><dd>India, open to remote work</dd></div>
@@ -111,10 +130,10 @@
     <!-- ====== PROJECTS ====== -->
     <section id="projects" class="section">
         <div class="container">
-            <h2 class="section-title reveal">Selected work</h2>
+            <h2 class="section-title">Selected work</h2>
 
             <!-- Featured: WebVulnScanner -->
-            <article class="work-featured reveal">
+            <article class="work-featured">
                 <div class="work-featured-text">
                     <h3>WebVulnScanner</h3>
                     <p class="work-role">Python web vulnerability scanner</p>
@@ -157,7 +176,7 @@
 
             <!-- Shipped apps with real screenshots -->
             <div class="work-grid">
-                <article class="work-card reveal">
+                <article class="work-card">
                     <a class="work-shot" href="https://adityasiig.github.io/TODO-list/" target="_blank" rel="noopener noreferrer" aria-label="Open the TaskFlow live app">
                         <img src="public/images/projects/taskflow.webp" alt="TaskFlow preview: task list with priorities, due days and completion progress" width="1920" height="1200" loading="lazy" decoding="async">
                     </a>
@@ -175,7 +194,7 @@
                     </div>
                 </article>
 
-                <article class="work-card reveal">
+                <article class="work-card">
                     <a class="work-shot" href="https://health-tracker-five-xi.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open the Health Tracker live app">
                         <img src="public/images/projects/healthtracker.webp" alt="Health Tracker preview: calorie and macro dashboard with meal log" width="1920" height="1200" loading="lazy" decoding="async">
                     </a>
@@ -200,7 +219,7 @@
     <section id="about" class="section section-tinted">
         <div class="container">
             <div class="about-grid">
-                <div class="about-main reveal">
+                <div class="about-main">
                     <h2 class="section-title">About</h2>
                     <p class="about-lead">
                         Most of what I build sits where web development meets security.
@@ -218,7 +237,7 @@
                         product engineering.
                     </p>
                 </div>
-                <dl class="about-facts reveal">
+                <dl class="about-facts">
                     <div><dt>Education</dt><dd>BSc Information Technology, third year</dd></div>
                     <div><dt>Specialty</dt><dd>Ethical hacking and penetration testing</dd></div>
                     <div><dt>Learning</dt><dd>System design and advanced algorithms</dd></div>
@@ -231,8 +250,8 @@
     <!-- ====== SKILLS ====== -->
     <section id="skills" class="section">
         <div class="container">
-            <h2 class="section-title reveal">Skills</h2>
-            <div class="skills-grid reveal">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-grid">
                 <div class="skill-group">
                     <h3>Languages</h3>
                     <ul><li>Python</li><li>C++</li><li>JavaScript</li><li>Core Java</li><li>SQL / PL-SQL</li><li>R</li></ul>
@@ -251,7 +270,7 @@
                 </div>
             </div>
 
-            <div class="activity reveal">
+            <div class="activity">
                 <div class="activity-head">
                     <h3>GitHub activity</h3>
                     <span id="gh-contrib-count" aria-live="polite">Contributions in the last year</span>
@@ -266,65 +285,65 @@
     <!-- ====== CERTIFICATES ====== -->
     <section id="certificates" class="section section-tinted">
         <div class="container">
-            <h2 class="section-title reveal">Certificates</h2>
+            <h2 class="section-title">Certificates</h2>
             <div class="cert-grid">
-                <div class="tl-card reveal" role="button" tabindex="0" data-img="public/Certificates/full/c++.webp">
+                <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/c++.webp">
                     <img src="public/Certificates/thumbs/c++.webp" alt="C++ Programming certificate" width="560" height="396" loading="lazy" decoding="async">
                     <div class="tl-body">
                         <h3 class="tl-title">C++ Programming</h3>
                         <p class="tl-cat">Programming</p>
                     </div>
                 </div>
-                <div class="tl-card reveal" role="button" tabindex="0" data-img="public/Certificates/full/Ethical Hacking_- Exploit Linux Server_.webp">
+                <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/Ethical Hacking_- Exploit Linux Server_.webp">
                     <img src="public/Certificates/thumbs/Ethical Hacking_- Exploit Linux Server_.webp" alt="Ethical Hacking certificate" width="560" height="396" loading="lazy" decoding="async">
                     <div class="tl-body">
                         <h3 class="tl-title">Ethical Hacking</h3>
                         <p class="tl-cat">Security</p>
                     </div>
                 </div>
-                <div class="tl-card reveal" role="button" tabindex="0" data-img="public/Certificates/full/Everything About Kali Linux OS_page-0001.webp">
+                <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/Everything About Kali Linux OS_page-0001.webp">
                     <img src="public/Certificates/thumbs/Everything About Kali Linux OS_page-0001.webp" alt="Kali Linux OS certificate" width="560" height="396" loading="lazy" decoding="async">
                     <div class="tl-body">
                         <h3 class="tl-title">Kali Linux OS</h3>
                         <p class="tl-cat">Security</p>
                     </div>
                 </div>
-                <div class="tl-card reveal" role="button" tabindex="0" data-img="public/Certificates/full/1747098730146_page-0001.webp">
+                <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/1747098730146_page-0001.webp">
                     <img src="public/Certificates/thumbs/1747098730146_page-0001.webp" alt="Introduction to Cybersecurity certificate" width="560" height="433" loading="lazy" decoding="async">
                     <div class="tl-body">
                         <h3 class="tl-title">Intro to Cybersecurity</h3>
                         <p class="tl-cat">Security</p>
                     </div>
                 </div>
-                <div class="tl-card reveal" role="button" tabindex="0" data-img="public/Certificates/full/Computer Networking.webp">
+                <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/Computer Networking.webp">
                     <img src="public/Certificates/thumbs/Computer Networking.webp" alt="Computer Networking certificate" width="560" height="396" loading="lazy" decoding="async">
                     <div class="tl-body">
                         <h3 class="tl-title">Computer Networking</h3>
                         <p class="tl-cat">Networking</p>
                     </div>
                 </div>
-                <div class="tl-card reveal" role="button" tabindex="0" data-img="public/Certificates/full/Ubuntu Network Server_page-0001.webp">
+                <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/Ubuntu Network Server_page-0001.webp">
                     <img src="public/Certificates/thumbs/Ubuntu Network Server_page-0001.webp" alt="Ubuntu Network Server certificate" width="560" height="396" loading="lazy" decoding="async">
                     <div class="tl-body">
                         <h3 class="tl-title">Ubuntu Network Server</h3>
                         <p class="tl-cat">Server</p>
                     </div>
                 </div>
-                <div class="tl-card reveal" role="button" tabindex="0" data-img="public/Certificates/full/PL SQL.webp">
+                <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/PL SQL.webp">
                     <img src="public/Certificates/thumbs/PL SQL.webp" alt="PL/SQL Database certificate" width="560" height="396" loading="lazy" decoding="async">
                     <div class="tl-body">
                         <h3 class="tl-title">PL/SQL Database</h3>
                         <p class="tl-cat">Database</p>
                     </div>
                 </div>
-                <div class="tl-card reveal" role="button" tabindex="0" data-img="public/Certificates/full/R programming.webp">
+                <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/R programming.webp">
                     <img src="public/Certificates/thumbs/R programming.webp" alt="R Programming certificate" width="560" height="396" loading="lazy" decoding="async">
                     <div class="tl-body">
                         <h3 class="tl-title">R Programming</h3>
                         <p class="tl-cat">Data analysis</p>
                     </div>
                 </div>
-                <div class="tl-card reveal" role="button" tabindex="0" data-img="public/Certificates/full/basic-structure-of-computer.webp">
+                <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/basic-structure-of-computer.webp">
                     <img src="public/Certificates/thumbs/basic-structure-of-computer.webp" alt="Basic Structure of Computer certificate" width="560" height="417" loading="lazy" decoding="async">
                     <div class="tl-body">
                         <h3 class="tl-title">Basic Structure of Computer</h3>
@@ -349,7 +368,7 @@
     <section id="contact" class="section">
         <div class="container">
             <div class="contact-grid">
-                <div class="contact-info reveal">
+                <div class="contact-info">
                     <h2 class="section-title">Get in touch</h2>
                     <p>
                         I am looking for internships and junior roles in security engineering or
@@ -362,7 +381,7 @@
                         <li><a href="https://in.linkedin.com/in/singhaditya70" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in" aria-hidden="true"></i>linkedin.com/in/singhaditya70</a></li>
                     </ul>
                 </div>
-                <form id="contactForm" class="contact-form reveal" novalidate>
+                <form id="contactForm" class="contact-form" novalidate>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="name">Name</label>
