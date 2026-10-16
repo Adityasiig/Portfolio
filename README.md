@@ -22,7 +22,7 @@
 
 ## 🧑‍💻 About
 
-A cinematic, scroll-choreographed portfolio: black on black, one acid-volt accent, giant Geist display type, a GSAP project stack and a horizontal certificate rail. Pure HTML, CSS & vanilla JavaScript on GitHub Pages (GSAP self-hosted, no build step). Self-hosted variable fonts (Geist + Geist Mono), a live GitHub contribution calendar and an EmailJS contact form.
+A portfolio set like a printed magazine: warm paper, ink, one ultramarine, numbered chapters and a real table of contents. Pure HTML, CSS & vanilla JavaScript on GitHub Pages, no frameworks, no build step, no animation library. Self-hosted variable fonts (Instrument Sans + IBM Plex Mono), a live GitHub contribution calendar and an EmailJS contact form.
 
 ---
 
@@ -33,10 +33,11 @@ A cinematic, scroll-choreographed portfolio: black on black, one acid-volt accen
 <td width="50%">
 
 **🎨 Design & UX**
-- Cinematic dark system: near-black, one acid-volt accent
-- Geist + Geist Mono, self-hosted variable fonts
-- GSAP scroll stack, masked hero reveal, manifesto word scrub
-- On-brand preview renders on the project cards (tools/previews)
+- Editorial light system: warm paper, ink, one ultramarine
+- Instrument Sans + IBM Plex Mono, self-hosted
+- Numbered chapters and a contents index (it is a real sequence)
+- Certificates as an index that previews on cursor hover
+- On-brand preview renders for the apps (tools/previews)
 - Scroll reveals via `IntersectionObserver` (reduced-motion aware)
 - Certificate grid with keyboard-accessible lightbox
 - Show-more toggle keeps the certificate wall short
@@ -88,9 +89,9 @@ A cinematic, scroll-choreographed portfolio: black on black, one acid-volt accen
 |----------|---------|
 | **Markup** | HTML5 (semantic) |
 | **Styling** | CSS3 — Custom Properties, Grid, Flexbox, Keyframe Animations |
-| **Scripts** | Vanilla JavaScript ES6+ · GSAP ScrollTrigger (self-hosted) |
+| **Scripts** | Vanilla JavaScript ES6+ |
 | **Email** | EmailJS Browser SDK |
-| **Fonts** | Geist · Geist Mono (self-hosted variable) |
+| **Fonts** | Instrument Sans · IBM Plex Mono (self-hosted) |
 | **Icons** | Self-hosted CSS-mask subset |
 | **Data** | GitHub Contributions API (jogruber.de) |
 

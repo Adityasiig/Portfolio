@@ -13,118 +13,34 @@ function initPortfolio() {
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[ch]));
 
-    // ===== HEADER BACKGROUND =====
-    // A zero-height sentinel at the top of the page: when it leaves the
-    // viewport the user has scrolled, so the header gets a solid backdrop.
-    const header = document.getElementById('header');
-    const sentinel = document.createElement('div');
-    sentinel.style.cssText = 'position:absolute;top:0;height:60px;width:1px;pointer-events:none;';
-    document.body.prepend(sentinel);
-    new IntersectionObserver(([entry]) => {
-        header.classList.toggle('scrolled', !entry.isIntersecting);
-    }).observe(sentinel);
-
-    // ===== MOBILE MENU =====
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    function setMenu(open) {
-        hamburger.classList.toggle('active', open);
-        mobileMenu.classList.toggle('active', open);
-        hamburger.setAttribute('aria-expanded', String(open));
-        hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-        document.body.style.overflow = open ? 'hidden' : '';
-    }
-
-    if (hamburger && mobileMenu) {
-        hamburger.addEventListener('click', () => setMenu(!mobileMenu.classList.contains('active')));
-        mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => setMenu(false));
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-                setMenu(false);
-                hamburger.focus();
-            }
-        });
-    }
-
-    // ===== SCROLL SPY =====
-    const navLinks = document.querySelectorAll('.nav-link');
-    const spy = new IntersectionObserver((entries) => {
-        const visible = entries.filter(e => e.isIntersecting)
-            .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible.length) {
-            navLinks.forEach(link => {
-                link.classList.toggle('active', link.dataset.section === visible[0].target.id);
-            });
-        }
-    }, { rootMargin: '-120px 0px -55% 0px' });
-    document.querySelectorAll('section[id]').forEach(s => spy.observe(s));
-
-    // Smooth-scroll with a fixed-header offset.
+    // ===== IN-PAGE LINKS =====
+    // The masthead is static, so anchors only need a small breathing offset.
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const target = document.querySelector(this.getAttribute('href'));
             if (!target) return;
             e.preventDefault();
-            const top = target.getBoundingClientRect().top + window.scrollY - 76;
+            const top = target.getBoundingClientRect().top + window.scrollY - 24;
             window.scrollTo({ top, behavior: reduceMotion ? 'auto' : 'smooth' });
         });
     });
 
-    // ===== SCROLL CHOREOGRAPHY (GSAP) =====
-    // Everything here is an enhancement: without GSAP, or with reduced
-    // motion, the page is a plain static document and loses nothing.
-    if (!reduceMotion && window.gsap && window.ScrollTrigger) {
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Hero: three masked lines rise in, then the sub and buttons.
-        gsap.from('.hero-title .line-inner', {
-            yPercent: 112, duration: 0.9, stagger: 0.09, ease: 'power4.out', delay: 0.15
-        });
-        gsap.from('.hero-sub, .hero-actions, .hero-foot', {
-            opacity: 0, y: 18, duration: 0.7, stagger: 0.1, ease: 'power3.out', delay: 0.75
-        });
-
-        // Manifesto: words scrub from dim to full as the reader scrolls.
-        const manifesto = document.getElementById('manifesto');
-        if (manifesto) {
-            manifesto.innerHTML = manifesto.textContent.trim().split(/\s+/)
-                .map(w => '<span class="w">' + w + '</span>').join(' ');
-            manifesto.classList.add('scrub');
-            gsap.to(manifesto.querySelectorAll('.w'), {
-                opacity: 1, stagger: 0.6, ease: 'none',
-                scrollTrigger: {
-                    trigger: manifesto,
-                    start: 'top 78%',
-                    end: 'bottom 45%',
-                    scrub: true
-                }
+    // ===== CERTIFICATE HOVER PREVIEW =====
+    // The thumbnail follows the pointer vertically within its own row.
+    // Purely decorative: it is hidden on touch and under reduced motion
+    // it simply fades without tracking.
+    if (!reduceMotion && window.matchMedia('(pointer: fine)').matches) {
+        document.querySelectorAll('.cert').forEach(row => {
+            const thumb = row.querySelector('img');
+            if (!thumb) return;
+            row.addEventListener('pointermove', (e) => {
+                const rect = row.getBoundingClientRect();
+                // Keep the preview inside the row, nudged toward the cursor.
+                const offset = (e.clientY - rect.top - rect.height / 2) * 0.35;
+                thumb.style.transform = 'translateY(calc(-50% + ' + offset.toFixed(1) + 'px)) scale(1)';
             });
-        }
-
-        // Project stack: CSS sticky pins each card; as the next card
-        // arrives, the pinned one scales back and dims.
-        const cards = gsap.utils.toArray('.stack-card');
-        cards.forEach((card, i) => {
-            if (i === cards.length - 1) return;
-            gsap.to(card.querySelector('.stack-inner'), {
-                scale: 0.94, opacity: 0.4, ease: 'none',
-                scrollTrigger: {
-                    trigger: cards[i + 1],
-                    start: 'top bottom',
-                    end: 'top top',
-                    scrub: true
-                }
-            });
-        });
-
-        // Visuals grow slightly as they enter.
-        gsap.utils.toArray('.stack-visual').forEach(v => {
-            gsap.from(v, {
-                scale: 0.92, opacity: 0.6, ease: 'none',
-                scrollTrigger: { trigger: v, start: 'top 95%', end: 'top 45%', scrub: true }
+            row.addEventListener('pointerleave', () => {
+                thumb.style.transform = '';
             });
         });
     }
@@ -138,7 +54,7 @@ function initPortfolio() {
 
     function openLightbox(card) {
         const img = card.querySelector('img');
-        const title = card.querySelector('.tl-title');
+        const title = card.querySelector('.cert-name');
         if (!lightbox || !img) return;
         lightboxImg.src = card.dataset.img || img.src;
         lightboxImg.alt = img.alt || 'Certificate';
@@ -165,7 +81,7 @@ function initPortfolio() {
         }
     }
 
-    document.querySelectorAll('.tl-card').forEach(card => {
+    document.querySelectorAll('.cert').forEach(card => {
         card.addEventListener('click', () => openLightbox(card));
         card.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -187,24 +103,6 @@ function initPortfolio() {
         });
     }
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
-
-    // ===== CERTIFICATES: show 6, expand to all =====
-    // Collapsed state is applied here, not in the HTML, so every
-    // certificate stays visible when JavaScript is unavailable.
-    const certToggle = document.getElementById('certToggle');
-    const certGrid = document.querySelector('.cert-grid');
-    if (certToggle && certGrid && certGrid.children.length > 6) {
-        certGrid.classList.add('collapsed');
-        certToggle.hidden = false;
-        certToggle.addEventListener('click', () => {
-            const collapsed = certGrid.classList.toggle('collapsed');
-            certToggle.setAttribute('aria-expanded', String(!collapsed));
-            certToggle.querySelector('span').textContent = collapsed
-                ? 'Show all ' + certGrid.children.length + ' certificates'
-                : 'Show fewer certificates';
-            if (collapsed) certGrid.scrollIntoView({ block: 'start' });
-        });
-    }
 
     // ===== TOAST =====
     function showToast(message, type) {

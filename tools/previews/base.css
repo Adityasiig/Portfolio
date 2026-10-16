@@ -1,14 +1,14 @@
-@font-face { font-family:'Geist'; font-weight:100 900; font-display:block;
-  src:url('../public/fonts/geist-var-latin.woff2') format('woff2'); }
-@font-face { font-family:'Geist Mono'; font-weight:100 900; font-display:block;
-  src:url('../public/fonts/geist-mono-var-latin.woff2') format('woff2'); }
+@font-face { font-family:'Instrument Sans'; font-weight:400 700; font-display:block;
+  src:url('../public/fonts/instrument-sans-var-latin.woff2') format('woff2'); }
+@font-face { font-family:'IBM Plex Mono'; font-weight:400; font-display:block;
+  src:url('../public/fonts/plex-mono-400-latin.woff2') format('woff2'); }
 :root{
-  --bg:#101210; --panel:#161815; --panel2:#1d201b;
-  --border:rgba(232,237,242,.09); --border2:rgba(232,237,242,.17);
-  --text:#e8edf2; --t2:#9aa6b2; --t3:#6a7682;
-  --acc:#c6f432; --acc-soft:rgba(198,244,50,.14); --ink:#0b0c0a;
-  --warn:#d9a55a; --hot:#e0685c;
-  --sans:'Geist',sans-serif; --mono:'Geist Mono',monospace;
+  --bg:#ffffff; --panel:#fdfcf9; --panel2:#f0ece3;
+  --border:#e2ddd2; --border2:#cdc7b9;
+  --text:#14130f; --t2:#4a4740; --t3:#85817a;
+  --acc:#1f3bd6; --acc-soft:rgba(31,59,214,.10); --ink:#ffffff;
+  --warn:#b07d1a; --hot:#c0392b;
+  --sans:'Instrument Sans',sans-serif; --mono:'IBM Plex Mono',monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
