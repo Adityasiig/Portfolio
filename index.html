@@ -30,7 +30,7 @@
     <link rel="preload" href="public/fonts/doto-var.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="public/fonts/space-mono.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="public/css/icons.css">
-    <link rel="stylesheet" href="public/css/main.css?v=rail-4">
+    <link rel="stylesheet" href="public/css/main.css?v=rail-5">
     <!-- EmailJS is only needed on contact-form submit, so it must not block paint. -->
     <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js" integrity="sha384-SALc35EccAf6RzGw4iNsyj7kTPr33K7RoGzYu+7heZhT8s0GZouafRiCg1qy44AS" crossorigin="anonymous"></script>
     <script>document.documentElement.classList.remove('no-js');
@@ -44,7 +44,7 @@
                     }
                 } catch (e) { /* storage blocked: stay on the dark default */ }
             })();</script>
-    <script defer src="public/js/script.js?v=rail-4"></script>
+    <script defer src="public/js/script.js?v=rail-5"></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -109,6 +109,11 @@
                 <span class="dt-line dt-indent">IT</span>
                 <span class="dt-line">FIRST</span>
             </h1>
+
+            <!-- Glyph Matrix: a dot-matrix LED panel that cycles through
+                 patterns, the way the Phone (3) rear display does. -->
+            <canvas class="matrix" id="matrix" width="300" height="300"
+                    aria-hidden="true"></canvas>
 
             <div class="stage-base">
                 <p class="hero-sub">

@@ -58,8 +58,9 @@
     --dot: 'Doto', 'Space Mono', monospace;
     --mono: 'Space Mono', ui-monospace, monospace;
 
-    --gap: 14px;
-    --rail: 76px;
+    --gap: 22px;
+    --rail: 92px;
+    --pad: 38px;
     --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
@@ -448,6 +449,15 @@ ul { list-style: none; }
     }
 }
 
+/* Glyph Matrix sits in the hero's empty top-right quadrant. */
+.matrix {
+    position: absolute;
+    top: clamp(28px, 4vw, 52px); right: clamp(28px, 4vw, 52px);
+    width: clamp(108px, 13vw, 176px); height: auto;
+    opacity: 0.9;
+    pointer-events: none;
+}
+
 /* Headline is pushed to the optical centre, stepped line by line. */
 .dot-title {
     position: relative;
@@ -497,12 +507,12 @@ ul { list-style: none; }
 
 /* ---------- Bands (sections) ---------- */
 
-.band { margin-top: clamp(56px, 8vw, 110px); }
+.band { margin-top: clamp(96px, 13vw, 190px); }
 
 .band-head {
     display: flex; align-items: baseline; justify-content: space-between;
     gap: 16px;
-    padding: 0 4px 18px;
+    padding: 0 4px 34px;
 }
 .dot-head { font-size: clamp(1.6rem, 4vw, 2.6rem); }
 .idx { font-size: 0.625rem; letter-spacing: 0.16em; color: var(--grey-2); }
@@ -525,7 +535,7 @@ ul { list-style: none; }
 }
 .card:hover { background: var(--panel-2); transform: translateY(-4px); }
 @media (prefers-reduced-motion: reduce) { .card:hover { transform: none; } }
-.card-body { padding: 26px; display: flex; flex-direction: column; flex: 1; }
+.card-body { padding: var(--pad); display: flex; flex-direction: column; flex: 1; }
 
 /* Lead card is wider and splits into copy + vertical meter. */
 .card-lead {
@@ -535,8 +545,9 @@ ul { list-style: none; }
 .card-side {
     flex: 0 0 112px;
     border-left: 1px solid var(--line);
-    padding: 26px 22px;
-    display: flex; flex-direction: column; align-items: center; gap: 16px;
+    padding: var(--pad) 24px;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 18px;
 }
 
 .tile-top { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
@@ -577,7 +588,8 @@ ul { list-style: none; }
 .meter { display: flex; gap: 5px; }
 .meter span { flex: 1; height: 8px; border-radius: 2px; background: var(--white); }
 /* Vertical LED stack on the lead card. */
-.meter-col { flex-direction: column; flex: 1; width: 12px; gap: 7px; min-height: 150px; }
+/* Capped so the column reads as a meter, not a full-height rule. */
+.meter-col { flex-direction: column; flex: 0 1 auto; width: 12px; gap: 7px; height: clamp(150px, 26vh, 230px); }
 .meter-col span { width: 12px; height: auto; border-radius: 6px; }
 .meter-label {
     font-size: 0.5625rem; letter-spacing: 0.16em; color: var(--grey-2);
@@ -621,7 +633,7 @@ ul { list-style: none; }
 .bx {
     background: var(--panel);
     border-radius: 22px;
-    padding: 26px;
+    padding: var(--pad);
     transition: background-color 0.2s var(--ease);
 }
 .bx-quote { grid-column: span 2; display: flex; align-items: center; }
@@ -712,7 +724,7 @@ ul { list-style: none; }
     gap: 16px; align-items: center;
     background: var(--panel);
     border-radius: 16px;
-    padding: 20px 22px;
+    padding: 26px 28px;
     cursor: pointer;
     transition: background-color 0.2s var(--ease), padding-left 0.22s var(--ease);
 }
@@ -767,7 +779,7 @@ ul { list-style: none; }
 .reach-pitch, .reach-form {
     background: var(--panel);
     border-radius: 22px;
-    padding: 26px;
+    padding: var(--pad);
 }
 .reach-big {
     font-family: var(--dot); font-weight: 700;
@@ -864,6 +876,8 @@ ul { list-style: none; }
     .stage { grid-template-columns: 1fr; min-height: 0; padding-top: var(--gap); }
     .stage-type { border-radius: 20px; padding: 28px 20px; }
     .dot-title { font-size: clamp(2.8rem, 17vw, 5rem); margin: 32px 0; }
+    /* The matrix would crowd the headline at this width. */
+    .matrix { display: none; }
     .stage-meta { grid-template-rows: none; grid-template-columns: repeat(2, 1fr); }
     .cell-tall { grid-column: 1 / -1; }
 
