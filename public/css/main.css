@@ -632,7 +632,9 @@ ul { list-style: none; }
     letter-spacing: -0.01em;
     margin-bottom: 10px;
 }
-.tile-copy { color: var(--grey); font-size: var(--fs-sm); margin-bottom: 20px; }
+/* Capped measure: once the cards stack they run the full width, and an
+   unbounded line is as hard to read as a six-line sliver. */
+.tile-copy { color: var(--grey); font-size: var(--fs-sm); margin-bottom: 20px; max-width: 62ch; }
 
 /* Segment meter, now a vertical column of LEDs. */
 .meter { display: flex; gap: 5px; }
@@ -900,10 +902,27 @@ ul { list-style: none; }
 
 /* ---------- Responsive ---------- */
 
-@media (max-width: 1100px) {
-    .stage { grid-template-columns: minmax(0, 1fr) 170px; }
+/* The lead card spans two of the four columns, so the two app cards
+   get a quarter each. Below this the quarter is too narrow and their
+   copy wraps to six lines, so the strip stacks instead. */
+@media (max-width: 1340px) {
     .strip { grid-auto-flow: row; grid-auto-columns: auto; }
     .card-lead { grid-column: auto; }
+    /* Full-width now, so the 16:10 shot would be enormous. Capping the
+       height alone would crop it, so letterbox it instead and let the
+       panel colour fill the sides. */
+    .card-shot { padding: 18px 18px 0; }
+    .card-shot img {
+        aspect-ratio: 16 / 10;
+        max-height: clamp(220px, 28vw, 340px);
+        width: auto; margin: 0 auto;
+        object-fit: contain;
+        border-radius: var(--r-sm);
+    }
+}
+
+@media (max-width: 1100px) {
+    .stage { grid-template-columns: minmax(0, 1fr) 170px; }
     .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .bx-quote, .bx-spec, .bx-chips, .bx-tools { grid-column: 1 / -1; }
     .files { grid-template-columns: 1fr; }
