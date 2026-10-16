@@ -22,7 +22,7 @@
 
 ## 🧑‍💻 About
 
-A fast, dark, type-led personal portfolio built with **pure HTML, CSS & JavaScript**. No frameworks, no build tools. Self-hosted variable fonts (Space Grotesk + JetBrains Mono), a single emerald accent, real project screenshots, a live GitHub contribution calendar, an EmailJS contact form and a fully responsive layout.
+A personal portfolio styled like the pentest reports its owner's scanner writes: cool paper, ink, a single severity-red accent and one dark terminal artifact in the hero. Pure HTML, CSS & JavaScript, no frameworks, no build tools. Self-hosted variable fonts (Archivo + JetBrains Mono), a live GitHub contribution calendar and an EmailJS contact form.
 
 ---
 
@@ -33,9 +33,9 @@ A fast, dark, type-led personal portfolio built with **pure HTML, CSS & JavaScri
 <td width="50%">
 
 **🎨 Design & UX**
-- Dark, single-accent design system (emerald on near-black)
-- Space Grotesk + JetBrains Mono, self-hosted variable fonts
-- Real screenshots of the live apps on the project cards
+- "Assessment dossier" design system: paper, ink, severity red
+- Archivo (variable width axis) + JetBrains Mono, self-hosted
+- On-brand preview renders on the project cards (tools/previews)
 - Scroll reveals via `IntersectionObserver` (reduced-motion aware)
 - Certificate grid with keyboard-accessible lightbox
 - Show-more toggle keeps the certificate wall short
@@ -89,7 +89,7 @@ A fast, dark, type-led personal portfolio built with **pure HTML, CSS & JavaScri
 | **Styling** | CSS3 — Custom Properties, Grid, Flexbox, Keyframe Animations |
 | **Scripts** | Vanilla JavaScript ES6+ |
 | **Email** | EmailJS Browser SDK |
-| **Fonts** | Space Grotesk · JetBrains Mono (self-hosted variable) |
+| **Fonts** | Archivo · JetBrains Mono (self-hosted variable) |
 | **Icons** | Self-hosted CSS-mask subset |
 | **Data** | GitHub Contributions API (jogruber.de) |
 

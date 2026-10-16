@@ -3,11 +3,11 @@
 @font-face { font-family:'JetBrains Mono'; font-weight:100 800; font-display:block;
   src:url('../public/fonts/jetbrains-mono-var-latin.woff2') format('woff2'); }
 :root{
-  --bg:#0b0e11; --panel:#12161c; --panel2:#171c23;
+  --bg:#15171b; --panel:#1b1e23; --panel2:#22262c;
   --border:rgba(232,237,242,.09); --border2:rgba(232,237,242,.17);
   --text:#e8edf2; --t2:#9aa6b2; --t3:#6a7682;
-  --acc:#3ecf8e; --acc-soft:rgba(62,207,142,.14); --ink:#07130d;
-  --warn:#d9a55a; --hot:#e06c5f;
+  --acc:#d7604f; --acc-soft:rgba(215,96,79,.16); --ink:#1a0d0a;
+  --warn:#d9a55a; --hot:#d7604f;
   --sans:'Space Grotesk',sans-serif; --mono:'JetBrains Mono',monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
