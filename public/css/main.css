@@ -2585,6 +2585,77 @@ ul {
 .no-js .filters,.no-js #gh-calendar,.no-js .activity-foot,.no-js .contact-form>.form-row,.no-js .contact-form>.form-group,.no-js .contact-form>.form-bottom,.no-js .contact-form>.form-status {
   display:none
 }
+/* Motion follows the artwork: slow atmosphere, brief and purposeful feedback. */
+.hero-art {
+  --drift-distance: 6px;
+  animation: silk-drift 18s ease-in-out infinite;
+  animation-play-state: paused;
+}
+.hero.motion-active .hero-art {
+  animation-play-state: running;
+  will-change: transform;
+}
+html:not(.no-js) .hero-topline {
+  animation: quiet-arrival 900ms 40ms both;
+}
+html:not(.no-js) .hero-kicker {
+  animation: quiet-arrival 900ms 110ms both;
+}
+html:not(.no-js) .hero h1 {
+  animation: quiet-arrival 1000ms 180ms both;
+}
+html:not(.no-js) .hero-intro {
+  animation: quiet-arrival 950ms 300ms both;
+}
+html:not(.no-js) .hero-actions {
+  animation: quiet-arrival 900ms 410ms both;
+}
+.will-reveal {
+  transition: opacity 750ms cubic-bezier(.2,.7,.2,1), transform 750ms cubic-bezier(.2,.7,.2,1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.practice-grid > [data-reveal]:nth-child(2),
+.project:nth-child(even),
+.toolkit-grid > [data-reveal]:nth-child(2),
+.credentials-grid > [data-reveal]:nth-child(2),
+.contact-grid > [data-reveal]:nth-child(2) {
+  --reveal-delay: 100ms;
+}
+.project.is-filtering {
+  transition: none;
+}
+.project.is-visible .signal-line path:not(.signal-base) {
+  stroke-dasharray: 900;
+  animation: trace-signal 1800ms 200ms cubic-bezier(.2,.7,.2,1) both;
+}
+.button .icon {
+  transition: transform 250ms cubic-bezier(.2,.7,.2,1);
+}
+.button:is(:hover, :focus-visible) .icon {
+  transform: translate(2px, -2px);
+}
+.hero-actions .button:is(:hover, :focus-visible) .icon {
+  transform: translateY(3px);
+}
+body, .site-header, .site-footer {
+  transition: background-color 350ms ease, color 350ms ease, border-color 350ms ease;
+}
+@keyframes silk-drift {
+  0%, 100% { transform: translate3d(0, calc(-1 * var(--drift-distance)), 0) scale(1.02); }
+  50% { transform: translate3d(0, var(--drift-distance), 0) scale(1.04); }
+}
+@keyframes quiet-arrival {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes trace-signal {
+  from { stroke-dashoffset: 900; }
+  to { stroke-dashoffset: 0; }
+}
+@media(max-width:700px) {
+  .hero-art { --drift-distance: 3px; }
+  .will-reveal { transition-delay: 0ms; }
+}
 @media(prefers-reduced-motion:reduce) {
   html {
     scroll-behavior:auto

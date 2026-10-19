@@ -27,6 +27,23 @@
     if (!manualTheme) applyTheme(event.matches ? 'dark' : 'light');
   });
 
+  // Keep the slow artwork drift on the compositor and stop it when it cannot
+  // be seen. Animate the wrapper so each theme keeps its own image transform.
+  const hero = document.getElementById('home');
+  let heroVisible = false;
+  function syncHeroMotion() {
+    hero.classList.toggle('motion-active', heroVisible && !document.hidden && !reducedMotion.matches);
+  }
+  if ('IntersectionObserver' in window) {
+    const heroObserver = new IntersectionObserver(entries => {
+      heroVisible = entries[0].isIntersecting;
+      syncHeroMotion();
+    }, { threshold: 0.01 });
+    heroObserver.observe(hero);
+  }
+  document.addEventListener('visibilitychange', syncHeroMotion);
+  reducedMotion.addEventListener('change', syncHeroMotion);
+
   const menuButton = document.getElementById('menuBtn');
   const navigation = document.getElementById('site-nav');
   function closeMenu(returnFocus = false) {
@@ -86,9 +103,29 @@
 
   const projects = [...document.querySelectorAll('.project')];
   const filterButtons = [...document.querySelectorAll('[data-filter]')];
+  const filterAnimations = new Map();
+  function stopFilterAnimations() {
+    filterAnimations.forEach((animation, project) => {
+      animation.cancel();
+      project.classList.remove('is-filtering');
+    });
+    filterAnimations.clear();
+  }
+  reducedMotion.addEventListener('change', event => {
+    if (event.matches) stopFilterAnimations();
+  });
   filterButtons.forEach(button => {
     button.addEventListener('click', () => {
+      if (button.getAttribute('aria-pressed') === 'true') return;
       const filter = button.dataset.filter;
+      // Measure the current visual positions before interrupting a prior swap.
+      // Hidden state and the result count update immediately; only presentation
+      // animates, so rapid clicks never queue stale filters or block controls.
+      const before = new Map(projects.filter(project => !project.hidden).map(project => [project, {
+        rect: project.getBoundingClientRect(),
+        opacity: getComputedStyle(project).opacity
+      }]));
+      stopFilterAnimations();
       filterButtons.forEach(item => {
         const selected = item === button;
         item.classList.toggle('is-active', selected);
@@ -96,6 +133,7 @@
       });
       let count = 0;
       projects.forEach(project => {
+        project.classList.add('is-filtering');
         project.hidden = filter !== 'all' && project.dataset.category !== filter;
         if (!project.hidden) {
           count++;
@@ -103,6 +141,28 @@
         }
       });
       document.getElementById('project-count').textContent = String(count).padStart(2, '0') + ' selected project' + (count === 1 ? '' : 's');
+      projects.forEach(project => {
+        if (project.hidden || reducedMotion.matches || typeof project.animate !== 'function') {
+          project.classList.remove('is-filtering');
+          return;
+        }
+        const previous = before.get(project);
+        const next = project.getBoundingClientRect();
+        const from = previous ? {
+          transform: `translate3d(${previous.rect.left - next.left}px, ${previous.rect.top - next.top}px, 0)`,
+          opacity: previous.opacity
+        } : { transform: 'translate3d(0, 18px, 0)', opacity: 0 };
+        const animation = project.animate([from, { transform: 'none', opacity: 1 }], {
+          duration: previous ? 460 : 400,
+          easing: 'cubic-bezier(.2,.7,.2,1)'
+        });
+        filterAnimations.set(project, animation);
+        animation.addEventListener('finish', () => {
+          if (filterAnimations.get(project) !== animation) return;
+          filterAnimations.delete(project);
+          project.classList.remove('is-filtering');
+        }, { once: true });
+      });
     });
   });
 

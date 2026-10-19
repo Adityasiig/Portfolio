@@ -32,6 +32,10 @@ Open [the local preview](http://127.0.0.1:4180/).
   failure feedback, and a direct-email fallback. The SDK loads only on submit.
 - Mobile navigation, visible keyboard focus, a skip link, reduced-motion support,
   and readable content with JavaScript disabled.
+- Gentle hero-artwork drift, staggered entrances, a drawn signal illustration,
+  and animated project-filter rearrangement. The artwork pauses offscreen and in
+  background tabs. Reduced motion disables animation, including active filter
+  transitions; rapid filter changes are applied immediately without a queue.
 
 Projects described as system or interface sketches are illustrative diagrams,
 not claims of live operational metrics. Health Tracker and TaskFlow retain the

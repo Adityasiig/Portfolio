@@ -152,12 +152,48 @@ async function main() {
     assert.ok(await fixturePage.locator('.calendar-svg rect').count()>=365);
     await fixture.close();
 
-    // Motion-enabled observers must actually reveal content during navigation.
+    // Check that the atmosphere animates only while visible, and filtering
+    // stays correct even when users interrupt transitions or request less motion.
     const motion=await browser.newContext({viewport:{width:1280,height:900},reducedMotion:'no-preference'});
     const motionPage=await motion.newPage();
-    await motionPage.goto(base);
+    motionPage.on('pageerror',error=>errors.push('motion: '+error.message));
+    await motionPage.goto(base,{waitUntil:'networkidle'});
+    await motionPage.waitForFunction(()=>document.querySelector('.hero').classList.contains('motion-active'));
+    assert.equal(await motionPage.locator('.hero-art').evaluate(el=>getComputedStyle(el).animationPlayState),'running');
+    const drift=await motionPage.locator('.hero-art').evaluate(async el=>{
+      const before=el.getAnimations()[0].currentTime;
+      await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+      return {before,after:el.getAnimations()[0].currentTime};
+    });
+    assert.ok(drift.after>drift.before,'Hero animation must actually advance');
     await motionPage.locator('#practice-title').scrollIntoViewIfNeeded();
     await motionPage.waitForFunction(()=>document.getElementById('practice-title').closest('[data-reveal]').classList.contains('is-visible'));
+    await motionPage.locator('.work-controls').scrollIntoViewIfNeeded();
+    await motionPage.waitForFunction(()=>getComputedStyle(document.querySelector('.hero-art')).animationPlayState==='paused');
+    await motionPage.locator('[data-filter="telecom"]').click();
+    await motionPage.locator('[data-filter="products"]').click();
+    await motionPage.locator('[data-filter="all"]').click();
+    assert.equal(await motionPage.locator('.project:visible').count(),6);
+    assert.ok(await motionPage.locator('.project.is-filtering').count()>0,'Filter rearrangement should animate');
+    await motionPage.evaluate(()=>Promise.all([...document.querySelectorAll('.project')].flatMap(el=>el.getAnimations().map(a=>a.finished.catch(()=>{})))));
+    await motionPage.waitForFunction(()=>!document.querySelector('.project.is-filtering'));
+    assert.equal(await motionPage.locator('.project.is-filtering').count(),0);
+    await motionPage.evaluate(()=>{
+      for(const name of ['security','all','telecom','products','all','security'])document.querySelector(`[data-filter="${name}"]`).click();
+    });
+    assert.equal(await motionPage.locator('.project:visible').count(),1);
+    assert.equal(await motionPage.locator('[data-filter="security"]').getAttribute('aria-pressed'),'true');
+    await motionPage.emulateMedia({reducedMotion:'reduce'});
+    await motionPage.waitForFunction(()=>!document.querySelector('.project.is-filtering'));
+    assert.equal(await motionPage.locator('.hero-art').evaluate(el=>getComputedStyle(el).animationName),'none');
+    assert.equal(await motionPage.locator('.project:visible').evaluate(el=>getComputedStyle(el).opacity),'1');
+    await motionPage.locator('[data-filter="all"]').click();
+    assert.equal(await motionPage.locator('.project:visible').count(),6);
+    assert.equal(await motionPage.locator('.project.is-filtering').count(),0);
+    await motionPage.emulateMedia({reducedMotion:'no-preference'});
+    await motionPage.locator('#home').scrollIntoViewIfNeeded();
+    await motionPage.waitForFunction(()=>document.querySelector('.hero').classList.contains('motion-active'));
+    assert.equal(await motionPage.locator('.hero-art').evaluate(el=>getComputedStyle(el).animationPlayState),'running');
     await motion.close();
 
     const nojs=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:844}});
@@ -167,7 +203,7 @@ async function main() {
     assert.equal(await staticPage.locator('.certificate:visible').count(),9);
     await nojs.close();
     assert.deepEqual(errors,[],'JavaScript runtime errors');
-    console.log('PASS: resources, six responsive/theme layouts, theme persistence, filters, nine certificate dialogs, mobile navigation, form validation and mocked delivery/failure, live-data rendering with fixtures, activity fallback, motion reveals, and no-JS content. No email was sent.');
+    console.log('PASS: resources, six responsive/theme layouts, theme persistence, filters, nine certificate dialogs, mobile navigation, form validation and mocked delivery/failure, live-data rendering with fixtures, activity fallback, hero drift/offscreen pause, filter interruption, reduced-motion changes, reveals, and no-JS content. No email was sent.');
   } finally { await browser.close(); }
 }
 main().catch(error=>{console.error(error);process.exitCode=1;});
