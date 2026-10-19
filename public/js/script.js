@@ -13,87 +13,351 @@ function initPortfolio() {
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[ch]));
 
-    // ===== HEADER BACKGROUND =====
-    // A zero-height sentinel at the top of the page: when it leaves the
-    // viewport the user has scrolled, so the header gets a solid backdrop.
-    const header = document.getElementById('header');
-    const sentinel = document.createElement('div');
-    sentinel.style.cssText = 'position:absolute;top:0;height:60px;width:1px;pointer-events:none;';
-    document.body.prepend(sentinel);
-    new IntersectionObserver(([entry]) => {
-        header.classList.toggle('scrolled', !entry.isIntersecting);
-    }).observe(sentinel);
-
-    // ===== MOBILE MENU =====
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    function setMenu(open) {
-        hamburger.classList.toggle('active', open);
-        mobileMenu.classList.toggle('active', open);
-        hamburger.setAttribute('aria-expanded', String(open));
-        hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-        document.body.style.overflow = open ? 'hidden' : '';
-    }
-
-    if (hamburger && mobileMenu) {
-        hamburger.addEventListener('click', () => setMenu(!mobileMenu.classList.contains('active')));
-        mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => setMenu(false));
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-                setMenu(false);
-                hamburger.focus();
-            }
-        });
-    }
-
-    // ===== SCROLL SPY =====
-    const navLinks = document.querySelectorAll('.nav-link');
-    const spy = new IntersectionObserver((entries) => {
-        const visible = entries.filter(e => e.isIntersecting)
-            .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible.length) {
-            navLinks.forEach(link => {
-                link.classList.toggle('active', link.dataset.section === visible[0].target.id);
-            });
-        }
-    }, { rootMargin: '-120px 0px -55% 0px' });
-    document.querySelectorAll('section[id]').forEach(s => spy.observe(s));
-
-    // Smooth-scroll with a fixed-header offset.
+    // ===== IN-PAGE LINKS =====
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const target = document.querySelector(this.getAttribute('href'));
             if (!target) return;
             e.preventDefault();
-            const top = target.getBoundingClientRect().top + window.scrollY - 76;
+            const top = target.getBoundingClientRect().top + window.scrollY - 24;
             window.scrollTo({ top, behavior: reduceMotion ? 'auto' : 'smooth' });
         });
     });
 
-    // ===== HERO TERMINAL =====
-    // Types the scan transcript once on load. The full text ships in the
-    // HTML, so no-JS and reduced-motion users just read it as-is.
-    const termCode = document.querySelector('#termBody code');
-    if (termCode && !reduceMotion) {
-        const full = termCode.textContent;
-        const term = termCode.closest('.term');
-        termCode.textContent = '';
-        term.classList.add('typing');
-        let i = 0;
-        (function tick() {
-            // A few characters per frame reads as machine output, not typing.
-            i = Math.min(full.length, i + 3);
-            termCode.textContent = full.slice(0, i);
-            if (i < full.length) {
-                setTimeout(tick, full[i] === '\n' ? 90 : 12);
-            } else {
-                setTimeout(() => term.classList.remove('typing'), 1600);
-            }
-        })();
+    // ===== RAIL SCROLL SPY =====
+    // The rail dots light for whichever section owns the viewport.
+    const railLinks = Array.from(document.querySelectorAll('.rn'));
+    if (railLinks.length) {
+        const byId = new Map(railLinks.map(a => [a.getAttribute('href').slice(1), a]));
+        const spy = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const link = byId.get(entry.target.id);
+                if (link) link.classList.toggle('on', entry.isIntersecting);
+            });
+        }, { rootMargin: '-45% 0px -45% 0px' });
+        byId.forEach((_, id) => {
+            const section = document.getElementById(id);
+            if (section) spy.observe(section);
+        });
     }
+
+    // ===== THEME TOGGLE =====
+    // The head script already resolved the theme; this only flips it.
+    const themeBtn = document.getElementById('themeBtn');
+    if (themeBtn) {
+        const root = document.documentElement;
+        const meta = document.querySelector('meta[name="theme-color"]');
+
+        // The project previews are baked images, so each theme gets its
+        // own render rather than a filter that would muddy the UI inside.
+        const shots = document.querySelectorAll('img[data-shot]');
+        const paintShots = (dark) => {
+            shots.forEach(img => {
+                img.src = img.dataset.shot + (dark ? '' : '-light') + '.webp';
+            });
+        };
+
+        const sync = (dark) => {
+            themeBtn.setAttribute('aria-checked', String(dark));
+            themeBtn.setAttribute('aria-label', dark ? 'Dark mode' : 'Light mode');
+            if (meta) meta.setAttribute('content', dark ? '#000000' : '#f4f3f1');
+            paintShots(dark);
+        };
+        sync(root.getAttribute('data-theme') !== 'light');
+
+        themeBtn.addEventListener('click', () => {
+            const goingLight = root.getAttribute('data-theme') !== 'light';
+            // Crossfade only for the duration of the swap.
+            root.classList.add('theming');
+            if (goingLight) root.setAttribute('data-theme', 'light');
+            else root.removeAttribute('data-theme');
+            sync(!goingLight);
+            try { localStorage.setItem('theme', goingLight ? 'light' : 'dark'); } catch (e) { /* ignore */ }
+            // The matrix caches its ink, so tell it the palette moved.
+            if (window.refreshMatrixInk) window.refreshMatrixInk();
+            setTimeout(() => root.classList.remove('theming'), 500);
+        });
+    }
+
+    // ===== CIRCULAR DISPLAYS =====
+    // Four different instruments, not one grid reused. Each canvas names
+    // its renderer with data-display; they share only the frame loop,
+    // the ink colour and the on-screen gate.
+    const displays = document.querySelectorAll('.disc');
+    if (displays.length && !reduceMotion) {
+
+        const TAU = Math.PI * 2;
+
+        // --- Renderers. Each gets (ctx, t, S) where S is the box size. ---
+        const RENDERERS = {
+
+            // RADAR: a sweeping arm over polar rings, with blips that
+            // light as the arm passes and fade behind it.
+            radar(ctx, t, S) {
+                const c = S / 2, R = c * 0.86;
+                const sweep = (t * 0.9) % TAU;
+
+                ctx.strokeStyle = ink;
+                ctx.globalAlpha = 0.16;
+                ctx.lineWidth = 1;
+                for (let i = 1; i <= 3; i++) {
+                    ctx.beginPath();
+                    ctx.arc(c, c, R * i / 3, 0, TAU);
+                    ctx.stroke();
+                }
+                // Cross hairs.
+                ctx.beginPath();
+                ctx.moveTo(c - R, c); ctx.lineTo(c + R, c);
+                ctx.moveTo(c, c - R); ctx.lineTo(c, c + R);
+                ctx.stroke();
+
+                // The trailing wedge, drawn as fading spokes behind the arm.
+                for (let i = 1; i <= 14; i++) {
+                    const ang = sweep - i * 0.045;
+                    ctx.globalAlpha = 0.3 * (1 - i / 14);
+                    ctx.strokeStyle = ink;
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(c, c);
+                    ctx.lineTo(c + Math.cos(ang) * R, c + Math.sin(ang) * R);
+                    ctx.stroke();
+                }
+                // The arm itself.
+                ctx.globalAlpha = 0.9;
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(c, c);
+                ctx.lineTo(c + Math.cos(sweep) * R, c + Math.sin(sweep) * R);
+                ctx.stroke();
+
+                // Blips at fixed bearings; brightness follows the arm.
+                const blips = [[0.7, 1.1], [0.45, 3.0], [0.85, 4.4], [0.3, 5.6]];
+                blips.forEach(([rad, ang]) => {
+                    let d = (sweep - ang + TAU) % TAU;
+                    const v = Math.max(0, 1 - d / 1.5);
+                    ctx.globalAlpha = 0.12 + v * 0.88;
+                    ctx.fillStyle = ink;
+                    ctx.beginPath();
+                    ctx.arc(c + Math.cos(ang) * R * rad, c + Math.sin(ang) * R * rad,
+                            2.6 + v * 1.6, 0, TAU);
+                    ctx.fill();
+                });
+            },
+
+            // EQUALISER: bars radiating from the centre, each its own
+            // oscillator, like a circular level meter.
+            equaliser(ctx, t, S) {
+                const c = S / 2, inner = c * 0.3, max = c * 0.82;
+                const N = 48;
+                ctx.lineCap = 'round';
+                for (let i = 0; i < N; i++) {
+                    const ang = i / N * TAU;
+                    const osc = Math.sin(t * 2.4 + i * 0.5)
+                              * Math.sin(t * 0.7 + i * 0.13);
+                    const len = inner + (max - inner) * (0.25 + Math.abs(osc) * 0.75);
+                    ctx.globalAlpha = 0.25 + Math.abs(osc) * 0.7;
+                    ctx.strokeStyle = ink;
+                    ctx.lineWidth = 2.4;
+                    ctx.beginPath();
+                    ctx.moveTo(c + Math.cos(ang) * inner, c + Math.sin(ang) * inner);
+                    ctx.lineTo(c + Math.cos(ang) * len, c + Math.sin(ang) * len);
+                    ctx.stroke();
+                }
+                ctx.globalAlpha = 0.5;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(c, c, inner - 5, 0, TAU);
+                ctx.stroke();
+            },
+
+            // ORBIT: concentric rings of beads turning at different
+            // speeds and directions, a planetary readout.
+            orbit(ctx, t, S) {
+                const c = S / 2;
+                const rings = [
+                    { r: 0.30, n: 6,  sp:  0.55, d: 3.2 },
+                    { r: 0.52, n: 10, sp: -0.38, d: 2.8 },
+                    { r: 0.74, n: 16, sp:  0.24, d: 2.4 }
+                ];
+                rings.forEach(({ r, n, sp, d }) => {
+                    const R = c * 0.88 * r;
+                    ctx.globalAlpha = 0.14;
+                    ctx.strokeStyle = ink;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.arc(c, c, R, 0, TAU);
+                    ctx.stroke();
+
+                    for (let i = 0; i < n; i++) {
+                        const ang = i / n * TAU + t * sp;
+                        // Beads brighten as they cross the top of the dial.
+                        const lift = (Math.cos(ang + Math.PI / 2) + 1) / 2;
+                        ctx.globalAlpha = 0.25 + lift * 0.75;
+                        ctx.fillStyle = ink;
+                        ctx.beginPath();
+                        ctx.arc(c + Math.cos(ang) * R, c + Math.sin(ang) * R, d, 0, TAU);
+                        ctx.fill();
+                    }
+                });
+            },
+
+            // WAVEFORM: a closed loop deformed by layered sine waves,
+            // breathing like an audio ring.
+            waveform(ctx, t, S) {
+                const c = S / 2, base = c * 0.50;
+                const draw = (amp, speed, lobes, alpha, width) => {
+                    ctx.globalAlpha = alpha;
+                    ctx.strokeStyle = ink;
+                    ctx.lineWidth = width;
+                    ctx.beginPath();
+                    for (let i = 0; i <= 180; i++) {
+                        const ang = i / 180 * TAU;
+                        const r = base
+                            + Math.sin(ang * lobes + t * speed) * amp
+                            + Math.sin(ang * (lobes * 2) - t * speed * 0.6) * amp * 0.4;
+                        const x = c + Math.cos(ang) * r;
+                        const y = c + Math.sin(ang) * r;
+                        i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+                    }
+                    ctx.closePath();
+                    ctx.stroke();
+                };
+                draw(c * 0.13, 1.8, 3, 0.85, 2);
+                draw(c * 0.09, -1.2, 5, 0.4, 1.5);
+                draw(c * 0.06, 2.6, 7, 0.22, 1);
+            }
+        };
+
+        // The ink colour only changes on a theme swap, so read it once
+        // and expose a refresh hook rather than querying every frame.
+        let ink = '#ffffff';
+        const readInk = () => {
+            ink = getComputedStyle(document.documentElement)
+                .getPropertyValue('--white').trim() || '#ffffff';
+        };
+        readInk();
+        window.refreshMatrixInk = readInk;
+
+        displays.forEach(canvas => {
+            const render = RENDERERS[canvas.dataset.display];
+            if (!render) return;
+
+            const ctx = canvas.getContext('2d');
+            const SIZE = 300;
+            const DPR = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width = SIZE * DPR;
+            canvas.height = SIZE * DPR;
+            ctx.scale(DPR, DPR);
+
+            // Stagger instances so they are not all in lockstep.
+            const offset = Number(canvas.dataset.offset || 0) / 1000;
+            let raf = 0;
+
+            const draw = (now) => {
+                const t = now / 1000 + offset;
+                ctx.clearRect(0, 0, SIZE, SIZE);
+                render(ctx, t, SIZE);
+                ctx.globalAlpha = 1;
+                raf = requestAnimationFrame(draw);
+            };
+
+            // The observer is the only gate: a display:none canvas (mobile)
+            // never intersects, so the loop never starts there.
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !raf) raf = requestAnimationFrame(draw);
+                    else if (!entry.isIntersecting && raf) { cancelAnimationFrame(raf); raf = 0; }
+                });
+            }, { threshold: 0 });
+            io.observe(canvas);
+        });
+    }
+
+    // ===== SCROLL REVEALS =====
+    // Everything marked [data-rise] fades up once, when it first enters.
+    // Children of a [data-stagger] group inherit an increasing delay so a
+    // grid resolves cell by cell instead of all at once.
+    const risers = document.querySelectorAll('[data-rise]');
+    if (risers.length) {
+        if (reduceMotion) {
+            risers.forEach(el => el.classList.add('is-in'));
+        } else {
+            document.querySelectorAll('[data-stagger]').forEach(group => {
+                Array.from(group.children).forEach((child, i) => {
+                    child.style.setProperty('--d', (i * 60) + 'ms');
+                });
+            });
+            const io = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('is-in');
+                    obs.unobserve(entry.target);
+                });
+            }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+            risers.forEach(el => io.observe(el));
+        }
+    }
+
+    // ===== COUNTER ROLL =====
+    // Readout numbers count up to their final value on first view.
+    const counters = document.querySelectorAll('[data-count]');
+    if (counters.length && reduceMotion) {
+        // No roll: show the real figure straight away.
+        counters.forEach(el => el.textContent = el.dataset.count);
+    } else if (counters.length) {
+        const roll = (el) => {
+            const target = parseInt(el.dataset.count, 10);
+            if (!Number.isFinite(target)) return;
+            const pad = el.dataset.count.length;
+            const start = performance.now();
+            const dur = 900;
+            const step = (now) => {
+                const t = Math.min((now - start) / dur, 1);
+                // Ease out so it settles rather than stopping dead.
+                const v = Math.round(target * (1 - Math.pow(1 - t, 3)));
+                el.textContent = String(v).padStart(pad, '0');
+                if (t < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+        };
+        const cio = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                roll(entry.target);
+                obs.unobserve(entry.target);
+            });
+        }, { threshold: 0.5 });
+        // The markup carries the real figure so it survives a JS failure;
+        // zero it here, where the roll is guaranteed to run.
+        counters.forEach(el => {
+            el.textContent = '0'.repeat(el.dataset.count.length);
+            cio.observe(el);
+        });
+    }
+
+    // ===== RAIL CLOCK =====
+    // India time, rendered in the rail like device chrome.
+    const clock = document.getElementById('clock');
+    if (clock) {
+        const paint = () => {
+            clock.textContent = new Date().toLocaleTimeString('en-GB', {
+                timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit'
+            });
+        };
+        paint();
+        setInterval(paint, 20000);
+    }
+
+    // ===== FILE ROW PRESS =====
+    // Certificate rows behave like list items on a device: a brief press
+    // state before the viewer opens.
+    document.querySelectorAll('.file').forEach(row => {
+        row.addEventListener('pointerdown', () => row.style.opacity = '0.6');
+        ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => {
+            row.addEventListener(ev, () => row.style.opacity = '');
+        });
+    });
+
 
     // ===== CERTIFICATE LIGHTBOX =====
     const lightbox = document.getElementById('lightbox');
@@ -103,11 +367,13 @@ function initPortfolio() {
     let lastFocusedCard = null;
 
     function openLightbox(card) {
-        const img = card.querySelector('img');
-        const title = card.querySelector('.tl-title');
-        if (!lightbox || !img) return;
-        lightboxImg.src = card.dataset.img || img.src;
-        lightboxImg.alt = img.alt || 'Certificate';
+        // Rows carry only a data-img path; the full image is fetched on open
+        // so nine certificates never load up front.
+        const title = card.querySelector('.f-name');
+        const src = card.dataset.img;
+        if (!lightbox || !src) return;
+        lightboxImg.src = src;
+        lightboxImg.alt = title ? title.textContent + ' certificate' : 'Certificate';
         lightboxImg.hidden = false;
         lightboxCaption.textContent = title ? title.textContent : '';
         lightbox.classList.add('active');
@@ -131,7 +397,7 @@ function initPortfolio() {
         }
     }
 
-    document.querySelectorAll('.tl-card').forEach(card => {
+    document.querySelectorAll('.file').forEach(card => {
         card.addEventListener('click', () => openLightbox(card));
         card.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -153,24 +419,6 @@ function initPortfolio() {
         });
     }
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
-
-    // ===== CERTIFICATES: show 6, expand to all =====
-    // Collapsed state is applied here, not in the HTML, so every
-    // certificate stays visible when JavaScript is unavailable.
-    const certToggle = document.getElementById('certToggle');
-    const certGrid = document.querySelector('.cert-grid');
-    if (certToggle && certGrid && certGrid.children.length > 6) {
-        certGrid.classList.add('collapsed');
-        certToggle.hidden = false;
-        certToggle.addEventListener('click', () => {
-            const collapsed = certGrid.classList.toggle('collapsed');
-            certToggle.setAttribute('aria-expanded', String(!collapsed));
-            certToggle.querySelector('span').textContent = collapsed
-                ? 'Show all ' + certGrid.children.length + ' certificates'
-                : 'Show fewer certificates';
-            if (collapsed) certGrid.scrollIntoView({ block: 'start' });
-        });
-    }
 
     // ===== TOAST =====
     function showToast(message, type) {
@@ -372,10 +620,14 @@ function initPortfolio() {
             html += '</div>';
 
             html += '<div class="gh-cal-weeks" style="gap:' + GAP + 'px">';
-            weeks.forEach(week => {
+            weeks.forEach((week, wi) => {
                 html += '<div class="gh-cal-week" style="gap:' + GAP + 'px">';
+                // Each column starts slightly later so the graph fills
+                // left to right instead of appearing all at once.
+                const delay = Math.min(wi * 9, 500);
                 week.forEach(({ date, count, level, future }) => {
-                    const style = 'width:' + CELL + 'px;height:' + CELL + 'px';
+                    const style = 'width:' + CELL + 'px;height:' + CELL
+                        + 'px;animation-delay:' + delay + 'ms';
                     if (future) {
                         html += '<span class="gh-cal-cell" data-level="0" style="' + style + ';visibility:hidden"></span>';
                     } else {

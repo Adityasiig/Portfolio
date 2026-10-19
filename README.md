@@ -22,7 +22,7 @@
 
 ## 🧑‍💻 About
 
-A fast, dark, type-led personal portfolio built with **pure HTML, CSS & JavaScript**. No frameworks, no build tools. Self-hosted variable fonts (Space Grotesk + JetBrains Mono), a single emerald accent, real project screenshots, a live GitHub contribution calendar, an EmailJS contact form and a fully responsive layout.
+A portfolio built in the Nothing OS design language: pure black, dot matrix display type, an LED glyph strip, monochrome panels and exactly one red. Laid out around a fixed left rail, an asymmetric hero, a work filmstrip and a bento system grid. Pure HTML, CSS & vanilla JavaScript on GitHub Pages, no framework, no build step, no animation library. Self-hosted fonts (Doto + Space Mono), a live GitHub contribution calendar and an EmailJS contact form.
 
 ---
 
@@ -33,12 +33,15 @@ A fast, dark, type-led personal portfolio built with **pure HTML, CSS & JavaScri
 <td width="50%">
 
 **🎨 Design & UX**
-- Dark, single-accent design system (emerald on near-black)
-- Space Grotesk + JetBrains Mono, self-hosted variable fonts
-- Real screenshots of the live apps on the project cards
-- Scroll reveals via `IntersectionObserver` (reduced-motion aware)
-- Certificate grid with keyboard-accessible lightbox
-- Show-more toggle keeps the certificate wall short
+- Dot matrix display type (Doto) for every heading and readout
+- LED glyph strip that cycles like a device light signature
+- Fixed left rail: name on the spine, nav dots, live India time
+- Scroll-spy via `IntersectionObserver` lights the active rail dot
+- Asymmetric hero: display type beside a stacked instrument column
+- Work filmstrip with a wide lead card and vertical segment meter
+- Bento grid merges the about spec, stack and commit calendar
+- Certificates as a two-column file grid, full image fetched on open
+- Keyboard-accessible lightbox with focus trap and Escape to close
 
 </td>
 <td width="50%">
@@ -89,7 +92,7 @@ A fast, dark, type-led personal portfolio built with **pure HTML, CSS & JavaScri
 | **Styling** | CSS3 — Custom Properties, Grid, Flexbox, Keyframe Animations |
 | **Scripts** | Vanilla JavaScript ES6+ |
 | **Email** | EmailJS Browser SDK |
-| **Fonts** | Space Grotesk · JetBrains Mono (self-hosted variable) |
+| **Fonts** | Doto · Space Mono (self-hosted) |
 | **Icons** | Self-hosted CSS-mask subset |
 | **Data** | GitHub Contributions API (jogruber.de) |
 

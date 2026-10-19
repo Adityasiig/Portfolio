@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Third-year BSc IT student building security tooling and web apps. Author of WebVulnScanner, a Python web vulnerability scanner. Open to internships.">
     <meta name="author" content="Aditya Singh">
-    <meta name="theme-color" content="#0b0e11">
+    <meta name="theme-color" content="#000000">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://adityasiig.github.io/Portfolio/">
     <meta property="og:title" content="Aditya Singh | Security Tooling &amp; Web Engineering">
@@ -21,19 +21,30 @@
     <meta name="twitter:description" content="Third-year BSc IT student building security tooling and web apps: WebVulnScanner, Health Tracker, TaskFlow.">
     <meta name="twitter:image" content="https://adityasiig.github.io/Portfolio/public/images/profile.jpg">
     <title>Aditya Singh | Security Tooling &amp; Web Engineering</title>
-    <link rel="icon" href="public/images/favicon.ico" sizes="any">
-    <link rel="icon" href="public/images/favicon.svg" type="image/svg+xml">
-    <link rel="icon" href="public/images/favicon.png" type="image/png">
-    <link rel="apple-touch-icon" href="public/images/favicon.png">
-    <link rel="preload" href="public/fonts/space-grotesk-var-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="public/fonts/jetbrains-mono-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- Query strings bust the old purple "AS" icon out of browser caches,
+         which hold favicons far longer than ordinary assets. -->
+    <link rel="icon" href="public/images/favicon.ico?v=glyph" sizes="any">
+    <link rel="icon" href="public/images/favicon.svg?v=glyph" type="image/svg+xml">
+    <link rel="icon" href="public/images/favicon.png?v=glyph" type="image/png" sizes="180x180">
+    <link rel="apple-touch-icon" href="public/images/favicon.png?v=glyph">
+    <link rel="preload" href="public/fonts/doto-var.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="public/fonts/space-mono.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="public/css/icons.css">
-    <link rel="stylesheet" href="public/css/main.css?v=premium-1">
+    <link rel="stylesheet" href="public/css/main.css?v=rail-10">
     <!-- EmailJS is only needed on contact-form submit, so it must not block paint. -->
     <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js" integrity="sha384-SALc35EccAf6RzGw4iNsyj7kTPr33K7RoGzYu+7heZhT8s0GZouafRiCg1qy44AS" crossorigin="anonymous"></script>
     <script>document.documentElement.classList.remove('no-js');
-            window.EMAILJS_PUBLIC_KEY = '42_vwBZ0ZtAHGQkag';</script>
-    <script defer src="public/js/script.js?v=premium-1"></script>
+            window.EMAILJS_PUBLIC_KEY = '42_vwBZ0ZtAHGQkag';
+            // Resolve the theme before first paint so there is no flash.
+            // Dark is the brand default; light is opt-in and remembered.
+            (function () {
+                try {
+                    if (localStorage.getItem('theme') === 'light') {
+                        document.documentElement.setAttribute('data-theme', 'light');
+                    }
+                } catch (e) { /* storage blocked: stay on the dark default */ }
+            })();</script>
+    <script defer src="public/js/script.js?v=rail-10"></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -54,226 +65,248 @@
 <body>
     <a href="#main" class="skip-link">Skip to content</a>
 
-    <header id="header">
-        <nav class="navbar container" aria-label="Primary">
-            <a href="#home" class="logo">aditya<span>singh</span></a>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
-                <li><a href="#projects" class="nav-link" data-section="projects">Projects</a></li>
-                <li><a href="#about" class="nav-link" data-section="about">About</a></li>
-                <li><a href="#skills" class="nav-link" data-section="skills">Skills</a></li>
-                <li><a href="#certificates" class="nav-link" data-section="certificates">Certificates</a></li>
-                <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
-            </ul>
-            <a href="#contact" class="btn btn-primary nav-cta">Get in touch</a>
-            <button type="button" class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
-                <span></span><span></span>
-            </button>
+    <!-- ====== LEFT RAIL: fixed device spine, replaces the top bar ====== -->
+    <div class="rail">
+        <span class="rail-name">Aditya Singh</span>
+
+        <nav class="rail-nav" aria-label="Sections">
+            <a href="#home" class="rn" data-label="HOME"><span></span></a>
+            <a href="#work" class="rn" data-label="WORK"><span></span></a>
+            <a href="#system" class="rn" data-label="SYSTEM"><span></span></a>
+            <a href="#certs" class="rn" data-label="CERTS"><span></span></a>
+            <a href="#contact" class="rn" data-label="CONTACT"><span></span></a>
         </nav>
-    </header>
 
-    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile">
-        <ul>
-            <li><a href="#home" class="mobile-link">Home</a></li>
-            <li><a href="#projects" class="mobile-link">Projects</a></li>
-            <li><a href="#about" class="mobile-link">About</a></li>
-            <li><a href="#skills" class="mobile-link">Skills</a></li>
-            <li><a href="#certificates" class="mobile-link">Certificates</a></li>
-            <li><a href="#contact" class="mobile-link">Contact</a></li>
-        </ul>
-    </nav>
+        <div class="rail-foot">
+            <button type="button" class="theme-btn" id="themeBtn" role="switch" aria-checked="true" aria-label="Dark mode">
+                <span class="theme-knob" aria-hidden="true"></span>
+                <i class="ti-moon" aria-hidden="true"></i>
+                <i class="ti-sun" aria-hidden="true"></i>
+            </button>
+            <span class="rail-clock" id="clock" aria-label="Local time in India">--:--</span>
+            <span class="sb-sig" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            <span class="rail-region">IN</span>
+        </div>
+    </div>
 
+    <div class="shell">
     <main id="main">
 
-    <!-- ====== HERO ====== -->
-    <section id="home" class="hero">
-        <div class="container hero-grid">
-            <div class="hero-copy">
-                <p class="hero-status intro"><span class="status-dot" aria-hidden="true"></span>Open to internships and junior roles</p>
-                <h1 class="hero-title intro">I break things on purpose, then build the tools that catch them.</h1>
-                <p class="hero-description intro">
-                    Aditya Singh. Third-year BSc IT student writing Python security
-                    tooling and fast, framework-free web apps.
-                </p>
-                <div class="hero-actions intro">
-                    <a href="#projects" class="btn btn-primary">View projects</a>
-                    <a href="public/files/cv.pdf" class="btn btn-outline" download>Download CV<i class="fas fa-download" aria-hidden="true"></i></a>
-                </div>
+    <!-- ====== HERO: asymmetric split, type left / instruments right ====== -->
+    <section id="home" class="stage">
+        <div class="stage-type">
+            <!-- Glyph strip: the Nothing light signature, drawn as LEDs -->
+            <div class="glyph" aria-hidden="true">
+                <span class="g-bar g1"></span>
+                <span class="g-bar g2"></span>
+                <span class="g-ring"></span>
+                <span class="g-bar g3"></span>
+                <span class="g-dot"></span>
             </div>
 
-            <!-- The one indulgence on the page: my own scanner pointed at this
-                 site. Types out once on load; plain text under reduced motion. -->
-            <figure class="term intro" aria-label="WebVulnScanner run against this website">
-                <figcaption class="term-bar">
-                    <span class="term-dot" aria-hidden="true"></span>
-                    <span>aditya@kali: ~/webvulnscan</span>
-                </figcaption>
-                <pre id="termBody"><code>$ webvulnscan https://adityasiig.github.io --depth 2
+            <h1 class="dot-title">
+                <span class="dt-line">BREAK</span>
+                <span class="dt-line dt-indent">IT</span>
+                <span class="dt-line">FIRST</span>
+            </h1>
 
-[*] crawling    24 pages, 3.1s
-[+] headers     content-security-policy present
-[+] tls         certificate valid, HSTS on
-[+] xss         0 findings across 18 inputs
-[+] sqli        0 findings
+            <!-- Radar dial: a sweeping arm over polar rings. -->
+            <canvas class="disc disc-hero" data-display="radar"
+                    width="300" height="300" aria-hidden="true"></canvas>
 
-scan clean. report: scan-2026-10-16.html</code></pre>
-            </figure>
-
-            <dl class="hero-facts intro">
-                <div><dt>Now building</dt><dd>WebVulnScanner v2, authenticated scanning plus AI-assisted exploit suggestions</dd></div>
-                <div><dt>Focus</dt><dd>Application security, Python tooling, front-end performance</dd></div>
-                <div><dt>Based in</dt><dd>India, open to remote work</dd></div>
-            </dl>
+            <div class="stage-base">
+                <p class="hero-sub">
+                    Aditya Singh. Security tooling and web engineering.
+                    Third-year BSc IT student.
+                </p>
+                <div class="hero-keys">
+                    <a href="#work" class="key key-fill">VIEW WORK</a>
+                    <a href="public/files/cv.pdf" class="key" download>GET CV</a>
+                </div>
+            </div>
         </div>
+
+        <!-- Instrument column: stacked readout cells, not a full-width strip -->
+        <aside class="stage-meta" aria-label="At a glance">
+            <div class="cell cell-tall">
+                <span class="cell-k">STATUS</span>
+                <b class="cell-v live">OPEN</b>
+                <span class="cell-note">Internships and junior roles</span>
+            </div>
+            <div class="cell">
+                <span class="cell-k">MODULES</span>
+                <b class="cell-v" data-count="07">07</b>
+            </div>
+            <div class="cell">
+                <span class="cell-k">PROJECTS</span>
+                <b class="cell-v" data-count="10">10</b>
+            </div>
+            <div class="cell">
+                <span class="cell-k">CERTS</span>
+                <b class="cell-v" data-count="09">09</b>
+            </div>
+            <div class="cell">
+                <span class="cell-k">BASE</span>
+                <b class="cell-v cell-v-sm">IND</b>
+            </div>
+        </aside>
     </section>
 
-    <!-- ====== PROJECTS ====== -->
-    <section id="projects" class="section">
-        <div class="container">
-            <h2 class="section-title">Selected work</h2>
+    <!-- ====== WORK: horizontal filmstrip, one card per page ====== -->
+    <section id="work" class="band">
+        <div class="band-head" data-rise>
+            <h2 class="dot-head">WORK</h2>
+            <span class="idx">03 items <span class="idx-hint">/ scroll sideways</span></span>
+        </div>
 
-            <!-- Featured: WebVulnScanner -->
-            <article class="work-featured">
-                <div class="work-featured-text">
-                    <h3>WebVulnScanner</h3>
-                    <p class="work-role">Python web vulnerability scanner</p>
-                    <p>
-                        A modular scanner that crawls a target site and tests it for SQL injection,
-                        XSS, open redirects, directory traversal, exposed files, weak headers and
-                        TLS misconfiguration. Every finding ships with exploitation steps and an
-                        HTML or JSON report.
+        <div class="strip" data-stagger>
+            <article class="card card-lead" data-rise>
+                <div class="card-body">
+                    <div class="tile-top">
+                        <span class="tag">01</span>
+                        <span class="tag tag-ghost">PYTHON</span>
+                    </div>
+                    <h3 class="card-name">WebVulnScanner</h3>
+                    <p class="tile-copy">
+                        Modular scanner. Crawls a target and tests for SQL injection,
+                        XSS, open redirects, directory traversal, exposed files, weak
+                        headers and TLS misconfiguration. Writes exploitation steps
+                        and a report.
                     </p>
-                    <ul class="work-points">
-                        <li>7 vulnerability modules behind one crawler</li>
-                        <li>Configurable crawl depth and scope</li>
-                        <li>Exploitation steps for every finding</li>
-                        <li>Dark-theme HTML and JSON reports</li>
-                    </ul>
-                    <div class="work-tags" aria-label="Technology"><span>Python</span><span>Requests</span><span>BeautifulSoup4</span><span>Jinja2</span></div>
-                    <div class="work-links">
-                        <a href="https://github.com/Adityasiig/WebVulnScanner" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="fab fa-github" aria-hidden="true"></i>Source on GitHub</a>
-                        <span class="work-status">v2 in development</span>
+                    <div class="tile-foot">
+                        <a class="key" href="https://github.com/Adityasiig/WebVulnScanner" target="_blank" rel="noopener noreferrer">SOURCE</a>
+                        <span class="tag tag-ghost">V2 BUILDING</span>
                     </div>
                 </div>
-                <figure class="work-featured-code" aria-label="Scanner pipeline, from scanner.py">
-<pre><code><span class="c-com"># scanner.py</span>
-<span class="c-kw">from</span> modules <span class="c-kw">import</span> sqli, xss, headers
-<span class="c-kw">from</span> modules <span class="c-kw">import</span> ssl_check, redirect
-
-<span class="c-kw">def</span> <span class="c-fn">run_scan</span>(target_url):
-    crawl = Crawler(target_url).crawl()
-
-    findings = []
-    findings += sqli.scan(crawl)
-    findings += xss.scan(crawl)
-    findings += headers.scan(crawl)
-    findings += ssl_check.scan(crawl)
-
-    generate_report(findings)
-    <span class="c-kw">return</span> findings</code></pre>
-                </figure>
+                <div class="card-side">
+                    <!-- Circular level meter for the scanner modules. -->
+                    <canvas class="disc disc-side" data-display="equaliser"
+                            data-offset="1400"
+                            width="300" height="300" aria-hidden="true"></canvas>
+                    <div class="meter meter-col" role="img" aria-label="Seven of seven scanner modules complete">
+                        <span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                    </div>
+                    <p class="meter-label">7 MODULES<br>ACTIVE</p>
+                </div>
             </article>
 
-            <!-- Shipped apps with real screenshots -->
-            <div class="work-grid">
-                <article class="work-card">
-                    <a class="work-shot" href="https://adityasiig.github.io/TODO-list/" target="_blank" rel="noopener noreferrer" aria-label="Open the TaskFlow live app">
-                        <img src="public/images/projects/taskflow.webp" alt="TaskFlow preview: task list with priorities, due days and completion progress" width="1920" height="1200" loading="lazy" decoding="async">
-                    </a>
-                    <div class="work-card-body">
-                        <h3>TaskFlow</h3>
-                        <p>Task manager with three-tier priority, due dates, drag and drop reordering,
-                           fuzzy search and keyboard shortcuts. Plain HTML, CSS and JavaScript, no
-                           framework, no build step.</p>
-                        <div class="work-tags"><span>JavaScript</span><span>localStorage</span><span>Drag &amp; Drop API</span></div>
-                        <div class="work-links">
-                            <a href="https://adityasiig.github.io/TODO-list/" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt" aria-hidden="true"></i>Live app</a>
-                            <a href="https://github.com/Adityasiig/TODO-list" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i>Source</a>
-                            <a href="public/apk/taskflow.apk" download="TaskFlow.apk"><i class="fab fa-android" aria-hidden="true"></i>APK</a>
-                        </div>
+            <article class="card" data-rise>
+                <a class="card-shot" href="https://adityasiig.github.io/TODO-list/" target="_blank" rel="noopener noreferrer">
+                    <img src="public/images/projects/taskflow.webp" data-shot="public/images/projects/taskflow" alt="TaskFlow preview: task list with priorities and completion progress" width="1920" height="1200" loading="lazy" decoding="async">
+                </a>
+                <div class="card-body">
+                    <div class="tile-top">
+                        <span class="tag">02</span>
+                        <span class="tag tag-ghost">JS</span>
                     </div>
-                </article>
+                    <h3 class="card-name">TaskFlow</h3>
+                    <p class="tile-copy">
+                        Priority tiers, due dates, drag and drop, fuzzy search,
+                        keyboard shortcuts. No framework, no build step.
+                    </p>
+                    <div class="tile-foot">
+                        <a class="key" href="https://adityasiig.github.io/TODO-list/" target="_blank" rel="noopener noreferrer">OPEN</a>
+                        <a class="key key-quiet" href="https://github.com/Adityasiig/TODO-list" target="_blank" rel="noopener noreferrer">CODE</a>
+                        <a class="key key-quiet" href="public/apk/taskflow.apk" download="TaskFlow.apk">APK</a>
+                    </div>
+                </div>
+            </article>
 
-                <article class="work-card">
-                    <a class="work-shot" href="https://health-tracker-five-xi.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open the Health Tracker live app">
-                        <img src="public/images/projects/healthtracker.webp" alt="Health Tracker preview: calorie and macro dashboard with meal log" width="1920" height="1200" loading="lazy" decoding="async">
-                    </a>
-                    <div class="work-card-body">
-                        <h3>Health Tracker</h3>
-                        <p>Full-stack fitness app: BMI and TDEE calculators, macro logging with Indian
-                           serving sizes, an AI coach and a 650-entry IFCT food database. Runs on web
-                           and native Android.</p>
-                        <div class="work-tags"><span>Next.js</span><span>Supabase</span><span>Capacitor</span></div>
-                        <div class="work-links">
-                            <a href="https://health-tracker-five-xi.vercel.app/" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt" aria-hidden="true"></i>Live app</a>
-                            <a href="https://github.com/Adityasiig/health-tracker" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i>Source</a>
-                            <a href="public/apk/health-tracker.apk" download="HealthTracker.apk"><i class="fab fa-android" aria-hidden="true"></i>APK</a>
-                        </div>
+            <article class="card" data-rise>
+                <a class="card-shot" href="https://health-tracker-five-xi.vercel.app/" target="_blank" rel="noopener noreferrer">
+                    <img src="public/images/projects/healthtracker.webp" data-shot="public/images/projects/healthtracker" alt="Health Tracker preview: calorie and macro dashboard" width="1920" height="1200" loading="lazy" decoding="async">
+                </a>
+                <div class="card-body">
+                    <div class="tile-top">
+                        <span class="tag">03</span>
+                        <span class="tag tag-ghost">NEXT.JS</span>
                     </div>
-                </article>
-            </div>
+                    <h3 class="card-name">Health Tracker</h3>
+                    <p class="tile-copy">
+                        BMI and TDEE, macro logging with Indian serving sizes, AI
+                        coach, 650-entry IFCT database. Web and native Android.
+                    </p>
+                    <div class="tile-foot">
+                        <a class="key" href="https://health-tracker-five-xi.vercel.app/" target="_blank" rel="noopener noreferrer">OPEN</a>
+                        <a class="key key-quiet" href="https://github.com/Adityasiig/health-tracker" target="_blank" rel="noopener noreferrer">CODE</a>
+                        <a class="key key-quiet" href="public/apk/health-tracker.apk" download="HealthTracker.apk">APK</a>
+                    </div>
+                </div>
+            </article>
         </div>
     </section>
 
-    <!-- ====== ABOUT ====== -->
-    <section id="about" class="section section-tinted">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-main">
-                    <h2 class="section-title">About</h2>
-                    <p class="about-lead">
-                        Most of what I build sits where web development meets security.
-                    </p>
-                    <p>
-                        A scanner that crawls a target and reports SQL injection, XSS and TLS
-                        misconfiguration. A macro-tracking app with a 650-entry Indian food
-                        database. A task manager in plain JavaScript because it did not need a
-                        framework.
-                    </p>
-                    <p>
-                        I care about the parts people skip: handling the error case, keeping the
-                        page fast on a bad connection, making the thing reachable by keyboard.
-                        I am looking for an internship or junior role in security tooling or
-                        product engineering.
-                    </p>
-                </div>
-                <dl class="about-facts">
-                    <div><dt>Education</dt><dd>BSc Information Technology, third year</dd></div>
-                    <div><dt>Specialty</dt><dd>Ethical hacking and penetration testing</dd></div>
-                    <div><dt>Learning</dt><dd>System design and advanced algorithms</dd></div>
-                    <div><dt>Shipped</dt><dd>10+ projects, 9 certifications</dd></div>
-                </dl>
-            </div>
+    <!-- ====== SYSTEM: one bento grid, about + stack interleaved ====== -->
+    <section id="system" class="band">
+        <div class="band-head" data-rise>
+            <h2 class="dot-head">SYSTEM</h2>
+            <span class="idx">About / installed</span>
         </div>
-    </section>
 
-    <!-- ====== SKILLS ====== -->
-    <section id="skills" class="section">
-        <div class="container">
-            <h2 class="section-title">Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-group">
-                    <h3>Languages</h3>
-                    <ul><li>Python</li><li>C++</li><li>JavaScript</li><li>Core Java</li><li>SQL / PL-SQL</li><li>R</li></ul>
-                </div>
-                <div class="skill-group">
-                    <h3>Web</h3>
-                    <ul><li>HTML5 / CSS3</li><li>Vanilla JS</li><li>React / Next.js</li><li>Node.js</li><li>Flask</li><li>MongoDB / Supabase</li></ul>
-                </div>
-                <div class="skill-group">
-                    <h3>Security &amp; tools</h3>
-                    <ul><li>Kali Linux</li><li>Burp Suite</li><li>sqlmap / nmap</li><li>Ubuntu Server</li><li>Git &amp; GitHub</li><li>VS Code</li></ul>
-                </div>
-                <div class="skill-group">
-                    <h3>Fundamentals</h3>
-                    <ul><li>Data structures</li><li>Computer networking</li><li>Linux administration</li><li>Web security</li></ul>
+        <div class="bento" data-stagger>
+            <div class="bx bx-quote" data-rise>
+                <p class="statement">
+                    I learn a system by attacking it, then build the thing
+                    that catches it next time.
+                </p>
+            </div>
+
+            <div class="bx bx-spec" data-rise>
+                <div class="rows">
+                    <div class="row">
+                        <span class="row-k">EDUCATION</span>
+                        <span class="row-v">BSc Information Technology, third year</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-k">FOCUS</span>
+                        <span class="row-v">Application security, Python tooling, front-end performance</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-k">PRINCIPLE</span>
+                        <span class="row-v">Validate at the boundary, never trust the client</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-k">LOCATION</span>
+                        <span class="row-v">India, open to remote</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="activity">
-                <div class="activity-head">
-                    <h3>GitHub activity</h3>
-                    <span id="gh-contrib-count" aria-live="polite">Contributions in the last year</span>
+            <div class="bx bx-chips" data-rise>
+                <span class="bx-k">LANGUAGES</span>
+                <div class="chips">
+                    <span class="chip">Python</span><span class="chip">C++</span>
+                    <span class="chip">JavaScript</span><span class="chip">Core Java</span>
+                    <span class="chip">SQL</span><span class="chip">PL/SQL</span>
+                    <span class="chip">R</span>
+                </div>
+                <span class="bx-k bx-k-gap">FRAMEWORKS</span>
+                <div class="chips">
+                    <span class="chip">React</span><span class="chip">Next.js</span>
+                    <span class="chip">Node.js</span><span class="chip">Flask</span>
+                    <span class="chip">MongoDB</span><span class="chip">Supabase</span>
+                </div>
+            </div>
+
+            <div class="bx bx-tools" data-rise>
+                <span class="bx-k">SECURITY / OPS</span>
+                <div class="chips">
+                    <span class="chip">Kali Linux</span><span class="chip">Burp Suite</span>
+                    <span class="chip">sqlmap</span><span class="chip">nmap</span>
+                    <span class="chip">Ubuntu Server</span><span class="chip">Git</span>
+                    <span class="chip">Linux admin</span>
+                </div>
+                <!-- Orbital dial, filling the slack under the chip rows. -->
+                <canvas class="disc disc-tools" data-display="orbit"
+                        data-offset="2600"
+                        width="300" height="300" aria-hidden="true"></canvas>
+            </div>
+
+            <div class="bx bx-cal" data-rise>
+                <div class="tile-top">
+                    <span class="tag tag-ghost">COMMIT ACTIVITY</span>
+                    <span class="idx" id="gh-contrib-count" aria-live="polite">Last 12 months</span>
                 </div>
                 <div class="github-graph-container">
                     <div id="gh-calendar" aria-label="GitHub contribution calendar"></div>
@@ -282,79 +315,60 @@ scan clean. report: scan-2026-10-16.html</code></pre>
         </div>
     </section>
 
-    <!-- ====== CERTIFICATES ====== -->
-    <section id="certificates" class="section section-tinted">
-        <div class="container">
-            <h2 class="section-title">Certificates</h2>
-            <div class="cert-grid">
-                <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/c++.webp">
-                    <img src="public/Certificates/thumbs/c++.webp" alt="C++ Programming certificate" width="560" height="396" loading="lazy" decoding="async">
-                    <div class="tl-body">
-                        <h3 class="tl-title">C++ Programming</h3>
-                        <p class="tl-cat">Programming</p>
-                    </div>
-                </div>
-                <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/Ethical Hacking_- Exploit Linux Server_.webp">
-                    <img src="public/Certificates/thumbs/Ethical Hacking_- Exploit Linux Server_.webp" alt="Ethical Hacking certificate" width="560" height="396" loading="lazy" decoding="async">
-                    <div class="tl-body">
-                        <h3 class="tl-title">Ethical Hacking</h3>
-                        <p class="tl-cat">Security</p>
-                    </div>
-                </div>
-                <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/Everything About Kali Linux OS_page-0001.webp">
-                    <img src="public/Certificates/thumbs/Everything About Kali Linux OS_page-0001.webp" alt="Kali Linux OS certificate" width="560" height="396" loading="lazy" decoding="async">
-                    <div class="tl-body">
-                        <h3 class="tl-title">Kali Linux OS</h3>
-                        <p class="tl-cat">Security</p>
-                    </div>
-                </div>
-                <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/1747098730146_page-0001.webp">
-                    <img src="public/Certificates/thumbs/1747098730146_page-0001.webp" alt="Introduction to Cybersecurity certificate" width="560" height="433" loading="lazy" decoding="async">
-                    <div class="tl-body">
-                        <h3 class="tl-title">Intro to Cybersecurity</h3>
-                        <p class="tl-cat">Security</p>
-                    </div>
-                </div>
-                <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/Computer Networking.webp">
-                    <img src="public/Certificates/thumbs/Computer Networking.webp" alt="Computer Networking certificate" width="560" height="396" loading="lazy" decoding="async">
-                    <div class="tl-body">
-                        <h3 class="tl-title">Computer Networking</h3>
-                        <p class="tl-cat">Networking</p>
-                    </div>
-                </div>
-                <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/Ubuntu Network Server_page-0001.webp">
-                    <img src="public/Certificates/thumbs/Ubuntu Network Server_page-0001.webp" alt="Ubuntu Network Server certificate" width="560" height="396" loading="lazy" decoding="async">
-                    <div class="tl-body">
-                        <h3 class="tl-title">Ubuntu Network Server</h3>
-                        <p class="tl-cat">Server</p>
-                    </div>
-                </div>
-                <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/PL SQL.webp">
-                    <img src="public/Certificates/thumbs/PL SQL.webp" alt="PL/SQL Database certificate" width="560" height="396" loading="lazy" decoding="async">
-                    <div class="tl-body">
-                        <h3 class="tl-title">PL/SQL Database</h3>
-                        <p class="tl-cat">Database</p>
-                    </div>
-                </div>
-                <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/R programming.webp">
-                    <img src="public/Certificates/thumbs/R programming.webp" alt="R Programming certificate" width="560" height="396" loading="lazy" decoding="async">
-                    <div class="tl-body">
-                        <h3 class="tl-title">R Programming</h3>
-                        <p class="tl-cat">Data analysis</p>
-                    </div>
-                </div>
-                <div class="tl-card" role="button" tabindex="0" data-img="public/Certificates/full/basic-structure-of-computer.webp">
-                    <img src="public/Certificates/thumbs/basic-structure-of-computer.webp" alt="Basic Structure of Computer certificate" width="560" height="417" loading="lazy" decoding="async">
-                    <div class="tl-body">
-                        <h3 class="tl-title">Basic Structure of Computer</h3>
-                        <p class="tl-cat">Computer science</p>
-                    </div>
-                </div>
-            </div>
-            <button type="button" class="btn btn-outline cert-toggle" id="certToggle" aria-expanded="false" hidden>
-                <span>Show all 9 certificates</span>
-            </button>
+    <!-- ====== CERTS: two-column file grid ====== -->
+    <section id="certs" class="band">
+        <div class="band-head" data-rise>
+            <h2 class="dot-head">CERTS</h2>
+            <span class="idx">09 files</span>
         </div>
+
+        <ul class="files" data-stagger>
+            <li class="file" data-rise role="button" tabindex="0" data-img="public/Certificates/full/Ethical Hacking_- Exploit Linux Server_.webp">
+                <span class="f-idx">01</span>
+                <span class="f-name">Ethical Hacking: Exploit Linux Server</span>
+                <span class="f-tag">SECURITY</span>
+            </li>
+            <li class="file" data-rise role="button" tabindex="0" data-img="public/Certificates/full/Everything About Kali Linux OS_page-0001.webp">
+                <span class="f-idx">02</span>
+                <span class="f-name">Everything About Kali Linux OS</span>
+                <span class="f-tag">SECURITY</span>
+            </li>
+            <li class="file" data-rise role="button" tabindex="0" data-img="public/Certificates/full/1747098730146_page-0001.webp">
+                <span class="f-idx">03</span>
+                <span class="f-name">Introduction to Cybersecurity</span>
+                <span class="f-tag">SECURITY</span>
+            </li>
+            <li class="file" data-rise role="button" tabindex="0" data-img="public/Certificates/full/Computer Networking.webp">
+                <span class="f-idx">04</span>
+                <span class="f-name">Computer Networking</span>
+                <span class="f-tag">NETWORK</span>
+            </li>
+            <li class="file" data-rise role="button" tabindex="0" data-img="public/Certificates/full/Ubuntu Network Server_page-0001.webp">
+                <span class="f-idx">05</span>
+                <span class="f-name">Ubuntu Network Server</span>
+                <span class="f-tag">SERVER</span>
+            </li>
+            <li class="file" data-rise role="button" tabindex="0" data-img="public/Certificates/full/c++.webp">
+                <span class="f-idx">06</span>
+                <span class="f-name">C++ Programming</span>
+                <span class="f-tag">CODE</span>
+            </li>
+            <li class="file" data-rise role="button" tabindex="0" data-img="public/Certificates/full/PL SQL.webp">
+                <span class="f-idx">07</span>
+                <span class="f-name">PL/SQL Database</span>
+                <span class="f-tag">DATA</span>
+            </li>
+            <li class="file" data-rise role="button" tabindex="0" data-img="public/Certificates/full/R programming.webp">
+                <span class="f-idx">08</span>
+                <span class="f-name">R Programming</span>
+                <span class="f-tag">DATA</span>
+            </li>
+            <li class="file" data-rise role="button" tabindex="0" data-img="public/Certificates/full/basic-structure-of-computer.webp">
+                <span class="f-idx">09</span>
+                <span class="f-name">Basic Structure of Computer</span>
+                <span class="f-tag">CS</span>
+            </li>
+        </ul>
     </section>
 
     <!-- Lightbox -->
@@ -364,64 +378,67 @@ scan clean. report: scan-2026-10-16.html</code></pre>
         <div class="lightbox-caption" id="lightbox-caption"></div>
     </div>
 
-    <!-- ====== CONTACT ====== -->
-    <section id="contact" class="section">
-        <div class="container">
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h2 class="section-title">Get in touch</h2>
-                    <p>
-                        I am looking for internships and junior roles in security engineering or
-                        full-stack development. Also happy to talk through a project or review
-                        something you are stuck on. I reply within a day or two.
-                    </p>
-                    <ul class="contact-channels">
-                        <li><a href="mailto:adityaajaysingh0104@gmail.com"><i class="fas fa-envelope" aria-hidden="true"></i>adityaajaysingh0104@gmail.com</a></li>
-                        <li><a href="https://github.com/Adityasiig" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i>github.com/Adityasiig</a></li>
-                        <li><a href="https://in.linkedin.com/in/singhaditya70" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in" aria-hidden="true"></i>linkedin.com/in/singhaditya70</a></li>
-                    </ul>
+    <!-- ====== CONTACT: oversized dot headline over the form ====== -->
+    <section id="contact" class="band">
+        <div class="band-head" data-rise>
+            <h2 class="dot-head">CONTACT</h2>
+            <span class="idx">Inbound</span>
+        </div>
+
+        <div class="reach" data-stagger>
+            <div class="reach-pitch" data-rise>
+                <p class="reach-big">LET US<br>BUILD</p>
+                <!-- Waveform ring, breathing like an audio loop. -->
+                <canvas class="disc disc-reach" data-display="waveform"
+                        data-offset="800"
+                        width="300" height="300" aria-hidden="true"></canvas>
+                <p class="tile-copy">
+                    Looking for internships and junior roles in security
+                    engineering or full-stack development. Happy to review
+                    something you are stuck on. Reply within a day or two.
+                </p>
+                <div class="rows rows-tight">
+                    <div class="row"><span class="row-k">EMAIL</span><a class="row-v row-link" href="mailto:adityaajaysingh0104@gmail.com">adityaajaysingh0104@gmail.com</a></div>
+                    <div class="row"><span class="row-k">GITHUB</span><a class="row-v row-link" href="https://github.com/Adityasiig" target="_blank" rel="noopener noreferrer">Adityasiig</a></div>
+                    <div class="row"><span class="row-k">LINKEDIN</span><a class="row-v row-link" href="https://in.linkedin.com/in/singhaditya70" target="_blank" rel="noopener noreferrer">singhaditya70</a></div>
                 </div>
-                <form id="contactForm" class="contact-form" novalidate>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" autocomplete="name" placeholder="Your name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" placeholder="What is this about?" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="5" placeholder="Tell me about your project" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
-                        <span class="btn-text">Send message</span>
-                        <i class="fas fa-paper-plane btn-icon" aria-hidden="true"></i>
-                        <i class="fas fa-spinner fa-spin btn-spinner" style="display:none;" aria-hidden="true"></i>
-                    </button>
-                </form>
             </div>
+
+            <form id="contactForm" class="reach-form" data-rise novalidate>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">NAME</label>
+                        <input type="text" id="name" name="name" autocomplete="name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">EMAIL</label>
+                        <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="subject">SUBJECT</label>
+                    <input type="text" id="subject" name="subject" placeholder="What is this about?" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">MESSAGE</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Tell me about your project" required></textarea>
+                </div>
+                <button type="submit" class="key key-fill key-block" id="submitBtn">
+                    <span class="btn-text">SEND</span>
+                    <i class="fas fa-paper-plane btn-icon" aria-hidden="true"></i>
+                    <i class="fas fa-spinner fa-spin btn-spinner" style="display:none;" aria-hidden="true"></i>
+                </button>
+            </form>
         </div>
     </section>
 
     </main>
 
-    <footer class="footer">
-        <div class="container footer-row">
-            <span>&copy; 2026 Aditya Singh</span>
-            <div class="footer-links">
-                <a href="https://github.com/Adityasiig" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
-                <a href="https://in.linkedin.com/in/singhaditya70" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
-                <a href="mailto:adityaajaysingh0104@gmail.com" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
-            </div>
-        </div>
+    <footer class="foot">
+        <span>Aditya Singh / 2026</span>
+        <span>Built with HTML, CSS and JS. No framework.</span>
     </footer>
+    </div>
 
     <div id="toast-container" aria-live="polite"></div>
 </body>
