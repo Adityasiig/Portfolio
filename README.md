@@ -1,193 +1,95 @@
-<div align="center">
+# Aditya Ajay Singh / Portfolio
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=180&section=header&text=Aditya%20Singh&fontSize=52&fontColor=ffffff&animation=fadeIn&fontAlignY=65&desc=Portfolio%20Website&descSize=20&descAlignY=82&descColor=ccbbff" width="100%" />
+A portfolio for security, telecom infrastructure, and software engineering.
+The visual direction follows the profile README: flowing white and silver
+artwork, a dark silhouette, generous space, serif headlines, and a restrained
+monochrome palette. Dark mode uses the supplied inverted wallpaper and matching
+dark surfaces throughout, including project previews and the footer.
 
-<br/>
+**Source branch for this redesign: `fixes`.**
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=22&duration=3000&pause=800&color=6C5CE7&center=true&vCenter=true&width=600&lines=BSc+IT+Student+%F0%9F%8E%93;Web+Developer+%F0%9F%92%BB;Security+Researcher+%F0%9F%94%90;Building+cool+things+on+the+web+%F0%9F%9A%80)](https://git.io/typing-svg)
+## Run locally
 
-<br/>
+This is a static website. There is no framework, dependency installation,
+compilation, or build step required to run or deploy it.
 
-[![Live Demo](https://img.shields.io/badge/%F0%9F%8C%90_Live_Demo-6C5CE7?style=for-the-badge&logoColor=white)](https://adityasiig.github.io/Portfolio/)
-[![Portfolio Repo](https://img.shields.io/badge/GitHub-Portfolio-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Adityasiig/Portfolio)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Aditya_Singh-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/adityasiig)
-
-<br/>
-
-![Profile Views](https://komarev.com/ghpvc/?username=Adityasiig&color=6c5ce7&style=flat-square&label=Profile+Views)
-
-</div>
-
----
-
-## 🧑‍💻 About
-
-A portfolio built in the Nothing OS design language: pure black, dot matrix display type, an LED glyph strip, monochrome panels and exactly one red. Laid out around a fixed left rail, an asymmetric hero, a work filmstrip and a bento system grid. Pure HTML, CSS & vanilla JavaScript on GitHub Pages, no framework, no build step, no animation library. Self-hosted fonts (Doto + Space Mono), a live GitHub contribution calendar and an EmailJS contact form.
-
----
-
-## ✨ Features
-
-<table>
-<tr>
-<td width="50%">
-
-**🎨 Design & UX**
-- Dot matrix display type (Doto) for every heading and readout
-- LED glyph strip that cycles like a device light signature
-- Fixed left rail: name on the spine, nav dots, live India time
-- Scroll-spy via `IntersectionObserver` lights the active rail dot
-- Asymmetric hero: display type beside a stacked instrument column
-- Work filmstrip with a wide lead card and vertical segment meter
-- Bento grid merges the about spec, stack and commit calendar
-- Certificates as a two-column file grid, full image fetched on open
-- Keyboard-accessible lightbox with focus trap and Escape to close
-
-</td>
-<td width="50%">
-
-**⚙️ Technical Highlights**
-- EmailJS contact form, no backend
-- Live GitHub contribution calendar (custom renderer)
-- Zero scroll listeners: IntersectionObserver everywhere
-- Inline form validation with ARIA error wiring
-- Toast notification system
-- Self-hosted icon subset (CSS masks, no icon CDN)
-- Mobile-first, fully responsive
-
-</td>
-</tr>
-</table>
-
-**📄 Sections**
-
-| Section | Description |
-|---------|-------------|
-| **Hero** | Type-led headline, availability status, fact strip |
-| **About** | Bio and a facts rail (education, specialty, learning) |
-| **Skills** | Four grouped columns of plain, honest lists |
-| **GitHub Activity** | Live contribution calendar, 12 months rolling |
-| **Projects** | Featured scanner with real code + app cards with live screenshots |
-| **Certificates** | 3-column grid, show-more toggle, lightbox viewer |
-| **Contact** | EmailJS form with loading state and toast feedback |
-
----
-
-## 🛠️ Tech Stack
-
-<div align="center">
-
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![EmailJS](https://img.shields.io/badge/EmailJS-FF6B35?style=for-the-badge&logo=maildotru&logoColor=white)
-![Font Awesome](https://img.shields.io/badge/Font_Awesome-528DD7?style=for-the-badge&logo=fontawesome&logoColor=white)
-![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-222222?style=for-the-badge&logo=githubpages&logoColor=white)
-
-</div>
-
-| Category | Details |
-|----------|---------|
-| **Markup** | HTML5 (semantic) |
-| **Styling** | CSS3 — Custom Properties, Grid, Flexbox, Keyframe Animations |
-| **Scripts** | Vanilla JavaScript ES6+ |
-| **Email** | EmailJS Browser SDK |
-| **Fonts** | Doto · Space Mono (self-hosted) |
-| **Icons** | Self-hosted CSS-mask subset |
-| **Data** | GitHub Contributions API (jogruber.de) |
-
----
-
-## 📊 GitHub Stats
-
-<div align="center">
-
-<img src="https://github-readme-stats.vercel.app/api?username=Adityasiig&show_icons=true&theme=tokyonight&border_color=6c5ce7&title_color=6c5ce7&icon_color=a29bfe&hide_border=false&count_private=true" height="170" />
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Adityasiig&layout=compact&theme=tokyonight&border_color=6c5ce7&title_color=6c5ce7&hide_border=false" height="170" />
-
-<br/>
-
-<img src="https://github-readme-streak-stats.herokuapp.com/?user=Adityasiig&theme=tokyonight&border=6c5ce7&ring=6c5ce7&fire=a29bfe&currStreakLabel=a29bfe" height="170" />
-
-</div>
-
----
-
-## 🚀 Projects Featured
-
-| Project | Tech | Description |
-|---------|------|-------------|
-| **WebVulnScanner** | Python · Flask · Requests | Automated web vulnerability scanner — XSS, SQLi, header analysis, crawling |
-| **TaskFlow** | HTML · CSS · JS | Minimal task manager with progress tracking and local storage |
-| **Portfolio** | HTML · CSS · JS | This site: dark type-led design, live GitHub calendar |
-
----
-
-## 📁 Project Structure
-
-```
-Portfolio/
-├── index.html               # Single-page app entry point
-├── robots.txt
-├── sitemap.xml
-├── README.md
-└── public/
-    ├── css/
-    │   ├── main.css         # The whole design system
-    │   └── icons.css        # Self-hosted icon subset (CSS masks)
-    ├── js/
-    │   └── script.js        # Nav, reveals, lightbox, form, GitHub calendar
-    ├── fonts/               # Space Grotesk + JetBrains Mono (woff2)
-    ├── images/
-    │   ├── profile.jpg      # Social-card image (og:image / twitter:image)
-    │   ├── projects/        # Real screenshots of the live apps
-    │   ├── favicon.ico
-    │   ├── favicon.png
-    │   └── favicon.svg
-    ├── files/
-    │   └── cv.pdf           # Downloadable resume
-    ├── apk/
-    │   ├── taskflow.apk         # Android build, linked from the project card
-    │   └── health-tracker.apk
-    └── Certificates/
-        ├── thumbs/          # 560px WebP — what the grid actually loads
-        └── full/            # 1600px WebP — opened in the lightbox
+```sh
+python -m http.server 4180 --bind 127.0.0.1
 ```
 
-## ⚡ Getting Started
+Open [the local preview](http://127.0.0.1:4180/).
 
-```bash
-# Clone the repository
-git clone https://github.com/Adityasiig/Portfolio.git
+## The experience
 
-cd Portfolio
+- System-aware light and dark themes, remembered after a manual choice.
+- An artwork-led introduction, engineering practice, and production context.
+- Six selected projects, filterable by telecom, security, and products.
+- Theme-matched project previews and CV / Android app downloads.
+- A grouped engineering toolkit and a live, lazy-loaded GitHub calendar.
+- Nine credentials, with show-more controls and a native, keyboard-accessible
+  certificate dialog. Full-size images load when a credential is opened.
+- An EmailJS contact form with field validation, a loading state, success and
+  failure feedback, and a direct-email fallback. The SDK loads only on submit.
+- Mobile navigation, visible keyboard focus, a skip link, reduced-motion support,
+  and readable content with JavaScript disabled.
 
-# Open directly in your browser — no build step needed
-open index.html        # macOS
-start index.html       # Windows
-xdg-open index.html    # Linux
+Projects described as system or interface sketches are illustrative diagrams,
+not claims of live operational metrics. Health Tracker and TaskFlow retain the
+existing app preview assets. Glyph Toys is explicitly marked as simulation-tested
+and not yet tested on physical hardware.
+
+## Files
+
+| Path | Purpose |
+| --- | --- |
+| `index.html` | Content, metadata, structured data, and accessible page structure |
+| `public/css/main.css` | Shared layout and complete light/dark design system |
+| `public/js/script.js` | Theme, navigation, filters, dialog, form, and activity |
+| `public/images/flow/` | Hero artwork, social cover, and vector ribbon detail |
+| `public/Certificates/` | Existing credential images |
+| `public/files/cv.pdf` | Existing downloadable CV |
+| `public/apk/` | Existing Android app downloads |
+| `tools/verify-flow.cjs` | Local browser checks |
+
+The light hero artwork is reused from the GitHub profile redesign. The dark
+wallpaper is the user-supplied image, copied without changing its pixels; CSS
+rotates and positions it in the cover. Typography is native HTML, not baked
+into the website hero. The original social cover is reused from the profile.
+Display typography uses Georgia, body copy uses system fonts, and small labels
+use the existing self-hosted Space Mono font. No font or icon CDN is required.
+
+## Browser checks
+
+The verification script uses Playwright against the running local server:
+
+```sh
+npm install --no-save --package-lock=false playwright
+npx playwright install chromium
+node tools/verify-flow.cjs
 ```
 
-> No npm, no webpack, no dependencies to install. Just open and go.
+Optional environment variables:
 
----
+- `PORTFOLIO_URL`: preview URL (default `http://127.0.0.1:4180/`).
+- `PORTFOLIO_NODE_MODULES`: existing dependency directory.
+- `PORTFOLIO_BROWSER_PATH`: installed Chromium executable.
+- `PORTFOLIO_ARTIFACTS`: screenshot directory (default `tools/artifacts/`, ignored).
 
-## 📬 Contact
+Checks cover desktop, tablet, and 320/390-pixel layouts; light/dark artwork and
+theme persistence; project filters; all certificate images and dialog keyboard
+behavior; mobile navigation; form validation and mocked success/failure;
+calendar rendering and unavailable-data fallback; motion reveals; and content
+without JavaScript. Email delivery is mocked and its API is blocked during the
+form checks. The suite does not send messages or confirm actual inbox delivery.
 
-<div align="center">
+The contribution calendar still uses the existing public GitHub Contributions
+API. If either required year cannot load, the page links directly to GitHub
+instead of showing an incomplete or fabricated count. Existing EmailJS public
+configuration is retained; no private credentials are stored here.
 
-[![Email](https://img.shields.io/badge/Contact_Form-6C5CE7?style=for-the-badge&logo=gmail&logoColor=white)](https://adityasiig.github.io/Portfolio/#contact)
-[![GitHub](https://img.shields.io/badge/@Adityasiig-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Adityasiig)
-[![LinkedIn](https://img.shields.io/badge/Aditya_Singh-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/adityasiig)
+## Hosting
 
-</div>
-
----
-
-<div align="center">
-
-**Built with passion by Aditya Singh**
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=120&section=footer" width="100%" />
-
-</div>
+The site remains compatible with the repository's existing GitHub Pages setup
+and project path `/Portfolio/`. All local URLs are relative. The canonical URL,
+sitemap, CV, certificates, app downloads, and existing external project links
+are preserved. Deployment settings are not changed by this redesign.
